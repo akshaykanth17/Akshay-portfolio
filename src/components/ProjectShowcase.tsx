@@ -7,7 +7,8 @@ import {
   CheckCircle, 
   ChevronRight,
   Lock,
-  X
+  X,
+  ExternalLink
 } from 'lucide-react';
 
 interface Project {
@@ -18,6 +19,7 @@ interface Project {
   category: string;
   tagline: string;
   description: string;
+  githubUrl: string;
   techStack: string[];
   features: string[];
   architecture: {
@@ -36,6 +38,7 @@ const projects: Project[] = [
     title: 'HEARTSYNC',
     badge: 'Full-Stack & Vibe Coding',
     category: 'Real-Time Social Platform',
+    githubUrl: 'https://github.com/akshaykanth17/HeartSync',
     tagline: 'High-concurrency social web application with gesture-based interactions & real-time messaging.',
     description:
       'A comprehensive full-stack social web platform scaffolded and engineered using Google Antigravity AI and a modern vibe-coding workflow. Features low-latency Socket.IO communications, BullMQ background job queues with Redis, geolocation-filtered discovery, and military-grade Firebase Authentication.',
@@ -75,6 +78,7 @@ const projects: Project[] = [
     title: 'AI SOFTWARE TESTING AGENT',
     badge: 'Autonomous QA & GenAI',
     category: 'Intelligent Test Automation',
+    githubUrl: 'https://github.com/akshaykanth17/QA-AI-Agent',
     tagline: 'Autonomous QA agent creating test matrices, driving headless browsers, and diagnosing root causes.',
     description:
       'An end-to-end intelligent QA system engineered to bridge the gap between human requirements and verified test execution. The agent ingests plain-text specs, synthesizes positive/negative/boundary test matrices, controls live browsers via Playwright, snaps visual evidence, and generates actionable failure diagnostics without hallucination.',
@@ -203,9 +207,15 @@ export const ProjectShowcase: React.FC = () => {
                     <span>View Architecture Details</span>
                     <ChevronRight className="w-4 h-4" />
                   </button>
-                  <span className="text-[11px] font-mono text-slate-400">
-                    • Verified MCA Project
-                  </span>
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-3 rounded-full bg-white/5 hover:bg-white/10 text-slate-200 border border-white/10 text-xs font-semibold tracking-wider transition-all duration-200 hover:border-white/30 hover:scale-105"
+                  >
+                    <span>GitHub</span>
+                    <ExternalLink className="w-3.5 h-3.5 text-blue-400" />
+                  </a>
                 </div>
               </div>
 
@@ -433,12 +443,23 @@ export const ProjectShowcase: React.FC = () => {
               {/* Bottom Notice */}
               <div className="mt-8 pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-slate-400 gap-2">
                 <span>Directly from Akshay Kanth C's Verified Resume Portfolio</span>
-                <button
-                  onClick={() => setSelectedProject(null)}
-                  className="px-5 py-2 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold"
-                >
-                  Close Case Study
-                </button>
+                <div className="flex items-center gap-3">
+                  <a
+                    href={selectedProject.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 text-white font-mono text-xs transition-colors"
+                  >
+                    <span>View on GitHub</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                  <button
+                    onClick={() => setSelectedProject(null)}
+                    className="px-5 py-2 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold transition-colors"
+                  >
+                    Close Case Study
+                  </button>
+                </div>
               </div>
             </motion.div>
           </motion.div>

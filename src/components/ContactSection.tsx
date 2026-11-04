@@ -11,7 +11,8 @@ import {
   MessageSquare, 
   Sparkles,
   ArrowUpRight,
-  ExternalLink
+  ExternalLink,
+  Github
 } from 'lucide-react';
 
 export const ContactSection: React.FC = () => {
@@ -189,6 +190,17 @@ export const ContactSection: React.FC = () => {
               >
                 <Download className="w-4 h-4 text-blue-400" />
                 <span>Download Official CV (PDF)</span>
+              </a>
+
+              <a
+                href="https://github.com/akshaykanth17"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-blue-600/15 hover:bg-blue-600/25 border border-blue-500/30 text-white font-medium text-xs tracking-wider transition-all duration-200"
+              >
+                <Github className="w-4 h-4 text-blue-400" />
+                <span>GitHub Profile (@akshaykanth17)</span>
+                <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
               </a>
             </div>
 

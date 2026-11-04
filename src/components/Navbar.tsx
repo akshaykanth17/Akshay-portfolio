@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Download, Menu, X, ArrowUpRight } from 'lucide-react';
+import { Download, Menu, X, ArrowUpRight, Github } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   const [time, setTime] = useState<string>('');
@@ -109,6 +109,17 @@ export const Navbar: React.FC = () => {
             <span className="text-slate-400">DXB:</span>
             <span>{time || '16:30'}</span>
           </div>
+
+          {/* GitHub Profile */}
+          <a
+            href="https://github.com/akshaykanth17"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:flex items-center justify-center w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white border border-white/10 transition-colors"
+            title="Akshay's GitHub @akshaykanth17"
+          >
+            <Github className="w-4 h-4" />
+          </a>
 
           {/* Download CV button */}
           <a
