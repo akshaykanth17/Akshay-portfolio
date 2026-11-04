@@ -101,7 +101,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
               transition={{ duration: 0.5, delay: 0.2 }}
               className="font-mono text-xs sm:text-sm tracking-[0.3em] uppercase text-blue-400 mt-3"
             >
-              QA Engineer &bull; AI-Assisted Developer
+              Test Engineer &bull; QA &amp; Automation
             </motion.p>
           </div>
         </div>

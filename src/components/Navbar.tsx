@@ -77,7 +77,7 @@ export const Navbar: React.FC = () => {
               AKSHAY KANTH C
             </span>
             <span className="font-mono text-[10px] tracking-widest text-slate-400">
-              QA &bull; AI DEVELOPER
+              TEST ENGINEER
             </span>
           </div>
         </a>
@@ -123,7 +123,7 @@ export const Navbar: React.FC = () => {
 
           {/* Download CV button */}
           <a
-            href="/Akshay_Kanth_C_CV_.pdf"
+            href="./Akshay_Kanth_C_CV_.pdf"
             download="Akshay_Kanth_C_CV.pdf"
             className="flex items-center gap-2 px-4 py-2 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs tracking-wider shadow-lg shadow-blue-600/30 transition-all duration-300 hover:scale-105 active:scale-95"
             title="Download Akshay Kanth C's CV"

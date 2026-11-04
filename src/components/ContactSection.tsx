@@ -78,7 +78,7 @@ export const ContactSection: React.FC = () => {
             </span>
           </h2>
           <p className="text-slate-300 font-light max-w-xl text-base sm:text-lg mt-4 leading-relaxed">
-            Whether you need a dedicated QA Engineer to ensure zero defects, an AI-assisted developer for automated testing, or a full-stack project builder—I am ready to deliver.
+            Whether you need a dedicated Test Engineer to ensure zero defects, bulletproof test cases, and quality mobile/web releases—I am ready to deliver.
           </p>
         </div>
 
@@ -184,7 +184,7 @@ export const ContactSection: React.FC = () => {
               </p>
 
               <a
-                href="/Akshay_Kanth_C_CV_.pdf"
+                href="./Akshay_Kanth_C_CV_.pdf"
                 download="Akshay_Kanth_C_CV.pdf"
                 className="w-full flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/15 text-white font-medium text-xs tracking-wider transition-all duration-200 hover:border-white/30"
               >

@@ -21,7 +21,7 @@ export const Footer: React.FC = () => {
               </span>
             </div>
             <p className="font-mono text-xs text-slate-400 max-w-sm">
-              QA Engineer &bull; Mobile Ecosystem Tester &bull; AI-Assisted Full-Stack Builder
+              Test Engineer &bull; Mobile Ecosystem Tester &bull; QA Specialist
             </p>
           </div>
 

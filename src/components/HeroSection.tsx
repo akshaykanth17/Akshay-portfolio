@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowDown, ArrowUpRight, Download, Mail, Sparkles, CheckCircle2, ShieldCheck, Cpu } from 'lucide-react';
+import portraitImg from '../assets/akshay.jpg';
 
 const roles = [
-  'QA Engineer',
+  'Test Engineer',
+  'QA Automation Engineer',
   'Software Tester',
-  'AI-Assisted Developer',
-  'Full-Stack Project Builder'
+  'AI-Assisted Developer'
 ];
 
 export const HeroSection: React.FC = () => {
@@ -75,7 +76,7 @@ export const HeroSection: React.FC = () => {
           >
             <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
             <span className="font-mono text-xs tracking-widest uppercase text-blue-300">
-              QA ENGINEER &bull; AI-ASSISTED DEVELOPER
+              TEST ENGINEER &bull; QA &amp; AUTOMATION
             </span>
           </motion.div>
 
@@ -144,7 +145,7 @@ export const HeroSection: React.FC = () => {
 
             {/* Download CV */}
             <a
-              href="/Akshay_Kanth_C_CV_.pdf"
+              href="./Akshay_Kanth_C_CV_.pdf"
               download="Akshay_Kanth_C_CV.pdf"
               className="group inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-white/5 hover:bg-white/10 text-slate-200 border border-white/15 font-medium text-sm tracking-wide backdrop-blur-md transition-all duration-300 hover:border-white/30 hover:scale-105 active:scale-95"
             >
@@ -199,8 +200,8 @@ export const HeroSection: React.FC = () => {
             {/* The Real Portrait Image */}
             <div className="relative w-full h-full rounded-2xl overflow-hidden bg-slate-950">
               <img
-                src="/akshay.jpg"
-                alt="Akshay Kanth C — QA Engineer and AI-Assisted Developer"
+                src={portraitImg}
+                alt="Akshay Kanth C — Test Engineer and QA Specialist"
                 className="w-full h-full object-cover object-top filter brightness-[1.02] contrast-[1.04] group-hover:scale-105 transition-transform duration-700 ease-out"
                 loading="eager"
               />
@@ -216,7 +217,7 @@ export const HeroSection: React.FC = () => {
                     <span>AKSHAY KANTH C</span>
                   </div>
                   <div className="text-[10px] font-mono text-slate-400">
-                    QA Tester &bull; AI Developer &bull; MCA
+                    Test Engineer &bull; QA Specialist &bull; MCA
                   </div>
                 </div>
                 <span className="px-2.5 py-1 rounded-full bg-blue-600/30 border border-blue-400/40 text-[10px] font-mono text-blue-300">

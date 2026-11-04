@@ -204,7 +204,7 @@ export const DoorSection: React.FC = () => {
       ctx.fillText('AKSHAY KANTH C', 256, 75);
       ctx.font = '500 24px "JetBrains Mono", monospace';
       ctx.fillStyle = '#1e2433';
-      ctx.fillText('QA & AI ENGINEERING', 256, 120);
+      ctx.fillText('TEST ENGINEER', 256, 120);
       ctx.font = 'italic 18px "Plus Jakarta Sans", sans-serif';
       ctx.fillStyle = '#4b5563';
       ctx.fillText('TAP OR SCROLL TO ENTER', 256, 160);
