@@ -18,7 +18,7 @@ export const App: React.FC = () => {
   useLenis();
 
   return (
-    <div className="relative min-h-screen bg-[#090a0f] text-slate-100 selection:bg-blue-600 selection:text-white bg-noise">
+    <div className="relative min-h-screen bg-[#060709] text-zinc-100 selection:bg-white selection:text-black bg-noise">
       {/* Custom magnetic interactive cursor */}
       <CustomCursor />
 

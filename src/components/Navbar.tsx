@@ -59,25 +59,25 @@ export const Navbar: React.FC = () => {
       <div
         className={`max-w-7xl mx-auto flex items-center justify-between px-5 py-3 rounded-full transition-all duration-300 ${
           scrolled
-            ? 'bg-[#0f1118]/85 backdrop-blur-xl border border-white/10 shadow-2xl shadow-black/60'
+            ? 'bg-[#101115]/90 backdrop-blur-xl border border-white/10 shadow-2xl shadow-black/80'
             : 'bg-transparent border border-white/5'
         }`}
       >
-        {/* Brand Monogram */}
+        {/* Brand Monogram in Black & Grey Mix */}
         <a
           href="#hero"
           onClick={(e) => handleScrollTo(e, '#hero')}
           className="group flex items-center gap-3"
         >
-          <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center font-display font-black text-sm text-white shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform">
+          <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-zinc-800 to-zinc-900 border border-white/15 flex items-center justify-center font-display font-black text-sm text-white shadow-lg group-hover:scale-105 group-hover:border-white/30 transition-all">
             AK
           </div>
           <div className="hidden sm:flex flex-col">
-            <span className="font-display font-bold text-sm tracking-wider text-slate-100 group-hover:text-blue-400 transition-colors">
+            <span className="font-display font-bold text-sm tracking-wider text-zinc-100 group-hover:text-white transition-colors">
               AKSHAY KANTH C
             </span>
-            <span className="font-mono text-[10px] tracking-widest text-slate-400">
-              TEST ENGINEER
+            <span className="font-mono text-[10px] tracking-widest text-zinc-400">
+              TEST ENGINEER &bull; AI-ASSISTED DEVELOPER
             </span>
           </div>
         </a>
@@ -89,7 +89,7 @@ export const Navbar: React.FC = () => {
               key={link.name}
               href={link.href}
               onClick={(e) => handleScrollTo(e, link.href)}
-              className="px-3.5 py-1 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 rounded-full transition-all duration-200"
+              className="px-3.5 py-1 text-xs font-medium text-zinc-400 hover:text-white hover:bg-white/10 rounded-full transition-all duration-200"
             >
               {link.name}
             </a>
@@ -98,16 +98,16 @@ export const Navbar: React.FC = () => {
 
         {/* Right Info: Dubai Clock, Available Status, Download CV */}
         <div className="flex items-center gap-3">
-          {/* Status badge */}
-          <div className="hidden md:flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[11px] font-mono tracking-wider">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping inline-block" />
+          {/* Status badge in black & grey */}
+          <div className="hidden md:flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900/90 border border-white/10 text-zinc-300 text-[11px] font-mono tracking-wider">
+            <span className="w-2 h-2 rounded-full bg-white animate-pulse inline-block" />
             <span>AVAILABLE FOR WORK</span>
           </div>
 
           {/* Live Dubai Time */}
-          <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 font-mono text-[11px] text-slate-300">
-            <span className="text-slate-400">DXB:</span>
-            <span>{time || '16:30'}</span>
+          <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900/70 border border-white/10 font-mono text-[11px] text-zinc-300">
+            <span className="text-zinc-500">DXB:</span>
+            <span>{time || '18:15'}</span>
           </div>
 
           {/* GitHub Profile */}
@@ -115,17 +115,17 @@ export const Navbar: React.FC = () => {
             href="https://github.com/akshaykanth17"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden sm:flex items-center justify-center w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white border border-white/10 transition-colors"
+            className="hidden sm:flex items-center justify-center w-8 h-8 rounded-full bg-zinc-900/80 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-white/10 transition-colors"
             title="Akshay's GitHub @akshaykanth17"
           >
             <Github className="w-4 h-4" />
           </a>
 
-          {/* Download CV button */}
+          {/* Download CV button in elegant monochrome */}
           <a
             href="./Akshay_Kanth_C_CV_.pdf"
             download="Akshay_Kanth_C_CV.pdf"
-            className="flex items-center gap-2 px-4 py-2 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs tracking-wider shadow-lg shadow-blue-600/30 transition-all duration-300 hover:scale-105 active:scale-95"
+            className="flex items-center gap-2 px-4 py-2 rounded-full bg-white hover:bg-neutral-200 text-black font-semibold text-xs tracking-wider shadow-lg shadow-white/5 transition-all duration-300 hover:scale-105 active:scale-95"
             title="Download Akshay Kanth C's CV"
           >
             <Download className="w-3.5 h-3.5" />
@@ -135,7 +135,7 @@ export const Navbar: React.FC = () => {
           {/* Mobile menu hamburger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 text-slate-300 hover:text-white rounded-full bg-white/5 border border-white/10"
+            className="lg:hidden p-2 text-zinc-300 hover:text-white rounded-full bg-zinc-900 border border-white/10"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -145,22 +145,22 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden mt-2 p-5 rounded-2xl bg-[#0f1118]/95 backdrop-blur-2xl border border-white/10 shadow-2xl animate-in fade-in slide-in-from-top-4 duration-300">
+        <div className="lg:hidden mt-2 p-5 rounded-2xl bg-[#101115]/95 backdrop-blur-2xl border border-white/10 shadow-2xl animate-in fade-in slide-in-from-top-4 duration-300">
           <div className="flex flex-col gap-3">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleScrollTo(e, link.href)}
-                className="flex items-center justify-between py-2 px-3 text-slate-200 hover:text-blue-400 hover:bg-white/5 rounded-lg text-sm font-medium transition-colors"
+                className="flex items-center justify-between py-2 px-3 text-zinc-200 hover:text-white hover:bg-white/5 rounded-lg text-sm font-medium transition-colors"
               >
                 <span>{link.name}</span>
-                <ArrowUpRight className="w-4 h-4 text-slate-400" />
+                <ArrowUpRight className="w-4 h-4 text-zinc-400" />
               </a>
             ))}
-            <div className="pt-3 mt-2 border-t border-white/10 flex items-center justify-between text-xs font-mono text-slate-400">
-              <span className="flex items-center gap-1.5 text-emerald-400">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block" />
+            <div className="pt-3 mt-2 border-t border-white/10 flex items-center justify-between text-xs font-mono text-zinc-400">
+              <span className="flex items-center gap-1.5 text-zinc-300">
+                <span className="w-2 h-2 rounded-full bg-white inline-block" />
                 Dubai, UAE &bull; Available
               </span>
               <span>{time}</span>

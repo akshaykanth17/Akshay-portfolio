@@ -38,7 +38,7 @@ export const ExperienceTimeline: React.FC = () => {
   ];
 
   return (
-    <section id="timeline" className="relative py-28 sm:py-36 px-4 sm:px-8 lg:px-16 bg-[#07080e] overflow-hidden">
+    <section id="timeline" className="relative py-28 sm:py-36 px-4 sm:px-8 lg:px-16 bg-[#060709] overflow-hidden">
       {/* Decorative Year Watermark Background */}
       <div className="absolute right-0 top-1/4 select-none pointer-events-none opacity-[0.03] font-display font-black text-[18vw] leading-none text-white overflow-hidden">
         2025-26
@@ -46,9 +46,9 @@ export const ExperienceTimeline: React.FC = () => {
 
       <div className="relative max-w-7xl mx-auto">
         {/* Eyebrow */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-6">
-          <Briefcase className="w-3.5 h-3.5 text-blue-400" />
-          <span className="font-mono text-xs tracking-widest uppercase text-slate-300">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900 border border-white/10 backdrop-blur-md mb-6">
+          <Briefcase className="w-3.5 h-3.5 text-neutral-300" />
+          <span className="font-mono text-xs tracking-widest uppercase text-zinc-300">
             CHAPTER 05 &bull; CAREER TRAJECTORY
           </span>
         </div>
@@ -58,78 +58,78 @@ export const ExperienceTimeline: React.FC = () => {
           <div>
             <h2 className="font-display text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
               PROFESSIONAL <br />
-              <span className="bg-gradient-to-r from-blue-400 via-sky-300 to-indigo-300 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
                 EXPERIENCE.
               </span>
             </h2>
-            <p className="text-slate-400 font-light mt-3 max-w-lg text-sm sm:text-base">
+            <p className="text-zinc-400 font-light mt-3 max-w-lg text-sm sm:text-base">
               Hands-on test engineering tenure validating business-critical features, multi-platform mobile stability, and Agile delivery.
             </p>
           </div>
 
-          {/* Huge Animated Year Display Badge */}
-          <div className="flex items-center gap-4 bg-slate-900/80 border border-white/10 p-4 sm:p-6 rounded-3xl backdrop-blur-xl shadow-2xl">
+          {/* Huge Animated Year Display Badge in Black & Grey */}
+          <div className="flex items-center gap-4 bg-zinc-900/90 border border-white/10 p-4 sm:p-6 rounded-3xl backdrop-blur-xl shadow-2xl">
             <div className="text-center">
-              <span className="font-mono text-[10px] tracking-widest text-slate-400 block">START</span>
-              <span className="font-display font-black text-3xl sm:text-5xl text-blue-400">2025</span>
-              <span className="font-mono text-[11px] text-slate-300 block">JUNE 11</span>
+              <span className="font-mono text-[10px] tracking-widest text-zinc-500 block">START</span>
+              <span className="font-display font-black text-3xl sm:text-5xl text-white">2025</span>
+              <span className="font-mono text-[11px] text-zinc-400 block">JUNE 11</span>
             </div>
-            <div className="h-10 w-[1px] bg-white/20" />
+            <div className="h-10 w-[1px] bg-white/10" />
             <div className="text-center">
-              <span className="font-mono text-[10px] tracking-widest text-slate-400 block">COMPLETION</span>
-              <span className="font-display font-black text-3xl sm:text-5xl text-white">2026</span>
-              <span className="font-mono text-[11px] text-slate-300 block">AUGUST 14</span>
+              <span className="font-mono text-[10px] tracking-widest text-zinc-500 block">COMPLETION</span>
+              <span className="font-display font-black text-3xl sm:text-5xl text-neutral-300">2026</span>
+              <span className="font-mono text-[11px] text-zinc-400 block">AUGUST 14</span>
             </div>
           </div>
         </div>
 
         {/* The Primary Role Spotlight Card */}
-        <div className="relative rounded-3xl bg-gradient-to-b from-[#131726]/90 to-[#0e101a]/95 border border-white/15 p-6 sm:p-10 shadow-2xl backdrop-blur-2xl">
+        <div className="relative rounded-3xl bg-zinc-900/80 border border-white/10 p-6 sm:p-10 shadow-2xl backdrop-blur-2xl">
           {/* Header of the Role */}
           <div className="flex flex-col md:flex-row md:items-center justify-between pb-8 border-b border-white/10 gap-4">
             <div>
               <div className="flex items-center gap-3 mb-2">
-                <span className="px-3 py-1 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30 font-mono text-xs font-semibold uppercase tracking-wider">
-                  Full-Time QA Role
+                <span className="px-3 py-1 rounded-full bg-white/10 text-white border border-white/20 font-mono text-xs font-semibold uppercase tracking-wider">
+                  Test Engineer
                 </span>
-                <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono text-xs">
+                <span className="px-3 py-1 rounded-full bg-zinc-800 text-zinc-300 border border-white/10 font-mono text-xs">
                   Verified Experience
                 </span>
               </div>
               <h3 className="font-display text-2xl sm:text-4xl font-extrabold text-white">
                 TEST ENGINEER
               </h3>
-              <div className="flex flex-wrap items-center gap-4 mt-2 text-xs sm:text-sm text-slate-300 font-mono">
-                <span className="flex items-center gap-1.5 text-blue-300 font-bold">
-                  <Briefcase className="w-4 h-4" />
+              <div className="flex flex-wrap items-center gap-4 mt-2 text-xs sm:text-sm text-zinc-300 font-mono">
+                <span className="flex items-center gap-1.5 text-white font-bold">
+                  <Briefcase className="w-4 h-4 text-neutral-400" />
                   SIDE
                 </span>
                 <span>&bull;</span>
-                <span className="flex items-center gap-1.5 text-slate-400">
-                  <MapPin className="w-4 h-4 text-slate-500" />
+                <span className="flex items-center gap-1.5 text-zinc-400">
+                  <MapPin className="w-4 h-4 text-zinc-500" />
                   Bangalore, India
                 </span>
                 <span>&bull;</span>
-                <span className="flex items-center gap-1.5 text-slate-400">
-                  <Calendar className="w-4 h-4 text-slate-500" />
+                <span className="flex items-center gap-1.5 text-zinc-400">
+                  <Calendar className="w-4 h-4 text-zinc-500" />
                   June 11, 2025 &ndash; August 14, 2026
                 </span>
               </div>
             </div>
 
-            {/* Quick Metrics */}
+            {/* Quick Metrics in Black and Grey */}
             <div className="flex items-center gap-3">
               <div className="px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-center">
-                <span className="font-display font-black text-xl text-blue-400">4</span>
-                <span className="text-[10px] font-mono text-slate-400 block">Features POC</span>
+                <span className="font-display font-black text-xl text-white">4</span>
+                <span className="text-[10px] font-mono text-zinc-400 block">Features POC</span>
               </div>
               <div className="px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-center">
-                <span className="font-display font-black text-xl text-emerald-400">2</span>
-                <span className="text-[10px] font-mono text-slate-400 block">Mobile OS</span>
+                <span className="font-display font-black text-xl text-neutral-300">2</span>
+                <span className="text-[10px] font-mono text-zinc-400 block">Mobile OS</span>
               </div>
               <div className="px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-center">
-                <span className="font-display font-black text-xl text-amber-300">JIRA</span>
-                <span className="text-[10px] font-mono text-slate-400 block">Lifecycle</span>
+                <span className="font-display font-black text-xl text-zinc-200">JIRA</span>
+                <span className="text-[10px] font-mono text-zinc-400 block">Lifecycle</span>
               </div>
             </div>
           </div>
@@ -143,17 +143,17 @@ export const ExperienceTimeline: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.08 }}
-                className="p-5 rounded-2xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/5 hover:border-blue-500/30 transition-all duration-300 flex flex-col justify-between"
+                className="p-5 rounded-2xl bg-white/[0.03] hover:bg-white/[0.06] border border-white/5 hover:border-white/20 transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
-                  <div className="inline-block px-2.5 py-0.5 rounded-md bg-blue-500/10 border border-blue-500/20 text-[10px] font-mono text-blue-400 uppercase tracking-wider mb-3">
+                  <div className="inline-block px-2.5 py-0.5 rounded-md bg-white/5 border border-white/10 text-[10px] font-mono text-zinc-300 uppercase tracking-wider mb-3">
                     {resp.tag}
                   </div>
                   <h4 className="font-display font-bold text-base text-white mb-2 flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-4 h-4 text-neutral-300 shrink-0 mt-0.5" />
                     <span>{resp.title}</span>
                   </h4>
-                  <p className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed">
+                  <p className="text-xs sm:text-sm text-zinc-300 font-light leading-relaxed">
                     {resp.desc}
                   </p>
                 </div>

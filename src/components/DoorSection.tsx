@@ -31,10 +31,10 @@ export const DoorSection: React.FC = () => {
     const container = containerRef.current;
     if (!canvas || !container) return;
 
-    // Three.js Scene Setup
+    // Three.js Scene Setup in Black & Grey Mix
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x07080d);
-    scene.fog = new THREE.FogExp2(0x07080d, 0.08);
+    scene.background = new THREE.Color(0x060709);
+    scene.fog = new THREE.FogExp2(0x060709, 0.08);
 
     const width = container.clientWidth;
     const height = container.clientHeight;
@@ -55,11 +55,11 @@ export const DoorSection: React.FC = () => {
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.2;
 
-    // Lighting
-    const ambientLight = new THREE.AmbientLight(0x1a2234, 1.2);
+    // Lighting (Atmospheric Monochrome Silver & White)
+    const ambientLight = new THREE.AmbientLight(0x27272a, 1.2);
     scene.add(ambientLight);
 
-    const hallwayLight = new THREE.DirectionalLight(0x93c5fd, 1.5);
+    const hallwayLight = new THREE.DirectionalLight(0xf4f4f5, 1.4);
     hallwayLight.position.set(2, 4, 4);
     hallwayLight.castShadow = true;
     hallwayLight.shadow.mapSize.width = 1024;
@@ -69,38 +69,38 @@ export const DoorSection: React.FC = () => {
     hallwayLight.shadow.bias = -0.001;
     scene.add(hallwayLight);
 
-    // Warm Interior Light Spilling From Behind Door
-    const interiorGlow = new THREE.PointLight(0x60a5fa, 0, 10);
+    // Pure White/Silver Light Spilling From Behind Door
+    const interiorGlow = new THREE.PointLight(0xffffff, 0, 10);
     interiorGlow.position.set(0, 0, -0.6);
     scene.add(interiorGlow);
 
-    const interiorGoldLight = new THREE.PointLight(0xf59e0b, 0, 8);
+    const interiorGoldLight = new THREE.PointLight(0xd4d4d8, 0, 8);
     interiorGoldLight.position.set(0.2, 0.2, -0.8);
     scene.add(interiorGoldLight);
 
-    // Architectural Wall & Doorway Frame
+    // Architectural Wall & Doorway Frame (Black and Grey)
     const wallMaterial = new THREE.MeshStandardMaterial({
-      color: 0x0f1118,
-      roughness: 0.85,
-      metalness: 0.1,
+      color: 0x090a0d,
+      roughness: 0.9,
+      metalness: 0.05,
     });
 
     const frameMaterial = new THREE.MeshStandardMaterial({
-      color: 0x1e2433,
+      color: 0x18181b,
       roughness: 0.4,
-      metalness: 0.6,
+      metalness: 0.5,
     });
 
     const doorMaterial = new THREE.MeshStandardMaterial({
-      color: 0x121622,
+      color: 0x111114,
       roughness: 0.5,
-      metalness: 0.35,
+      metalness: 0.3,
     });
 
     const brassMaterial = new THREE.MeshStandardMaterial({
-      color: 0xd4af37, // Polished brass gold
-      roughness: 0.25,
-      metalness: 0.85,
+      color: 0xd4d4d8, // Brushed titanium silver
+      roughness: 0.2,
+      metalness: 0.9,
     });
 
     // Outer architectural wall
@@ -194,19 +194,19 @@ export const DoorSection: React.FC = () => {
     plaqueCanvas.height = 205;
     const ctx = plaqueCanvas.getContext('2d');
     if (ctx) {
-      ctx.fillStyle = '#b48616';
+      ctx.fillStyle = '#18181b';
       ctx.fillRect(0, 0, 512, 205);
-      ctx.fillStyle = '#e5c05d';
+      ctx.fillStyle = '#27272a';
       ctx.fillRect(8, 8, 496, 189);
-      ctx.fillStyle = '#121622';
+      ctx.fillStyle = '#ffffff';
       ctx.font = 'bold 36px "Plus Jakarta Sans", sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText('AKSHAY KANTH C', 256, 75);
       ctx.font = '500 24px "JetBrains Mono", monospace';
-      ctx.fillStyle = '#1e2433';
-      ctx.fillText('TEST ENGINEER', 256, 120);
+      ctx.fillStyle = '#d4d4d8';
+      ctx.fillText('TEST ENGINEER & AI DEVELOPER', 256, 120);
       ctx.font = 'italic 18px "Plus Jakarta Sans", sans-serif';
-      ctx.fillStyle = '#4b5563';
+      ctx.fillStyle = '#a1a1aa';
       ctx.fillText('TAP OR SCROLL TO ENTER', 256, 160);
 
       const plaqueTex = new THREE.CanvasTexture(plaqueCanvas);
@@ -247,7 +247,7 @@ export const DoorSection: React.FC = () => {
     // Behind Door: Volumetric Light Spilling Mesh
     const beamGeometry = new THREE.ConeGeometry(3.5, 7, 32, 1, true);
     const beamMaterial = new THREE.MeshBasicMaterial({
-      color: 0x93c5fd,
+      color: 0xffffff,
       transparent: true,
       opacity: 0,
       side: THREE.DoubleSide,
@@ -270,7 +270,7 @@ export const DoorSection: React.FC = () => {
     }
     particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
     const particleMaterial = new THREE.PointsMaterial({
-      color: 0x60a5fa,
+      color: 0xd4d4d8,
       size: 0.03,
       transparent: true,
       opacity: 0.4,
@@ -440,7 +440,7 @@ export const DoorSection: React.FC = () => {
     <section
       id="doors"
       ref={containerRef}
-      className="relative w-full h-screen bg-[#07080d] overflow-hidden flex flex-col items-center justify-between select-none"
+      className="relative w-full h-screen bg-[#060709] overflow-hidden flex flex-col items-center justify-between select-none"
     >
       {/* 3D WebGL Canvas Layer */}
       <canvas
@@ -450,22 +450,22 @@ export const DoorSection: React.FC = () => {
 
       {/* Floating Cinematic Overlay Header */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-16 flex flex-col items-center text-center pointer-events-none">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-4">
-          <Sparkles className="w-3.5 h-3.5 text-blue-400" />
-          <span className="font-mono text-xs tracking-widest uppercase text-slate-300">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/80 border border-white/10 backdrop-blur-md mb-4">
+          <Sparkles className="w-3.5 h-3.5 text-neutral-300" />
+          <span className="font-mono text-xs tracking-widest uppercase text-zinc-300">
             CHAPTER 03 &bull; THE PORTAL
           </span>
         </div>
 
         <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight max-w-2xl drop-shadow-2xl">
           Magic happens <br className="hidden sm:inline" />
-          <span className="bg-gradient-to-r from-blue-400 via-sky-300 to-amber-200 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
             behind the doors.
           </span>
         </h2>
-        <p className="font-sans text-xs sm:text-sm text-slate-300 mt-3 max-w-md">
+        <p className="font-sans text-xs sm:text-sm text-zinc-400 mt-3 max-w-md">
           {doorProgress > 0.4
-            ? "Step into the craftsmanship: precision testing, automated agents, and modern software architecture."
+            ? "Step into the craftsmanship: Test Engineer rigor, AI-assisted development, and verified architectures."
             : "Scroll to push the camera through the portal, or tap the interactive door switch below."}
         </p>
       </div>
@@ -474,35 +474,35 @@ export const DoorSection: React.FC = () => {
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pb-12 flex flex-col sm:flex-row items-center justify-between gap-4 pointer-events-auto">
         
         {/* Left Side: Door State Indicator */}
-        <div className="flex items-center gap-3 px-4 py-2 rounded-xl bg-slate-900/80 border border-white/10 backdrop-blur-md shadow-xl text-xs font-mono text-slate-300">
-          <div className={`w-2.5 h-2.5 rounded-full ${doorProgress > 0.35 || isOpenManually ? 'bg-amber-400 animate-pulse' : 'bg-blue-400'}`} />
+        <div className="flex items-center gap-3 px-4 py-2 rounded-xl bg-zinc-950/85 border border-white/10 backdrop-blur-md shadow-xl text-xs font-mono text-zinc-300">
+          <div className={`w-2.5 h-2.5 rounded-full ${doorProgress > 0.35 || isOpenManually ? 'bg-white animate-pulse' : 'bg-neutral-500'}`} />
           <span>
-            DOOR STATUS: {doorProgress > 0.35 || isOpenManually ? 'PORTAL OPEN (LIGHT SPILL)' : 'PORTAL ENGAGED'}
+            DOOR STATUS: {doorProgress > 0.35 || isOpenManually ? 'PORTAL OPEN (WHITE LIGHT SPILL)' : 'PORTAL ENGAGED'}
           </span>
-          <span className="text-slate-400">|</span>
-          <span className="text-blue-400">{Math.round(doorProgress * 100)}% THROUGH</span>
+          <span className="text-zinc-600">|</span>
+          <span className="text-white font-bold">{Math.round(doorProgress * 100)}% THROUGH</span>
         </div>
 
-        {/* Center: Tap to Open / Step Through Button */}
+        {/* Center: Tap to Open / Step Through Button in Black and Grey */}
         <button
           onClick={handleToggleDoor}
-          className="group flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-xs tracking-wider shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300 hover:scale-105 active:scale-95 border border-white/20"
+          className="group flex items-center gap-3 px-6 py-3 rounded-full bg-white hover:bg-neutral-200 text-black font-semibold text-xs tracking-wider shadow-[0_0_30px_rgba(255,255,255,0.15)] transition-all duration-300 hover:scale-105 active:scale-95 border border-white/20"
         >
-          <DoorOpen className="w-4 h-4 text-blue-200" />
+          <DoorOpen className="w-4 h-4 text-black" />
           <span>{isOpenManually ? 'CLOSE SANCTUARY DOOR' : 'STEP THROUGH DOOR'}</span>
           <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
         </button>
 
         {/* Right Side: Quick Features Behind Door */}
-        <div className="hidden lg:flex items-center gap-3 text-xs font-mono text-slate-400">
+        <div className="hidden lg:flex items-center gap-3 text-xs font-mono text-zinc-400">
           <span className="flex items-center gap-1.5">
-            <Shield className="w-3.5 h-3.5 text-blue-400" />
-            Quality Assurance
+            <Shield className="w-3.5 h-3.5 text-neutral-300" />
+            Test Engineering
           </span>
           <span>&bull;</span>
           <span className="flex items-center gap-1.5">
-            <Zap className="w-3.5 h-3.5 text-amber-400" />
-            AI Agents
+            <Zap className="w-3.5 h-3.5 text-neutral-300" />
+            AI-Assisted Dev
           </span>
         </div>
       </div>

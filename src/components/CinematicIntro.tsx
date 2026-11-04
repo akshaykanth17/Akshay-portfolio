@@ -52,10 +52,10 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
         initial={{ opacity: 1 }}
         exit={{ opacity: 0, scale: 1.05 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#07080c] text-white overflow-hidden pointer-events-auto"
+        className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#060709] text-white overflow-hidden pointer-events-auto"
       >
-        {/* Subtle background glow */}
-        <div className="absolute inset-0 bg-radial-gradient from-blue-900/10 via-transparent to-transparent pointer-events-none" />
+        {/* Subtle background glow in monochrome */}
+        <div className="absolute inset-0 bg-radial-gradient from-white/[0.04] via-transparent to-transparent pointer-events-none" />
 
         {/* Central visual choreography */}
         <div className="relative flex flex-col items-center justify-center w-full max-w-2xl px-6">
@@ -65,10 +65,10 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
             animate={{
               width: phase >= 1 ? '160px' : '40px',
               opacity: 1,
-              boxShadow: '0 0 25px rgba(59, 130, 246, 0.8)',
+              boxShadow: '0 0 25px rgba(255, 255, 255, 0.4)',
             }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="h-[2px] bg-gradient-to-r from-transparent via-blue-400 to-transparent mb-8"
+            className="h-[2px] bg-gradient-to-r from-transparent via-zinc-200 to-transparent mb-8"
           />
 
           {/* Phase 1: Abstract geometric ring / diamond motif */}
@@ -80,7 +80,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
               opacity: phase >= 1 ? 0.7 : 0,
             }}
             transition={{ duration: 0.7, ease: [0.34, 1.56, 0.64, 1] }}
-            className="w-16 h-16 border border-blue-500/40 rounded-sm mb-6 flex items-center justify-center shadow-[0_0_20px_rgba(59,130,246,0.3)]"
+            className="w-16 h-16 border border-white/20 rounded-sm mb-6 flex items-center justify-center shadow-[0_0_20px_rgba(255,255,255,0.1)]"
           >
             <div className="w-8 h-8 border border-white/30 rounded-full animate-ping opacity-30" />
           </motion.div>
@@ -91,7 +91,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: phase >= 2 ? 0 : 50, opacity: phase >= 2 ? 1 : 0 }}
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-4xl sm:text-5xl md:text-6xl font-black tracking-widest text-slate-100"
+              className="font-display text-4xl sm:text-5xl md:text-6xl font-black tracking-widest text-zinc-100"
             >
               AKSHAY KANTH C
             </motion.h1>
@@ -99,9 +99,9 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: phase >= 2 ? 0.8 : 0, y: phase >= 2 ? 0 : 15 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="font-mono text-xs sm:text-sm tracking-[0.3em] uppercase text-blue-400 mt-3"
+              className="font-mono text-xs sm:text-sm tracking-[0.3em] uppercase text-zinc-400 mt-3"
             >
-              Test Engineer &bull; QA &amp; Automation
+              Test Engineer &bull; AI-Assisted Developer
             </motion.p>
           </div>
         </div>
@@ -109,7 +109,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
         {/* Skip button */}
         <button
           onClick={handleFinish}
-          className="absolute bottom-8 right-8 text-xs font-mono tracking-widest text-slate-400 hover:text-white px-4 py-2 rounded-full border border-white/10 hover:border-white/30 bg-white/5 backdrop-blur-md transition-all duration-300"
+          className="absolute bottom-8 right-8 text-xs font-mono tracking-widest text-zinc-400 hover:text-white px-4 py-2 rounded-full border border-white/10 hover:border-white/30 bg-white/5 backdrop-blur-md transition-all duration-300"
         >
           SKIP INTRO [ESC]
         </button>

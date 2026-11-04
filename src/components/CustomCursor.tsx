@@ -49,7 +49,7 @@ export const CustomCursor: React.FC = () => {
     <>
       {/* Small precise dot */}
       <div
-        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-blue-400 pointer-events-none z-50 transition-transform duration-75 ease-out"
+        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-white pointer-events-none z-50 transition-transform duration-75 ease-out"
         style={{
           transform: `translate3d(${pos.x - 4}px, ${pos.y - 4}px, 0)`,
         }}
@@ -57,8 +57,8 @@ export const CustomCursor: React.FC = () => {
 
       {/* Outer trailing aura */}
       <div
-        className={`fixed top-0 left-0 rounded-full border border-blue-400/50 pointer-events-none z-50 transition-all duration-200 ease-out ${
-          isPointer ? 'w-12 h-12 bg-blue-500/15 border-blue-400 scale-125' : 'w-8 h-8 scale-100'
+        className={`fixed top-0 left-0 rounded-full border border-white/50 pointer-events-none z-50 transition-all duration-200 ease-out ${
+          isPointer ? 'w-12 h-12 bg-white/10 border-white scale-125' : 'w-8 h-8 scale-100'
         }`}
         style={{
           transform: `translate3d(${pos.x - (isPointer ? 24 : 16)}px, ${

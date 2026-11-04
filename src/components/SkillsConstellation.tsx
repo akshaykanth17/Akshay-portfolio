@@ -65,56 +65,56 @@ export const SkillsConstellation: React.FC = () => {
     switch (cat) {
       case 'qa':
         return {
-          bg: 'bg-emerald-500/15',
-          border: 'border-emerald-500/40',
-          text: 'text-emerald-300',
-          glow: 'rgba(16, 185, 129, 0.4)',
+          bg: 'bg-zinc-800/80',
+          border: 'border-white/20',
+          text: 'text-white',
+          glow: 'rgba(255, 255, 255, 0.2)',
         };
       case 'dev':
         return {
-          bg: 'bg-blue-500/15',
-          border: 'border-blue-500/40',
-          text: 'text-blue-300',
-          glow: 'rgba(59, 130, 246, 0.4)',
+          bg: 'bg-zinc-900/80',
+          border: 'border-white/15',
+          text: 'text-zinc-200',
+          glow: 'rgba(255, 255, 255, 0.15)',
         };
       case 'ai':
         return {
-          bg: 'bg-indigo-500/15',
-          border: 'border-indigo-500/40',
-          text: 'text-indigo-300',
-          glow: 'rgba(99, 102, 241, 0.4)',
+          bg: 'bg-zinc-800/60',
+          border: 'border-white/25',
+          text: 'text-zinc-100',
+          glow: 'rgba(255, 255, 255, 0.25)',
         };
     }
   };
 
   return (
-    <section id="skills" className="relative py-28 sm:py-36 px-4 sm:px-8 lg:px-16 bg-[#07080d] overflow-hidden">
+    <section id="skills" className="relative py-28 sm:py-36 px-4 sm:px-8 lg:px-16 bg-[#060709] overflow-hidden">
       {/* Background ambient light */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-blue-600/5 blur-[160px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-zinc-700/10 blur-[160px] pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-4">
-              <BrainCircuit className="w-3.5 h-3.5 text-blue-400" />
-              <span className="font-mono text-xs tracking-widest uppercase text-slate-300">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900 border border-white/10 backdrop-blur-md mb-4">
+              <BrainCircuit className="w-3.5 h-3.5 text-neutral-300" />
+              <span className="font-mono text-xs tracking-widest uppercase text-zinc-300">
                 CHAPTER 07 &bull; TECHNICAL CAPABILITIES
               </span>
             </div>
             <h2 className="font-display text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
               INTERACTIVE <br />
-              <span className="bg-gradient-to-r from-blue-400 via-sky-300 to-indigo-300 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
                 SKILLS CONSTELLATION.
               </span>
             </h2>
           </div>
 
-          {/* Category Filter Pills */}
-          <div className="flex flex-wrap items-center gap-2 p-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
+          {/* Category Filter Pills in Black & Grey */}
+          <div className="flex flex-wrap items-center gap-2 p-1.5 rounded-full bg-zinc-900/90 border border-white/10 backdrop-blur-md">
             {[
               { id: 'all', label: 'All Disciplines' },
-              { id: 'qa', label: 'Quality Assurance' },
+              { id: 'qa', label: 'Test Engineering' },
               { id: 'dev', label: 'Development' },
               { id: 'ai', label: 'AI & Tools' },
             ].map((tab) => (
@@ -123,8 +123,8 @@ export const SkillsConstellation: React.FC = () => {
                 onClick={() => setFilter(tab.id as any)}
                 className={`px-4 py-2 rounded-full text-xs font-medium tracking-wide transition-all duration-200 ${
                   filter === tab.id
-                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/40'
-                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                    ? 'bg-white text-black font-semibold shadow-lg shadow-white/5'
+                    : 'text-zinc-400 hover:text-white hover:bg-white/5'
                 }`}
               >
                 {tab.label}
@@ -137,7 +137,7 @@ export const SkillsConstellation: React.FC = () => {
         <div
           ref={containerRef}
           onMouseMove={handleMouseMove}
-          className="hidden md:block relative w-full h-[520px] rounded-3xl bg-gradient-to-b from-slate-900/40 via-slate-950/60 to-black/80 border border-white/10 p-6 overflow-hidden shadow-2xl backdrop-blur-xl"
+          className="hidden md:block relative w-full h-[520px] rounded-3xl bg-gradient-to-b from-zinc-900/60 via-zinc-950/80 to-black border border-white/10 p-6 overflow-hidden shadow-2xl backdrop-blur-xl"
         >
           {/* Subtle connecting lines SVG between nearby nodes */}
           <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20">
@@ -152,7 +152,7 @@ export const SkillsConstellation: React.FC = () => {
                       y1={`${s1.y}%`}
                       x2={`${s2.x}%`}
                       y2={`${s2.y}%`}
-                      stroke="rgba(96, 165, 250, 0.4)"
+                      stroke="rgba(255, 255, 255, 0.25)"
                       strokeWidth="1"
                       strokeDasharray="3 3"
                     />
@@ -192,13 +192,7 @@ export const SkillsConstellation: React.FC = () => {
                   }}
                 >
                   <div
-                    className={`w-2 h-2 rounded-full ${
-                      skill.category === 'qa'
-                        ? 'bg-emerald-400'
-                        : skill.category === 'dev'
-                        ? 'bg-blue-400'
-                        : 'bg-indigo-400'
-                    } ${skill.importance === 'primary' ? 'animate-pulse' : ''}`}
+                    className="w-2 h-2 rounded-full bg-white animate-pulse"
                   />
                   <span className={`text-xs font-mono font-medium ${colors.text} whitespace-nowrap`}>
                     {skill.name}
@@ -209,28 +203,28 @@ export const SkillsConstellation: React.FC = () => {
           })}
 
           {/* Center Info HUD / Active Node Details */}
-          <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-black/60 border border-white/10 backdrop-blur-md flex items-center justify-between text-xs font-mono text-slate-300">
+          <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-zinc-950/80 border border-white/10 backdrop-blur-md flex items-center justify-between text-xs font-mono text-zinc-300">
             <div className="flex items-center gap-4">
-              <span className="text-slate-400">NODE STATUS:</span>
+              <span className="text-zinc-500">NODE STATUS:</span>
               {activeSkill ? (
                 <span className="text-white font-bold flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-amber-400" />
+                  <Sparkles className="w-4 h-4 text-white" />
                   {activeSkill.name} [{activeSkill.category.toUpperCase()}]
                 </span>
               ) : (
-                <span className="text-slate-400">Hover or click any node to explore technical matrix</span>
+                <span className="text-zinc-400">Hover or click any node to explore technical matrix</span>
               )}
             </div>
 
             <div className="flex items-center gap-4">
-              <span className="flex items-center gap-1.5 text-emerald-400">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block" /> QA
+              <span className="flex items-center gap-1.5 text-zinc-300">
+                <span className="w-2 h-2 rounded-full bg-white inline-block" /> Test Engineering
               </span>
-              <span className="flex items-center gap-1.5 text-blue-400">
-                <span className="w-2 h-2 rounded-full bg-blue-400 inline-block" /> Dev
+              <span className="flex items-center gap-1.5 text-zinc-400">
+                <span className="w-2 h-2 rounded-full bg-zinc-400 inline-block" /> Development
               </span>
-              <span className="flex items-center gap-1.5 text-indigo-400">
-                <span className="w-2 h-2 rounded-full bg-indigo-400 inline-block" /> AI &amp; Tools
+              <span className="flex items-center gap-1.5 text-zinc-400">
+                <span className="w-2 h-2 rounded-full bg-zinc-600 inline-block" /> AI &amp; Tools
               </span>
             </div>
           </div>
@@ -240,34 +234,31 @@ export const SkillsConstellation: React.FC = () => {
         <div className="md:hidden grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[
             {
-              cat: 'Quality Assurance',
+              cat: 'Test Engineering',
               items: skillsData.filter((s) => s.category === 'qa'),
-              color: 'emerald',
             },
             {
               cat: 'Software Development',
               items: skillsData.filter((s) => s.category === 'dev'),
-              color: 'blue',
             },
             {
-              cat: 'Generative AI & Tooling',
+              cat: 'Generative AI & Tools',
               items: skillsData.filter((s) => s.category === 'ai'),
-              color: 'indigo',
             },
           ].map((group) => (
             <div
               key={group.cat}
-              className="p-5 rounded-2xl bg-slate-900/80 border border-white/10 backdrop-blur-md"
+              className="p-5 rounded-2xl bg-zinc-900/80 border border-white/10 backdrop-blur-md"
             >
               <h3 className="font-display font-bold text-sm text-white mb-3 flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-blue-400" />
+                <CheckCircle2 className="w-4 h-4 text-neutral-300" />
                 <span>{group.cat}</span>
               </h3>
               <div className="flex flex-wrap gap-2">
                 {group.items.map((item) => (
                   <span
                     key={item.id}
-                    className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/5 text-xs font-mono text-slate-300"
+                    className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-zinc-300"
                   >
                     {item.name}
                   </span>

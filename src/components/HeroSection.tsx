@@ -3,10 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowDown, ArrowUpRight, Download, Mail, Sparkles, CheckCircle2, ShieldCheck, Cpu } from 'lucide-react';
 import portraitImg from '../assets/akshay.jpg';
 
+// Strictly only Test Engineer and AI-Assisted Developer
 const roles = [
   'Test Engineer',
-  'QA Automation Engineer',
-  'Software Tester',
   'AI-Assisted Developer'
 ];
 
@@ -19,7 +18,7 @@ export const HeroSection: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setRoleIndex((prev) => (prev + 1) % roles.length);
-    }, 2800);
+    }, 3000);
     return () => clearInterval(interval);
   }, []);
 
@@ -42,19 +41,19 @@ export const HeroSection: React.FC = () => {
       id="hero"
       ref={heroRef}
       onMouseMove={handleMouseMove}
-      className="relative min-h-screen flex flex-col justify-between pt-28 sm:pt-36 pb-12 px-4 sm:px-8 lg:px-16 overflow-hidden bg-gradient-to-b from-[#07080c] via-[#090a0f] to-[#0d0f17]"
+      className="relative min-h-screen flex flex-col justify-between pt-28 sm:pt-36 pb-12 px-4 sm:px-8 lg:px-16 overflow-hidden bg-gradient-to-b from-[#050608] via-[#090a0d] to-[#0e1014]"
     >
-      {/* Background Interactive Ambient Glows */}
+      {/* Background Interactive Ambient Muted Greys */}
       <div
-        className="absolute top-1/4 left-1/4 w-[450px] h-[450px] rounded-full bg-blue-600/10 blur-[140px] pointer-events-none transition-transform duration-700 ease-out"
+        className="absolute top-1/4 left-1/4 w-[450px] h-[450px] rounded-full bg-zinc-700/10 blur-[150px] pointer-events-none transition-transform duration-700 ease-out"
         style={{
-          transform: `translate(${mousePos.x * 50}px, ${mousePos.y * 50}px)`,
+          transform: `translate(${mousePos.x * 40}px, ${mousePos.y * 40}px)`,
         }}
       />
       <div
-        className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-indigo-600/10 blur-[130px] pointer-events-none transition-transform duration-700 ease-out"
+        className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-neutral-600/10 blur-[140px] pointer-events-none transition-transform duration-700 ease-out"
         style={{
-          transform: `translate(${-mousePos.x * 40}px, ${-mousePos.y * 40}px)`,
+          transform: `translate(${-mousePos.x * 35}px, ${-mousePos.y * 35}px)`,
         }}
       />
 
@@ -72,11 +71,11 @@ export const HeroSection: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 w-fit backdrop-blur-md"
+            className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-zinc-900/80 border border-white/10 w-fit backdrop-blur-md"
           >
-            <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
-            <span className="font-mono text-xs tracking-widest uppercase text-blue-300">
-              TEST ENGINEER &bull; QA &amp; AUTOMATION
+            <span className="w-2 h-2 rounded-full bg-neutral-300 animate-pulse" />
+            <span className="font-mono text-xs tracking-widest uppercase text-neutral-300">
+              TEST ENGINEER &bull; AI-ASSISTED DEVELOPER
             </span>
           </motion.div>
 
@@ -88,29 +87,29 @@ export const HeroSection: React.FC = () => {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="font-display text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight text-white leading-[1.05]"
             >
-              HI, I'M <span className="bg-gradient-to-r from-blue-400 via-sky-300 to-indigo-300 bg-clip-text text-transparent">AKSHAY.</span>
+              HI, I'M <span className="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">AKSHAY.</span>
             </motion.h1>
           </div>
 
-          {/* Dynamic Role Carousel Card (Inspired by reference video's interactive card) */}
+          {/* Dynamic Role Carousel Card with ONLY 2 Designations */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
-            <span className="font-display text-2xl sm:text-3xl lg:text-4xl font-medium text-slate-300">
+            <span className="font-display text-2xl sm:text-3xl lg:text-4xl font-medium text-zinc-400">
               I am a
             </span>
 
-            {/* Interactive Rolodex / Switcher Box */}
-            <div className="h-14 sm:h-16 px-5 py-2 rounded-xl bg-slate-900/80 border border-white/15 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex items-center justify-center min-w-[260px] sm:min-w-[320px] relative overflow-hidden">
-              <div className="absolute left-3 top-0 bottom-0 w-1 bg-blue-500 rounded-full" />
+            {/* Interactive Switcher Box in Black and Grey */}
+            <div className="h-14 sm:h-16 px-5 py-2 rounded-xl bg-zinc-900/90 border border-white/15 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.6)] flex items-center justify-center min-w-[260px] sm:min-w-[320px] relative overflow-hidden">
+              <div className="absolute left-3 top-0 bottom-0 w-1 bg-white/60 rounded-full" />
               <AnimatePresence mode="wait">
                 <motion.div
                   key={roles[roleIndex]}
-                  initial={{ y: 25, opacity: 0, filter: 'blur(4px)' }}
+                  initial={{ y: 20, opacity: 0, filter: 'blur(4px)' }}
                   animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
-                  exit={{ y: -25, opacity: 0, filter: 'blur(4px)' }}
-                  transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                  exit={{ y: -20, opacity: 0, filter: 'blur(4px)' }}
+                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                   className="font-display font-bold text-lg sm:text-xl lg:text-2xl text-white tracking-wide flex items-center gap-2 pl-2"
                 >
-                  <Sparkles className="w-4 h-4 text-blue-400 shrink-0" />
+                  <Sparkles className="w-4 h-4 text-neutral-300 shrink-0" />
                   <span>{roles[roleIndex]}</span>
                 </motion.div>
               </AnimatePresence>
@@ -122,12 +121,12 @@ export const HeroSection: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-base sm:text-lg text-slate-300 max-w-xl font-light leading-relaxed"
+            className="text-base sm:text-lg text-zinc-300 max-w-xl font-light leading-relaxed"
           >
-            MCA graduate with hands-on QA test engineering experience in Android &amp; iOS mobile ecosystems, defect lifecycle management, and full-stack AI-assisted application building.
+            MCA graduate with dedicated QA testing experience in Android &amp; iOS mobile ecosystems, defect lifecycle management, and full-stack AI-assisted application building.
           </motion.p>
 
-          {/* Call-to-action Action Buttons */}
+          {/* Call-to-action Action Buttons in Black & Grey Mix */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -137,7 +136,7 @@ export const HeroSection: React.FC = () => {
             {/* Explore My Work */}
             <button
               onClick={() => handleScrollTo('#projects')}
-              className="group relative inline-flex items-center gap-3 px-7 py-3.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm tracking-wide shadow-[0_10px_30px_rgba(59,130,246,0.4)] transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden"
+              className="group relative inline-flex items-center gap-3 px-7 py-3.5 rounded-full bg-white hover:bg-neutral-200 text-black font-semibold text-sm tracking-wide shadow-[0_10px_30px_rgba(255,255,255,0.15)] transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden"
             >
               <span>Explore My Work</span>
               <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -147,16 +146,16 @@ export const HeroSection: React.FC = () => {
             <a
               href="./Akshay_Kanth_C_CV_.pdf"
               download="Akshay_Kanth_C_CV.pdf"
-              className="group inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-white/5 hover:bg-white/10 text-slate-200 border border-white/15 font-medium text-sm tracking-wide backdrop-blur-md transition-all duration-300 hover:border-white/30 hover:scale-105 active:scale-95"
+              className="group inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-zinc-900/80 hover:bg-zinc-800 text-zinc-200 border border-white/15 font-medium text-sm tracking-wide backdrop-blur-md transition-all duration-300 hover:border-white/30 hover:scale-105 active:scale-95"
             >
-              <Download className="w-4 h-4 text-blue-400" />
+              <Download className="w-4 h-4 text-neutral-300" />
               <span>Download CV</span>
             </a>
 
             {/* Contact Me */}
             <button
               onClick={() => handleScrollTo('#contact')}
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-slate-400 hover:text-white font-medium text-sm tracking-wide hover:bg-white/5 transition-all duration-200"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-zinc-400 hover:text-white font-medium text-sm tracking-wide hover:bg-white/5 transition-all duration-200"
             >
               <Mail className="w-4 h-4" />
               <span>Contact Me</span>
@@ -167,15 +166,15 @@ export const HeroSection: React.FC = () => {
           <div className="grid grid-cols-3 gap-4 pt-4 border-t border-white/10 max-w-lg">
             <div>
               <div className="font-display font-extrabold text-2xl text-white">4+</div>
-              <div className="text-[11px] font-mono text-slate-400 tracking-wider">PROJECT POCs</div>
+              <div className="text-[11px] font-mono text-zinc-400 tracking-wider">PROJECT POCs</div>
             </div>
             <div>
-              <div className="font-display font-extrabold text-2xl text-blue-400">100%</div>
-              <div className="text-[11px] font-mono text-slate-400 tracking-wider">DEFECT RESOLUTION</div>
+              <div className="font-display font-extrabold text-2xl text-neutral-300">100%</div>
+              <div className="text-[11px] font-mono text-zinc-400 tracking-wider">DEFECT RESOLUTION</div>
             </div>
             <div>
-              <div className="font-display font-extrabold text-2xl text-sky-300">UAE 1M</div>
-              <div className="text-[11px] font-mono text-slate-400 tracking-wider">PROMPTERS CERTIFIED</div>
+              <div className="font-display font-extrabold text-2xl text-zinc-200">UAE 1M</div>
+              <div className="text-[11px] font-mono text-zinc-400 tracking-wider">PROMPTERS CERTIFIED</div>
             </div>
           </div>
         </div>
@@ -184,73 +183,73 @@ export const HeroSection: React.FC = () => {
         <div className="lg:col-span-5 flex justify-center items-center relative">
           
           {/* Subtle Ambient Back-light */}
-          <div className="absolute w-[340px] h-[440px] rounded-3xl bg-blue-500/20 blur-3xl -z-10" />
+          <div className="absolute w-[340px] h-[440px] rounded-3xl bg-zinc-600/15 blur-3xl -z-10" />
 
-          {/* Portrait Container with 3D Tilt */}
+          {/* Portrait Container with 3D Tilt in Black/Grey Frame */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-[360px] sm:max-w-[400px] aspect-[4/5] rounded-3xl p-2.5 bg-gradient-to-b from-white/20 via-white/5 to-white/10 border border-white/20 shadow-[0_30px_70px_rgba(0,0,0,0.8)] backdrop-blur-md group"
+            className="relative w-full max-w-[360px] sm:max-w-[400px] aspect-[4/5] rounded-3xl p-2.5 bg-gradient-to-b from-white/15 via-zinc-800/40 to-black/80 border border-white/15 shadow-[0_30px_70px_rgba(0,0,0,0.9)] backdrop-blur-md group"
             style={{
               transform: `perspective(1000px) rotateY(${mousePos.x * 12}deg) rotateX(${-mousePos.y * 12}deg)`,
               transition: 'transform 0.15s ease-out',
             }}
           >
             {/* The Real Portrait Image */}
-            <div className="relative w-full h-full rounded-2xl overflow-hidden bg-slate-950">
+            <div className="relative w-full h-full rounded-2xl overflow-hidden bg-zinc-950">
               <img
                 src={portraitImg}
-                alt="Akshay Kanth C — Test Engineer and QA Specialist"
+                alt="Akshay Kanth C — Test Engineer and AI-Assisted Developer"
                 className="w-full h-full object-cover object-top filter brightness-[1.02] contrast-[1.04] group-hover:scale-105 transition-transform duration-700 ease-out"
                 loading="eager"
               />
 
               {/* Cinematic Vignette & Bottom Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#090a0f] via-transparent to-transparent opacity-80" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#060709] via-transparent to-transparent opacity-80" />
 
-              {/* Floating Badge: Ability Card / Specialty (Inspired by reference video) */}
-              <div className="absolute bottom-5 left-5 right-5 p-3.5 rounded-xl bg-slate-950/85 backdrop-blur-xl border border-white/15 flex items-center justify-between shadow-2xl">
+              {/* Floating Badge: Ability Card in Black and Grey */}
+              <div className="absolute bottom-5 left-5 right-5 p-3.5 rounded-xl bg-zinc-950/90 backdrop-blur-xl border border-white/15 flex items-center justify-between shadow-2xl">
                 <div>
                   <div className="flex items-center gap-1.5 text-xs font-bold text-white">
-                    <ShieldCheck className="w-4 h-4 text-blue-400" />
+                    <ShieldCheck className="w-4 h-4 text-neutral-300" />
                     <span>AKSHAY KANTH C</span>
                   </div>
-                  <div className="text-[10px] font-mono text-slate-400">
-                    Test Engineer &bull; QA Specialist &bull; MCA
+                  <div className="text-[10px] font-mono text-zinc-400">
+                    Test Engineer &bull; AI-Assisted Developer
                   </div>
                 </div>
-                <span className="px-2.5 py-1 rounded-full bg-blue-600/30 border border-blue-400/40 text-[10px] font-mono text-blue-300">
+                <span className="px-2.5 py-1 rounded-full bg-white/10 border border-white/20 text-[10px] font-mono text-zinc-300">
                   DUBAI, UAE
                 </span>
               </div>
             </div>
 
-            {/* Top Floating Badge: Quality Assurance Verified */}
+            {/* Top Floating Badge: Test Engineer */}
             <div
-              className="absolute -top-3 -right-3 px-3.5 py-2 rounded-xl bg-slate-900/90 border border-white/20 shadow-xl backdrop-blur-xl flex items-center gap-2 text-xs font-semibold text-white animate-float"
+              className="absolute -top-3 -right-3 px-3.5 py-2 rounded-xl bg-zinc-900/90 border border-white/20 shadow-xl backdrop-blur-xl flex items-center gap-2 text-xs font-semibold text-white animate-float"
             >
-              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-              <span>QA &bull; JIRA &bull; Playwright</span>
+              <CheckCircle2 className="w-4 h-4 text-neutral-300" />
+              <span>Test Engineer</span>
             </div>
 
-            {/* Bottom-left Floating Badge: AI-Assisted */}
+            {/* Bottom-left Floating Badge: AI-Assisted Developer */}
             <div
-              className="absolute -bottom-3 -left-3 px-3.5 py-2 rounded-xl bg-slate-900/90 border border-white/20 shadow-xl backdrop-blur-xl flex items-center gap-2 text-xs font-semibold text-white"
+              className="absolute -bottom-3 -left-3 px-3.5 py-2 rounded-xl bg-zinc-900/90 border border-white/20 shadow-xl backdrop-blur-xl flex items-center gap-2 text-xs font-semibold text-white"
               style={{ animation: 'float 5s ease-in-out infinite reverse' }}
             >
-              <Cpu className="w-4 h-4 text-blue-400" />
-              <span>GenAI &bull; Full-Stack</span>
+              <Cpu className="w-4 h-4 text-neutral-300" />
+              <span>AI-Assisted Developer</span>
             </div>
           </motion.div>
         </div>
       </div>
 
       {/* Bottom Bar: Status & Scroll Indicator */}
-      <div className="relative max-w-7xl mx-auto w-full flex flex-col sm:flex-row items-center justify-between pt-8 border-t border-white/5 text-xs font-mono text-slate-400 gap-4 z-10">
+      <div className="relative max-w-7xl mx-auto w-full flex flex-col sm:flex-row items-center justify-between pt-8 border-t border-white/5 text-xs font-mono text-zinc-400 gap-4 z-10">
         <div className="flex items-center gap-4">
-          <span className="flex items-center gap-1.5 text-emerald-400">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block animate-pulse" />
+          <span className="flex items-center gap-1.5 text-neutral-300">
+            <span className="w-2 h-2 rounded-full bg-white inline-block animate-pulse" />
             AVAILABLE FOR OPPORTUNITIES
           </span>
           <span className="hidden sm:inline">&bull;</span>
@@ -259,13 +258,12 @@ export const HeroSection: React.FC = () => {
 
         <button
           onClick={() => handleScrollTo('#doors')}
-          className="flex items-center gap-2 text-slate-300 hover:text-blue-400 transition-colors group cursor-pointer"
+          className="flex items-center gap-2 text-zinc-300 hover:text-white transition-colors group cursor-pointer"
         >
           <span className="tracking-widest">ENTER 3D SANCTUARY</span>
-          <ArrowDown className="w-3.5 h-3.5 animate-bounce text-blue-400" />
+          <ArrowDown className="w-3.5 h-3.5 animate-bounce text-neutral-400" />
         </button>
       </div>
     </section>
   );
 };
-
