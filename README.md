@@ -1,7 +1,8 @@
 # AKSHAY KANTH C — Interactive Cinematic 3D Portfolio
 
 > **QA Engineer & AI-Assisted Developer**  
-> Dubai, United Arab Emirates &bull; [akshaykanth017@gmail.com](mailto:akshaykanth017@gmail.com) &bull; +971 506877235
+> Dubai, United Arab Emirates &bull; [akshaykanth017@gmail.com](mailto:akshaykanth017@gmail.com) &bull; +971 506877235  
+> Live Production: Deployed on Vercel
 
 An Awwwards-inspired, interactive 3D digital film portfolio engineered with **React 18, TypeScript, Three.js, GSAP ScrollTrigger, Lenis smooth scrolling, and Tailwind CSS**.
 
