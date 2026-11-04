@@ -70,11 +70,11 @@ export const ContactSection: React.FC = () => {
           </span>
         </div>
 
-        {/* Giant Headline with Red to Warm Gold/Yellow Gradient */}
+        {/* Giant Headline with Liquid Silver & Pure White Chrome Gradient */}
         <div className="mb-16">
           <h2 className="font-display text-4xl sm:text-7xl lg:text-8xl font-black text-white tracking-tight leading-[1.05]">
             LET'S BUILD SOMETHING <br />
-            <span className="bg-gradient-to-r from-red-500 via-amber-400 to-yellow-300 bg-clip-text text-transparent filter drop-shadow-[0_0_25px_rgba(245,158,11,0.35)]">
+            <span className="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent filter drop-shadow-[0_0_35px_rgba(255,255,255,0.45)]">
               EXTRAORDINARY.
             </span>
           </h2>

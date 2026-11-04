@@ -104,7 +104,7 @@ export const SkillsConstellation: React.FC = () => {
             </div>
             <h2 className="font-display text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
               INTERACTIVE <br />
-              <span className="bg-gradient-to-r from-yellow-300 via-amber-400 to-red-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent filter drop-shadow-[0_0_30px_rgba(255,255,255,0.35)]">
                 SKILLS CONSTELLATION.
               </span>
             </h2>
