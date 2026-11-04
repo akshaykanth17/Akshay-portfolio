@@ -85,15 +85,15 @@ export const HeroSection: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-[#E5C583]/30 w-fit backdrop-blur-md shadow-[0_0_20px_rgba(229,197,131,0.12)]"
+            className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-emerald-950/80 border border-emerald-500/40 w-fit backdrop-blur-md shadow-[0_0_20px_rgba(16,185,129,0.25)]"
           >
-            <span className="w-2 h-2 rounded-full bg-[#E5C583] animate-pulse shadow-[0_0_10px_#E5C583]" />
-            <span className="font-mono text-xs tracking-widest uppercase text-[#E8D3A2]">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_10px_#34d399]" />
+            <span className="font-mono text-xs tracking-widest uppercase text-emerald-300">
               TEST ENGINEER &bull; AI-ASSISTED DEVELOPER
             </span>
           </motion.div>
 
-          {/* Main Headline with Royal Champagne Gold & Brushed Platinum Gradient */}
+          {/* Main Headline with Imperial Emerald & Mint Jade Luxury Gradient */}
           <div className="overflow-hidden">
             <motion.h1
               initial={{ y: 80, opacity: 0 }}
@@ -101,7 +101,7 @@ export const HeroSection: React.FC = () => {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="font-display text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight text-white leading-[1.05]"
             >
-              HI, I'M <span className="bg-gradient-to-r from-[#FFFDF7] via-[#E8D3A2] to-[#B89758] bg-clip-text text-transparent filter drop-shadow-[0_0_35px_rgba(232,211,162,0.38)]">AKSHAY.</span>
+              HI, I'M <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-300 bg-clip-text text-transparent filter drop-shadow-[0_0_40px_rgba(52,211,153,0.55)]">AKSHAY.</span>
             </motion.h1>
           </div>
 
@@ -111,12 +111,12 @@ export const HeroSection: React.FC = () => {
               I am a
             </span>
 
-            {/* Premium Liquid Shimmer Glass Pill */}
+            {/* Premium Liquid Shimmer Glass Pill in Imperial Emerald */}
             <div className="role-switcher-pill group/pill">
               {/* Animated Liquid Shimmer Light Sweep */}
               <div className="role-pill-shimmer" />
 
-              {/* Glowing Luxury Champagne Gold & Platinum Beacon */}
+              {/* Glowing Imperial Emerald & Mint Jade Beacon */}
               <div className="role-pill-beacon" />
 
               {/* Seamless Typography Switcher */}
@@ -129,8 +129,8 @@ export const HeroSection: React.FC = () => {
                   transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                   className="font-display font-bold text-lg sm:text-xl lg:text-2xl text-white tracking-wide flex items-center gap-2.5 pl-1"
                 >
-                  <Sparkles className="w-4 h-4 text-[#E5C583] shrink-0 animate-pulse drop-shadow-[0_0_8px_rgba(229,197,131,0.8)]" />
-                  <span className="bg-gradient-to-r from-white via-zinc-100 to-[#E8D3A2] bg-clip-text text-transparent">
+                  <Sparkles className="w-4 h-4 text-emerald-400 shrink-0 animate-pulse drop-shadow-[0_0_8px_rgba(52,211,153,0.9)]" />
+                  <span className="bg-gradient-to-r from-white via-emerald-100 to-teal-200 bg-clip-text text-transparent">
                     {roles[roleIndex]}
                   </span>
                 </motion.div>
@@ -189,18 +189,18 @@ export const HeroSection: React.FC = () => {
             </button>
           </motion.div>
 
-          {/* Micro Trust Metrics in Champagne Platinum Luxury */}
+          {/* Micro Trust Metrics in Imperial Emerald & Mint Jade Luxury */}
           <div className="grid grid-cols-3 gap-4 pt-4 border-t border-white/10 max-w-lg">
             <div>
-              <div className="font-display font-extrabold text-2xl text-[#E8D3A2]">4+</div>
+              <div className="font-display font-extrabold text-2xl text-emerald-400 drop-shadow-[0_0_12px_rgba(52,211,153,0.45)]">4+</div>
               <div className="text-[11px] font-mono text-zinc-400 tracking-wider">PROJECT POCs</div>
             </div>
             <div>
-              <div className="font-display font-extrabold text-2xl text-[#FFFDF7]">100%</div>
+              <div className="font-display font-extrabold text-2xl text-teal-300 drop-shadow-[0_0_12px_rgba(45,212,191,0.45)]">100%</div>
               <div className="text-[11px] font-mono text-zinc-400 tracking-wider">DEFECT RESOLUTION</div>
             </div>
             <div>
-              <div className="font-display font-extrabold text-2xl text-[#C5A880]">UAE 1M</div>
+              <div className="font-display font-extrabold text-2xl text-cyan-300 drop-shadow-[0_0_12px_rgba(103,232,249,0.45)]">UAE 1M</div>
               <div className="text-[11px] font-mono text-zinc-400 tracking-wider">PROMPTERS CERTIFIED</div>
             </div>
           </div>
@@ -209,8 +209,8 @@ export const HeroSection: React.FC = () => {
         {/* Right Column: Akshay's Portrait with 3D Tilt & Floating Badges */}
         <div className="lg:col-span-5 flex justify-center items-center relative py-6 overflow-visible">
           
-          {/* Luminous Foggy and Blurry White Backlight behind Portrait */}
-          <div className="absolute w-[420px] h-[520px] rounded-full bg-white/[0.22] blur-[110px] -z-10 pointer-events-none" />
+          {/* Luminous Foggy Emerald & White Backlight behind Portrait */}
+          <div className="absolute w-[420px] h-[520px] rounded-full bg-emerald-500/[0.18] blur-[110px] -z-10 pointer-events-none" />
 
           {/* Portrait Container with 3D Tilt in Black/Grey Frame */}
           <motion.div
