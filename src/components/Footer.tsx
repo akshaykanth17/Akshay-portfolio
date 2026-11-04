@@ -52,9 +52,9 @@ export const Footer: React.FC = () => {
             <span className="text-zinc-200 font-bold">React 18</span>
           </div>
 
-          <div className="flex items-center gap-1.5 text-zinc-300">
-            <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
-            <span>Dubai, United Arab Emirates</span>
+          <div className="flex items-center gap-2 text-emerald-400 font-semibold tracking-wider">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]" />
+            <span>Dubai, UAE &bull; Available for Work</span>
           </div>
         </div>
       </div>

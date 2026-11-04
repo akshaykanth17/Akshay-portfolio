@@ -105,43 +105,41 @@ export const HeroSection: React.FC = () => {
             </motion.h1>
           </div>
 
-          {/* Task 2: Cyberpunk Glitch Role Switcher (Accurately matches reference image) */}
-          <div className="relative py-2">
-            <div className="cyber-glitch-wrapper flex flex-col sm:flex-row items-start sm:items-center gap-3">
-              {/* Horizontal ambient neon speedlines */}
-              <div className="cyber-glitch-streak-left hidden sm:block" />
-              <div className="cyber-glitch-streak-right hidden sm:block" />
-              <div className="cyber-glitch-streak-mid hidden sm:block" />
+          {/* Dynamic Role Switcher: Liquid Shimmer Glass Pill */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3.5 py-1">
+            <span className="font-display text-2xl sm:text-3xl font-medium text-zinc-300 tracking-tight">
+              I am a
+            </span>
 
-              {/* Glitched "I am a" text */}
-              <span className="glitch-text-intro">
-                I am a
-              </span>
+            {/* Premium Liquid Shimmer Glass Pill */}
+            <div className="role-switcher-pill group/pill">
+              {/* Animated Liquid Shimmer Light Sweep */}
+              <div className="role-pill-shimmer" />
 
-              {/* Glitched Pill Box with Neon Cyan / Magenta Border */}
-              <div className="cyber-glitch-box relative">
-                {/* Vertical Cyan to Magenta Neon Indicator */}
-                <div className="cyber-glitch-indicator" />
+              {/* Glowing Amber / Gold Beacon */}
+              <div className="role-pill-beacon" />
 
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={roles[roleIndex]}
-                    initial={{ y: 15, opacity: 0, filter: 'blur(3px)' }}
-                    animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
-                    exit={{ y: -15, opacity: 0, filter: 'blur(3px)' }}
-                    transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                    className="cyber-glitch-text pl-1"
-                  >
-                    <Sparkles className="w-4 h-4 text-cyan-300 shrink-0" />
-                    <span>{roles[roleIndex]}</span>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
+              {/* Seamless Typography Switcher */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={roles[roleIndex]}
+                  initial={{ y: 22, opacity: 0, filter: 'blur(4px)' }}
+                  animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+                  exit={{ y: -22, opacity: 0, filter: 'blur(4px)' }}
+                  transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                  className="font-display font-bold text-lg sm:text-xl lg:text-2xl text-white tracking-wide flex items-center gap-2.5 pl-1"
+                >
+                  <Sparkles className="w-4 h-4 text-amber-400 shrink-0 animate-pulse" />
+                  <span className="bg-gradient-to-r from-white via-zinc-100 to-zinc-300 bg-clip-text text-transparent">
+                    {roles[roleIndex]}
+                  </span>
+                </motion.div>
+              </AnimatePresence>
+            </div>
 
-              {/* Status Neon Dot on the right (matches reference image) */}
-              <div className="hidden sm:flex items-center justify-center w-6 h-6 rounded-full bg-black/60 border border-cyan-400/40 shadow-[0_0_12px_rgba(0,240,255,0.6)]">
-                <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
-              </div>
+            {/* Glowing Emerald Available Beacon */}
+            <div className="hidden sm:flex items-center justify-center w-7 h-7 rounded-full bg-emerald-950/70 border border-emerald-500/40 shadow-[0_0_12px_rgba(16,185,129,0.35)]" title="Available for Work">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]" />
             </div>
           </div>
 
@@ -233,11 +231,11 @@ export const HeroSection: React.FC = () => {
               onMouseLeave={() => setIsHoveringPortrait(false)}
               className="relative w-full h-full rounded-2xl overflow-hidden bg-zinc-950 cursor-crosshair group/portrait"
             >
-              {/* Layer 1: Base Black and White Image (Perfect Zoomed Framing) */}
+              {/* Layer 1: Base Black and White Image (Zoomed, space above head removed) */}
               <img
                 src={portraitImg}
                 alt="Akshay Kanth C — Test Engineer and AI-Assisted Developer"
-                className="w-full h-full object-cover object-top filter grayscale contrast-[1.12] brightness-[0.98] transition-transform duration-700 ease-out scale-[1.26] origin-[center_28%] pointer-events-none"
+                className="w-full h-full object-cover object-center filter grayscale contrast-[1.12] brightness-[0.98] transition-transform duration-700 ease-out scale-[1.5] -translate-y-[11%] pointer-events-none"
                 loading="eager"
               />
 
@@ -254,7 +252,7 @@ export const HeroSection: React.FC = () => {
                   src={portraitImg}
                   alt=""
                   aria-hidden="true"
-                  className="w-full h-full object-cover object-top filter contrast-[1.05] brightness-[1.02] scale-[1.26] origin-[center_28%]"
+                  className="w-full h-full object-cover object-center filter contrast-[1.05] brightness-[1.02] scale-[1.5] -translate-y-[11%]"
                 />
               </div>
 
@@ -302,12 +300,12 @@ export const HeroSection: React.FC = () => {
       {/* Bottom Bar: Status & Scroll Indicator */}
       <div className="relative max-w-7xl mx-auto w-full flex flex-col sm:flex-row items-center justify-between pt-8 border-t border-white/5 text-xs font-mono text-zinc-400 gap-4 z-10">
         <div className="flex items-center gap-4">
-          <span className="flex items-center gap-1.5 text-neutral-300">
-            <span className="w-2 h-2 rounded-full bg-white inline-block animate-pulse" />
-            AVAILABLE FOR OPPORTUNITIES
+          <span className="flex items-center gap-2 text-emerald-400 font-semibold tracking-wider">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block animate-pulse shadow-[0_0_8px_#34d399]" />
+            AVAILABLE FOR WORK
           </span>
-          <span className="hidden sm:inline">&bull;</span>
-          <span className="hidden sm:inline">DUBAI &bull; OPEN TO RELOCATION &bull; REMOTE</span>
+          <span className="hidden sm:inline text-zinc-600">&bull;</span>
+          <span className="hidden sm:inline text-zinc-400">DUBAI &bull; OPEN TO RELOCATION &bull; REMOTE</span>
         </div>
 
         <button

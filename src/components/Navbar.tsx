@@ -98,10 +98,10 @@ export const Navbar: React.FC = () => {
 
         {/* Right Info: Dubai Clock, Available Status, Download CV */}
         <div className="flex items-center gap-3">
-          {/* Status badge in black & grey */}
-          <div className="hidden md:flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900/90 border border-white/10 text-zinc-300 text-[11px] font-mono tracking-wider">
-            <span className="w-2 h-2 rounded-full bg-white animate-pulse inline-block" />
-            <span>AVAILABLE FOR WORK</span>
+          {/* Status badge: AVAILABLE FOR WORK in vibrant Emerald Green */}
+          <div className="hidden md:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-950/70 border border-emerald-500/40 text-emerald-300 text-[11px] font-mono tracking-wider shadow-[0_0_15px_rgba(16,185,129,0.25)]">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse inline-block shadow-[0_0_8px_#34d399]" />
+            <span className="font-semibold text-emerald-300">AVAILABLE FOR WORK</span>
           </div>
 
           {/* Live Dubai Time */}
@@ -159,9 +159,9 @@ export const Navbar: React.FC = () => {
               </a>
             ))}
             <div className="pt-3 mt-2 border-t border-white/10 flex items-center justify-between text-xs font-mono text-zinc-400">
-              <span className="flex items-center gap-1.5 text-zinc-300">
-                <span className="w-2 h-2 rounded-full bg-white inline-block" />
-                Dubai, UAE &bull; Available
+              <span className="flex items-center gap-2 text-emerald-300 font-semibold">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block animate-pulse shadow-[0_0_8px_#34d399]" />
+                AVAILABLE FOR WORK &bull; DUBAI
               </span>
               <span>{time}</span>
             </div>
