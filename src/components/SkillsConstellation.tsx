@@ -89,10 +89,10 @@ export const SkillsConstellation: React.FC = () => {
 
   return (
     <section id="skills" className="relative py-28 sm:py-36 px-4 sm:px-8 lg:px-16 bg-[#060709] overflow-hidden">
-      {/* Background ambient light */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-zinc-700/10 blur-[160px] pointer-events-none" />
+      {/* Background ambient foggy white smoke */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[750px] rounded-full bg-white/[0.1] blur-[170px] pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative max-w-7xl mx-auto z-10">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
@@ -104,7 +104,7 @@ export const SkillsConstellation: React.FC = () => {
             </div>
             <h2 className="font-display text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
               INTERACTIVE <br />
-              <span className="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-yellow-300 via-amber-400 to-red-400 bg-clip-text text-transparent">
                 SKILLS CONSTELLATION.
               </span>
             </h2>

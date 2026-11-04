@@ -56,11 +56,12 @@ export const ContactSection: React.FC = () => {
 
   return (
     <section id="contact" className="relative py-28 sm:py-36 px-4 sm:px-8 lg:px-16 bg-[#060709] overflow-hidden">
-      {/* Background radial glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full bg-zinc-700/10 blur-[180px] pointer-events-none" />
+      {/* Background radial white smoke glow */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[900px] h-[600px] rounded-full bg-white/[0.14] blur-[170px] pointer-events-none" />
+      <div className="absolute top-1/4 right-0 w-[600px] h-[600px] rounded-full bg-zinc-200/[0.08] blur-[150px] pointer-events-none" />
       <div className="absolute inset-0 bg-tech-grid opacity-20 pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative max-w-7xl mx-auto z-10">
         {/* Eyebrow */}
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900 border border-white/10 backdrop-blur-md mb-6">
           <Sparkles className="w-3.5 h-3.5 text-neutral-300" />
@@ -69,11 +70,11 @@ export const ContactSection: React.FC = () => {
           </span>
         </div>
 
-        {/* Giant Headline */}
+        {/* Giant Headline with Red to Warm Gold/Yellow Gradient */}
         <div className="mb-16">
           <h2 className="font-display text-4xl sm:text-7xl lg:text-8xl font-black text-white tracking-tight leading-[1.05]">
             LET'S BUILD SOMETHING <br />
-            <span className="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-red-500 via-amber-400 to-yellow-300 bg-clip-text text-transparent filter drop-shadow-[0_0_25px_rgba(245,158,11,0.35)]">
               EXTRAORDINARY.
             </span>
           </h2>

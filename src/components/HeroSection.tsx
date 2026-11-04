@@ -85,15 +85,15 @@ export const HeroSection: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-zinc-900/80 border border-white/10 w-fit backdrop-blur-md"
+            className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-amber-400/25 w-fit backdrop-blur-md shadow-[0_0_15px_rgba(245,158,11,0.1)]"
           >
-            <span className="w-2 h-2 rounded-full bg-neutral-300 animate-pulse" />
-            <span className="font-mono text-xs tracking-widest uppercase text-neutral-300">
+            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+            <span className="font-mono text-xs tracking-widest uppercase text-amber-200">
               TEST ENGINEER &bull; AI-ASSISTED DEVELOPER
             </span>
           </motion.div>
 
-          {/* Main Headline */}
+          {/* Main Headline with Striking Red to Warm Gold/Yellow Gradient */}
           <div className="overflow-hidden">
             <motion.h1
               initial={{ y: 80, opacity: 0 }}
@@ -101,32 +101,47 @@ export const HeroSection: React.FC = () => {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="font-display text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight text-white leading-[1.05]"
             >
-              HI, I'M <span className="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">AKSHAY.</span>
+              HI, I'M <span className="bg-gradient-to-r from-red-500 via-amber-400 to-yellow-300 bg-clip-text text-transparent filter drop-shadow-[0_0_25px_rgba(245,158,11,0.35)]">AKSHAY.</span>
             </motion.h1>
           </div>
 
-          {/* Dynamic Role Carousel Card with ONLY 2 Designations */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
-            <span className="font-display text-2xl sm:text-3xl lg:text-4xl font-medium text-zinc-400">
-              I am a
-            </span>
+          {/* Task 2: Cyberpunk Glitch Role Switcher (Accurately matches reference image) */}
+          <div className="relative py-2">
+            <div className="cyber-glitch-wrapper flex flex-col sm:flex-row items-start sm:items-center gap-3">
+              {/* Horizontal ambient neon speedlines */}
+              <div className="cyber-glitch-streak-left hidden sm:block" />
+              <div className="cyber-glitch-streak-right hidden sm:block" />
+              <div className="cyber-glitch-streak-mid hidden sm:block" />
 
-            {/* Interactive Switcher Box in Black and Grey */}
-            <div className="h-14 sm:h-16 px-5 py-2 rounded-xl bg-zinc-900/90 border border-white/15 backdrop-blur-xl shadow-[0_10px_30px_rgba(0,0,0,0.6)] flex items-center justify-center min-w-[260px] sm:min-w-[320px] relative overflow-hidden">
-              <div className="absolute left-3 top-0 bottom-0 w-1 bg-white/60 rounded-full" />
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={roles[roleIndex]}
-                  initial={{ y: 20, opacity: 0, filter: 'blur(4px)' }}
-                  animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
-                  exit={{ y: -20, opacity: 0, filter: 'blur(4px)' }}
-                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                  className="font-display font-bold text-lg sm:text-xl lg:text-2xl text-white tracking-wide flex items-center gap-2 pl-2"
-                >
-                  <Sparkles className="w-4 h-4 text-neutral-300 shrink-0" />
-                  <span>{roles[roleIndex]}</span>
-                </motion.div>
-              </AnimatePresence>
+              {/* Glitched "I am a" text */}
+              <span className="glitch-text-intro">
+                I am a
+              </span>
+
+              {/* Glitched Pill Box with Neon Cyan / Magenta Border */}
+              <div className="cyber-glitch-box relative">
+                {/* Vertical Cyan to Magenta Neon Indicator */}
+                <div className="cyber-glitch-indicator" />
+
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={roles[roleIndex]}
+                    initial={{ y: 15, opacity: 0, filter: 'blur(3px)' }}
+                    animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+                    exit={{ y: -15, opacity: 0, filter: 'blur(3px)' }}
+                    transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                    className="cyber-glitch-text pl-1"
+                  >
+                    <Sparkles className="w-4 h-4 text-cyan-300 shrink-0" />
+                    <span>{roles[roleIndex]}</span>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              {/* Status Neon Dot on the right (matches reference image) */}
+              <div className="hidden sm:flex items-center justify-center w-6 h-6 rounded-full bg-black/60 border border-cyan-400/40 shadow-[0_0_12px_rgba(0,240,255,0.6)]">
+                <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+              </div>
             </div>
           </div>
 
@@ -176,18 +191,18 @@ export const HeroSection: React.FC = () => {
             </button>
           </motion.div>
 
-          {/* Micro Trust Metrics */}
+          {/* Micro Trust Metrics with Red & Gold Yellow Color Accents */}
           <div className="grid grid-cols-3 gap-4 pt-4 border-t border-white/10 max-w-lg">
             <div>
-              <div className="font-display font-extrabold text-2xl text-white">4+</div>
+              <div className="font-display font-extrabold text-2xl text-amber-400">4+</div>
               <div className="text-[11px] font-mono text-zinc-400 tracking-wider">PROJECT POCs</div>
             </div>
             <div>
-              <div className="font-display font-extrabold text-2xl text-neutral-300">100%</div>
+              <div className="font-display font-extrabold text-2xl text-red-400">100%</div>
               <div className="text-[11px] font-mono text-zinc-400 tracking-wider">DEFECT RESOLUTION</div>
             </div>
             <div>
-              <div className="font-display font-extrabold text-2xl text-zinc-200">UAE 1M</div>
+              <div className="font-display font-extrabold text-2xl text-yellow-300">UAE 1M</div>
               <div className="text-[11px] font-mono text-zinc-400 tracking-wider">PROMPTERS CERTIFIED</div>
             </div>
           </div>
@@ -242,20 +257,6 @@ export const HeroSection: React.FC = () => {
                   className="w-full h-full object-cover object-top filter contrast-[1.05] brightness-[1.02] scale-[1.26] origin-[center_28%]"
                 />
               </div>
-
-              {/* Subtle luminous ring follower around the mouse spotlight */}
-              <div
-                className="absolute rounded-full pointer-events-none transition-opacity duration-200"
-                style={{
-                  width: 280,
-                  height: 280,
-                  left: spotlightPos.x - 140,
-                  top: spotlightPos.y - 140,
-                  border: '1px solid rgba(255, 255, 255, 0.28)',
-                  boxShadow: '0 0 25px rgba(255, 255, 255, 0.16)',
-                  opacity: isHoveringPortrait ? 1 : 0,
-                }}
-              />
 
               {/* Cinematic Vignette & Bottom Gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#060709] via-transparent to-transparent opacity-85 pointer-events-none z-10" />

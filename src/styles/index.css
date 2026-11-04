@@ -100,7 +100,7 @@
 }
 
 /* ====================================================
-   FOGGY & BLURRY WHITE ATMOSPHERIC UTILITIES
+   FOGGY & BLURRY WHITE ATMOSPHERIC UTILITIES (ALL PAGES)
    ==================================================== */
 
 .fog-glow-white {
@@ -120,4 +120,175 @@
   0% { transform: translate(0, 0) scale(1); opacity: 0.85; }
   50% { transform: translate(25px, -15px) scale(1.05); opacity: 1; }
   100% { transform: translate(-20px, 15px) scale(0.98); opacity: 0.85; }
+}
+
+/* Global floating white smoke clouds */
+.white-smoke-cloud {
+  position: absolute;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, rgba(230, 235, 245, 0.05) 50%, transparent 70%);
+  filter: blur(140px);
+  pointer-events: none;
+}
+
+/* ====================================================
+   TASK 2: CYBERPUNK GLITCH ROLE SWITCHER (REFERENCE MATCH)
+   ==================================================== */
+
+.cyber-glitch-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+/* Horizontal glitch trails / neon speedlines */
+.cyber-glitch-streak-left {
+  position: absolute;
+  left: -45px;
+  top: 48%;
+  width: 70px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00f0ff);
+  box-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
+  opacity: 0.8;
+  pointer-events: none;
+  animation: streakFlicker 3s infinite ease-in-out;
+}
+
+.cyber-glitch-streak-right {
+  position: absolute;
+  right: -55px;
+  top: 28%;
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, #ff007f, transparent);
+  box-shadow: 0 0 10px #ff007f, 0 0 20px #ff007f;
+  opacity: 0.8;
+  pointer-events: none;
+  animation: streakFlicker 2.6s infinite ease-in-out reverse;
+}
+
+.cyber-glitch-streak-mid {
+  position: absolute;
+  left: 20%;
+  right: 15%;
+  bottom: -4px;
+  height: 1.5px;
+  background: linear-gradient(90deg, #00f0ff, #ff007f);
+  box-shadow: 0 0 8px #ff007f;
+  opacity: 0.7;
+  pointer-events: none;
+  animation: streakFlicker 4s infinite linear;
+}
+
+/* Glitched "I am a" text with cyan/magenta chromatic fringe */
+.glitch-text-intro {
+  position: relative;
+  font-family: 'Syne', sans-serif;
+  font-size: 1.85rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-shadow: -2px 0 0 rgba(0, 240, 255, 0.85), 2px 0 0 rgba(255, 0, 110, 0.85);
+  letter-spacing: -0.02em;
+}
+
+/* The neon bordered glitch pill */
+.cyber-glitch-box {
+  position: relative;
+  height: 3.75rem;
+  padding: 0 1.5rem 0 2.25rem;
+  border-radius: 0.85rem;
+  background: rgba(10, 12, 16, 0.95);
+  display: flex;
+  align-items: center;
+  min-width: 280px;
+  box-shadow: 
+    0 0 20px rgba(0, 240, 255, 0.25),
+    0 0 35px rgba(255, 0, 110, 0.2),
+    inset 0 0 15px rgba(0, 0, 0, 0.9);
+  border: 1px solid transparent;
+  overflow: hidden;
+}
+
+/* Dual Neon Cyan/Magenta Border */
+.cyber-glitch-box::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 0.85rem;
+  padding: 1.5px;
+  background: linear-gradient(135deg, #00f0ff 0%, #38bdf8 30%, #ec4899 70%, #ff007f 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.5);
+}
+
+/* Left vertical neon pill indicator */
+.cyber-glitch-indicator {
+  position: absolute;
+  left: 0.75rem;
+  top: 22%;
+  bottom: 22%;
+  width: 4px;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, #00f0ff 0%, #ff007f 100%);
+  box-shadow: 0 0 8px #00f0ff, 0 0 12px #ff007f;
+}
+
+/* Glitched Text with RGB Chromatic Aberration */
+.cyber-glitch-text {
+  position: relative;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  text-shadow: 
+    -2px 0px 0px #00f0ff,
+    2px 0px 0px #ff007f,
+    0 0 10px rgba(255, 255, 255, 0.5);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  animation: textGlitchJitter 3.5s infinite;
+}
+
+/* Glitch displacement slice keyframes */
+@keyframes textGlitchJitter {
+  0%, 84%, 100% {
+    transform: translate(0);
+    text-shadow: -2px 0 #00f0ff, 2px 0 #ff007f;
+  }
+  85% {
+    transform: translate(-3px, 1px);
+    text-shadow: -4px 0 #00f0ff, 4px 0 #ff007f;
+    clip-path: polygon(0 20%, 100% 20%, 100% 45%, 0 45%);
+  }
+  86% {
+    transform: translate(3px, -1px);
+    text-shadow: 3px 0 #00f0ff, -3px 0 #ff007f;
+    clip-path: polygon(0 60%, 100% 60%, 100% 85%, 0 85%);
+  }
+  87% {
+    transform: translate(0);
+    text-shadow: -2px 0 #00f0ff, 2px 0 #ff007f;
+    clip-path: none;
+  }
+  94% {
+    transform: translate(2px, 0);
+    text-shadow: -3px 0 #00f0ff, 3px 0 #ff007f;
+  }
+  95% {
+    transform: translate(0);
+  }
+}
+
+/* Streak flicker animation */
+@keyframes streakFlicker {
+  0%, 100% { opacity: 0.6; transform: scaleX(1); }
+  50% { opacity: 1; transform: scaleX(1.3); }
+  75% { opacity: 0.3; transform: scaleX(0.7); }
 }

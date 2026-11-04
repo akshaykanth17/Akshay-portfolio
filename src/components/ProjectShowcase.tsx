@@ -114,11 +114,12 @@ export const ProjectShowcase: React.FC = () => {
 
   return (
     <section id="projects" className="relative py-28 sm:py-36 px-4 sm:px-8 lg:px-16 bg-[#08090b] overflow-hidden">
-      {/* Background subtle grid */}
+      {/* Background subtle grid and white smoke clouds */}
       <div className="absolute inset-0 bg-tech-grid opacity-20 pointer-events-none" />
-      <div className="absolute top-1/3 right-10 w-[500px] h-[500px] rounded-full bg-zinc-700/10 blur-[150px] pointer-events-none" />
+      <div className="absolute top-1/4 right-0 w-[700px] h-[700px] rounded-full bg-white/[0.1] blur-[160px] pointer-events-none" />
+      <div className="absolute bottom-1/4 left-0 w-[600px] h-[600px] rounded-full bg-zinc-200/[0.08] blur-[150px] pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative max-w-7xl mx-auto z-10">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div>
@@ -130,7 +131,7 @@ export const ProjectShowcase: React.FC = () => {
             </div>
             <h2 className="font-display text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
               ENGINEERED <br />
-              <span className="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-amber-400 via-yellow-300 to-red-400 bg-clip-text text-transparent">
                 PROJECT PORTFOLIO.
               </span>
             </h2>

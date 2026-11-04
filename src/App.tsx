@@ -18,7 +18,21 @@ export const App: React.FC = () => {
   useLenis();
 
   return (
-    <div className="relative min-h-screen bg-[#060709] text-zinc-100 selection:bg-white selection:text-black bg-noise">
+    <div className="relative min-h-screen bg-[#060709] text-zinc-100 selection:bg-white selection:text-black bg-noise overflow-x-hidden">
+      {/* Global Foggy & Blurry White Smoke Ambient Clouds Across All Pages */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        {/* Top-right drifting foggy white smoke */}
+        <div className="white-smoke-cloud w-[800px] h-[700px] -top-32 -right-32 opacity-75 fog-drift-slow" />
+        {/* Mid-left drifting foggy white smoke */}
+        <div className="white-smoke-cloud w-[700px] h-[700px] top-[30%] -left-40 opacity-60" style={{ animation: 'fogDrift 18s ease-in-out infinite alternate-reverse' }} />
+        {/* Mid-right drifting foggy white smoke */}
+        <div className="white-smoke-cloud w-[750px] h-[750px] top-[60%] -right-32 opacity-55 fog-drift-slow" />
+        {/* Bottom-left drifting foggy white smoke */}
+        <div className="white-smoke-cloud w-[700px] h-[650px] bottom-10 -left-28 opacity-65" style={{ animation: 'fogDrift 16s ease-in-out infinite alternate' }} />
+        {/* Ambient white mist glow */}
+        <div className="absolute inset-0 fog-ambient-mist opacity-60" />
+      </div>
+
       {/* Custom magnetic interactive cursor */}
       <CustomCursor />
 

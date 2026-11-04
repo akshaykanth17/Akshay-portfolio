@@ -39,12 +39,15 @@ export const ExperienceTimeline: React.FC = () => {
 
   return (
     <section id="timeline" className="relative py-28 sm:py-36 px-4 sm:px-8 lg:px-16 bg-[#060709] overflow-hidden">
+      {/* Atmospheric Foggy White Smoke Cloud */}
+      <div className="absolute top-1/4 left-1/4 w-[650px] h-[650px] rounded-full bg-white/[0.1] blur-[160px] pointer-events-none" />
+
       {/* Decorative Year Watermark Background */}
       <div className="absolute right-0 top-1/4 select-none pointer-events-none opacity-[0.03] font-display font-black text-[18vw] leading-none text-white overflow-hidden">
         2025-26
       </div>
 
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative max-w-7xl mx-auto z-10">
         {/* Eyebrow */}
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900 border border-white/10 backdrop-blur-md mb-6">
           <Briefcase className="w-3.5 h-3.5 text-neutral-300" />
@@ -58,7 +61,7 @@ export const ExperienceTimeline: React.FC = () => {
           <div>
             <h2 className="font-display text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
               PROFESSIONAL <br />
-              <span className="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-red-400 via-amber-400 to-yellow-300 bg-clip-text text-transparent">
                 EXPERIENCE.
               </span>
             </h2>
@@ -71,13 +74,13 @@ export const ExperienceTimeline: React.FC = () => {
           <div className="flex items-center gap-4 bg-zinc-900/90 border border-white/10 p-4 sm:p-6 rounded-3xl backdrop-blur-xl shadow-2xl">
             <div className="text-center">
               <span className="font-mono text-[10px] tracking-widest text-zinc-500 block">START</span>
-              <span className="font-display font-black text-3xl sm:text-5xl text-white">2025</span>
+              <span className="font-display font-black text-3xl sm:text-5xl text-amber-400">2025</span>
               <span className="font-mono text-[11px] text-zinc-400 block">JUNE 11</span>
             </div>
             <div className="h-10 w-[1px] bg-white/10" />
             <div className="text-center">
               <span className="font-mono text-[10px] tracking-widest text-zinc-500 block">COMPLETION</span>
-              <span className="font-display font-black text-3xl sm:text-5xl text-neutral-300">2026</span>
+              <span className="font-display font-black text-3xl sm:text-5xl text-red-400">2026</span>
               <span className="font-mono text-[11px] text-zinc-400 block">AUGUST 14</span>
             </div>
           </div>

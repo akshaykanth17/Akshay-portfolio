@@ -50,10 +50,11 @@ export const EducationAchievements: React.FC = () => {
 
   return (
     <section id="education" className="relative py-28 sm:py-36 px-4 sm:px-8 lg:px-16 bg-[#08090b] overflow-hidden">
-      {/* Background Tech Grid */}
+      {/* Background Tech Grid and Foggy White Smoke Cloud */}
       <div className="absolute inset-0 bg-tech-grid opacity-20 pointer-events-none" />
+      <div className="absolute top-1/3 left-10 w-[650px] h-[650px] rounded-full bg-white/[0.1] blur-[160px] pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative max-w-7xl mx-auto z-10">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div>
@@ -65,7 +66,7 @@ export const EducationAchievements: React.FC = () => {
             </div>
             <h2 className="font-display text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
               EDUCATION &amp; <br />
-              <span className="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-red-400 via-amber-300 to-yellow-300 bg-clip-text text-transparent">
                 HONORS.
               </span>
             </h2>
