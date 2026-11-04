@@ -70,11 +70,11 @@ export const ContactSection: React.FC = () => {
           </span>
         </div>
 
-        {/* Giant Headline in Black, White & Green */}
+        {/* Giant Headline in Black, White & Light Green */}
         <div className="mb-16">
           <h2 className="font-display text-4xl sm:text-7xl lg:text-8xl font-black text-white tracking-tight leading-[1.05]">
             LET'S BUILD SOMETHING <br />
-            <span className="text-emerald-400 filter drop-shadow-[0_0_35px_rgba(52,211,153,0.7)]">
+            <span className="text-[#6ee7b7] drop-shadow-[0_2px_10px_rgba(110,231,183,0.25)]">
               EXTRAORDINARY.
             </span>
           </h2>
@@ -288,7 +288,7 @@ export const ContactSection: React.FC = () => {
 
                   <button
                     type="submit"
-                    className="w-full flex items-center justify-center gap-3 py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-sm tracking-wide shadow-lg shadow-emerald-500/20 transition-all duration-300 hover:scale-[1.01] active:scale-[0.99]"
+                    className="w-full flex items-center justify-center gap-3 py-4 rounded-xl bg-[#6ee7b7] hover:bg-[#a7f3d0] text-black font-bold text-sm tracking-wide shadow-lg shadow-[#6ee7b7]/20 transition-all duration-300 hover:scale-[1.01] active:scale-[0.99]"
                   >
                     <Send className="w-4 h-4 text-black" />
                     <span>Send Message to Akshay</span>
