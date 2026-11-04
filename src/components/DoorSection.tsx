@@ -459,7 +459,7 @@ export const DoorSection: React.FC = () => {
 
         <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight max-w-2xl drop-shadow-2xl">
           Magic happens <br className="hidden sm:inline" />
-          <span className="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent filter drop-shadow-[0_0_30px_rgba(255,255,255,0.35)]">
+          <span className="bg-gradient-to-r from-[#FFFDF7] via-[#E8D3A2] to-[#B89758] bg-clip-text text-transparent filter drop-shadow-[0_0_30px_rgba(232,211,162,0.3)]">
             behind the doors.
           </span>
         </h2>

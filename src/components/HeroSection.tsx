@@ -85,15 +85,15 @@ export const HeroSection: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-white/20 w-fit backdrop-blur-md shadow-[0_0_15px_rgba(255,255,255,0.06)]"
+            className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-[#E5C583]/30 w-fit backdrop-blur-md shadow-[0_0_20px_rgba(229,197,131,0.12)]"
           >
-            <span className="w-2 h-2 rounded-full bg-white animate-pulse shadow-[0_0_8px_#ffffff]" />
-            <span className="font-mono text-xs tracking-widest uppercase text-zinc-200">
+            <span className="w-2 h-2 rounded-full bg-[#E5C583] animate-pulse shadow-[0_0_10px_#E5C583]" />
+            <span className="font-mono text-xs tracking-widest uppercase text-[#E8D3A2]">
               TEST ENGINEER &bull; AI-ASSISTED DEVELOPER
             </span>
           </motion.div>
 
-          {/* Main Headline with Liquid Silver & Pure White Chrome Gradient */}
+          {/* Main Headline with Royal Champagne Gold & Brushed Platinum Gradient */}
           <div className="overflow-hidden">
             <motion.h1
               initial={{ y: 80, opacity: 0 }}
@@ -101,7 +101,7 @@ export const HeroSection: React.FC = () => {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="font-display text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight text-white leading-[1.05]"
             >
-              HI, I'M <span className="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent filter drop-shadow-[0_0_35px_rgba(255,255,255,0.45)]">AKSHAY.</span>
+              HI, I'M <span className="bg-gradient-to-r from-[#FFFDF7] via-[#E8D3A2] to-[#B89758] bg-clip-text text-transparent filter drop-shadow-[0_0_35px_rgba(232,211,162,0.38)]">AKSHAY.</span>
             </motion.h1>
           </div>
 
@@ -116,7 +116,7 @@ export const HeroSection: React.FC = () => {
               {/* Animated Liquid Shimmer Light Sweep */}
               <div className="role-pill-shimmer" />
 
-              {/* Glowing Liquid Silver / Chrome Beacon */}
+              {/* Glowing Luxury Champagne Gold & Platinum Beacon */}
               <div className="role-pill-beacon" />
 
               {/* Seamless Typography Switcher */}
@@ -129,8 +129,8 @@ export const HeroSection: React.FC = () => {
                   transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                   className="font-display font-bold text-lg sm:text-xl lg:text-2xl text-white tracking-wide flex items-center gap-2.5 pl-1"
                 >
-                  <Sparkles className="w-4 h-4 text-zinc-200 shrink-0 animate-pulse drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
-                  <span className="bg-gradient-to-r from-white via-zinc-100 to-zinc-300 bg-clip-text text-transparent">
+                  <Sparkles className="w-4 h-4 text-[#E5C583] shrink-0 animate-pulse drop-shadow-[0_0_8px_rgba(229,197,131,0.8)]" />
+                  <span className="bg-gradient-to-r from-white via-zinc-100 to-[#E8D3A2] bg-clip-text text-transparent">
                     {roles[roleIndex]}
                   </span>
                 </motion.div>
@@ -189,18 +189,18 @@ export const HeroSection: React.FC = () => {
             </button>
           </motion.div>
 
-          {/* Micro Trust Metrics in Liquid Silver & Monochrome */}
+          {/* Micro Trust Metrics in Champagne Platinum Luxury */}
           <div className="grid grid-cols-3 gap-4 pt-4 border-t border-white/10 max-w-lg">
             <div>
-              <div className="font-display font-extrabold text-2xl text-white">4+</div>
+              <div className="font-display font-extrabold text-2xl text-[#E8D3A2]">4+</div>
               <div className="text-[11px] font-mono text-zinc-400 tracking-wider">PROJECT POCs</div>
             </div>
             <div>
-              <div className="font-display font-extrabold text-2xl text-zinc-200">100%</div>
+              <div className="font-display font-extrabold text-2xl text-[#FFFDF7]">100%</div>
               <div className="text-[11px] font-mono text-zinc-400 tracking-wider">DEFECT RESOLUTION</div>
             </div>
             <div>
-              <div className="font-display font-extrabold text-2xl text-zinc-100">UAE 1M</div>
+              <div className="font-display font-extrabold text-2xl text-[#C5A880]">UAE 1M</div>
               <div className="text-[11px] font-mono text-zinc-400 tracking-wider">PROMPTERS CERTIFIED</div>
             </div>
           </div>
