@@ -85,15 +85,15 @@ export const HeroSection: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-emerald-950/80 border border-emerald-500/40 w-fit backdrop-blur-md shadow-[0_0_20px_rgba(16,185,129,0.25)]"
+            className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-emerald-500/40 w-fit backdrop-blur-md shadow-[0_0_20px_rgba(16,185,129,0.2)]"
           >
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_10px_#34d399]" />
-            <span className="font-mono text-xs tracking-widest uppercase text-emerald-300">
+            <span className="font-mono text-xs tracking-widest uppercase text-emerald-400">
               TEST ENGINEER &bull; AI-ASSISTED DEVELOPER
             </span>
           </motion.div>
 
-          {/* Main Headline with Imperial Emerald & Mint Jade Luxury Gradient */}
+          {/* Main Headline in Black, White & Green Combo */}
           <div className="overflow-hidden">
             <motion.h1
               initial={{ y: 80, opacity: 0 }}
@@ -101,7 +101,7 @@ export const HeroSection: React.FC = () => {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="font-display text-5xl sm:text-7xl lg:text-8xl font-black tracking-tight text-white leading-[1.05]"
             >
-              HI, I'M <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-300 bg-clip-text text-transparent filter drop-shadow-[0_0_40px_rgba(52,211,153,0.55)]">AKSHAY.</span>
+              HI, I'M <span className="text-emerald-400 filter drop-shadow-[0_0_35px_rgba(52,211,153,0.7)]">AKSHAY.</span>
             </motion.h1>
           </div>
 
@@ -111,12 +111,12 @@ export const HeroSection: React.FC = () => {
               I am a
             </span>
 
-            {/* Premium Liquid Shimmer Glass Pill in Imperial Emerald */}
+            {/* Premium Liquid Shimmer Glass Pill in Black, White & Green */}
             <div className="role-switcher-pill group/pill">
               {/* Animated Liquid Shimmer Light Sweep */}
               <div className="role-pill-shimmer" />
 
-              {/* Glowing Imperial Emerald & Mint Jade Beacon */}
+              {/* Glowing Electric Green Beacon */}
               <div className="role-pill-beacon" />
 
               {/* Seamless Typography Switcher */}
@@ -129,8 +129,8 @@ export const HeroSection: React.FC = () => {
                   transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                   className="font-display font-bold text-lg sm:text-xl lg:text-2xl text-white tracking-wide flex items-center gap-2.5 pl-1"
                 >
-                  <Sparkles className="w-4 h-4 text-emerald-400 shrink-0 animate-pulse drop-shadow-[0_0_8px_rgba(52,211,153,0.9)]" />
-                  <span className="bg-gradient-to-r from-white via-emerald-100 to-teal-200 bg-clip-text text-transparent">
+                  <Sparkles className="w-4 h-4 text-emerald-400 shrink-0 animate-pulse drop-shadow-[0_0_8px_#34d399]" />
+                  <span className="text-white">
                     {roles[roleIndex]}
                   </span>
                 </motion.div>
@@ -160,10 +160,10 @@ export const HeroSection: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="flex flex-wrap items-center gap-4 pt-2"
           >
-            {/* Explore My Work */}
+            {/* Explore My Work in Glowing Emerald Green */}
             <button
               onClick={() => handleScrollTo('#projects')}
-              className="group relative inline-flex items-center gap-3 px-7 py-3.5 rounded-full bg-white hover:bg-neutral-200 text-black font-semibold text-sm tracking-wide shadow-[0_10px_30px_rgba(255,255,255,0.15)] transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden"
+              className="group relative inline-flex items-center gap-3 px-7 py-3.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-sm tracking-wide shadow-[0_10px_30px_rgba(16,185,129,0.4)] transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden"
             >
               <span>Explore My Work</span>
               <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
@@ -173,34 +173,34 @@ export const HeroSection: React.FC = () => {
             <a
               href="./Akshay_Kanth_C_CV_.pdf"
               download="Akshay_Kanth_C_CV.pdf"
-              className="group inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-zinc-900/80 hover:bg-zinc-800 text-zinc-200 border border-white/15 font-medium text-sm tracking-wide backdrop-blur-md transition-all duration-300 hover:border-white/30 hover:scale-105 active:scale-95"
+              className="group inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-zinc-900/80 hover:bg-zinc-800 text-white border border-white/20 font-medium text-sm tracking-wide backdrop-blur-md transition-all duration-300 hover:border-emerald-500/50 hover:scale-105 active:scale-95"
             >
-              <Download className="w-4 h-4 text-neutral-300" />
+              <Download className="w-4 h-4 text-emerald-400" />
               <span>Download CV</span>
             </a>
 
             {/* Contact Me */}
             <button
               onClick={() => handleScrollTo('#contact')}
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-zinc-400 hover:text-white font-medium text-sm tracking-wide hover:bg-white/5 transition-all duration-200"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-zinc-300 hover:text-white font-medium text-sm tracking-wide hover:bg-white/5 transition-all duration-200"
             >
               <Mail className="w-4 h-4" />
               <span>Contact Me</span>
             </button>
           </motion.div>
 
-          {/* Micro Trust Metrics in Imperial Emerald & Mint Jade Luxury */}
+          {/* Micro Trust Metrics in Black, White & Green */}
           <div className="grid grid-cols-3 gap-4 pt-4 border-t border-white/10 max-w-lg">
             <div>
-              <div className="font-display font-extrabold text-2xl text-emerald-400 drop-shadow-[0_0_12px_rgba(52,211,153,0.45)]">4+</div>
+              <div className="font-display font-extrabold text-2xl text-emerald-400 drop-shadow-[0_0_12px_rgba(52,211,153,0.5)]">4+</div>
               <div className="text-[11px] font-mono text-zinc-400 tracking-wider">PROJECT POCs</div>
             </div>
             <div>
-              <div className="font-display font-extrabold text-2xl text-teal-300 drop-shadow-[0_0_12px_rgba(45,212,191,0.45)]">100%</div>
+              <div className="font-display font-extrabold text-2xl text-white">100%</div>
               <div className="text-[11px] font-mono text-zinc-400 tracking-wider">DEFECT RESOLUTION</div>
             </div>
             <div>
-              <div className="font-display font-extrabold text-2xl text-cyan-300 drop-shadow-[0_0_12px_rgba(103,232,249,0.45)]">UAE 1M</div>
+              <div className="font-display font-extrabold text-2xl text-emerald-400 drop-shadow-[0_0_12px_rgba(52,211,153,0.5)]">UAE 1M</div>
               <div className="text-[11px] font-mono text-zinc-400 tracking-wider">PROMPTERS CERTIFIED</div>
             </div>
           </div>

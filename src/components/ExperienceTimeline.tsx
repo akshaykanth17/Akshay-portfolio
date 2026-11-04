@@ -61,7 +61,7 @@ export const ExperienceTimeline: React.FC = () => {
           <div>
             <h2 className="font-display text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
               PROFESSIONAL <br />
-              <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-300 bg-clip-text text-transparent filter drop-shadow-[0_0_35px_rgba(52,211,153,0.45)]">
+              <span className="text-emerald-400 filter drop-shadow-[0_0_35px_rgba(52,211,153,0.7)]">
                 EXPERIENCE.
               </span>
             </h2>
@@ -74,13 +74,13 @@ export const ExperienceTimeline: React.FC = () => {
           <div className="flex items-center gap-4 bg-zinc-900/90 border border-white/10 p-4 sm:p-6 rounded-3xl backdrop-blur-xl shadow-2xl">
             <div className="text-center">
               <span className="font-mono text-[10px] tracking-widest text-zinc-500 block">START</span>
-              <span className="font-display font-black text-3xl sm:text-5xl text-emerald-400 drop-shadow-[0_0_12px_rgba(52,211,153,0.4)]">2025</span>
+              <span className="font-display font-black text-3xl sm:text-5xl text-emerald-400 drop-shadow-[0_0_12px_rgba(52,211,153,0.5)]">2025</span>
               <span className="font-mono text-[11px] text-zinc-400 block">JUNE 11</span>
             </div>
             <div className="h-10 w-[1px] bg-white/10" />
             <div className="text-center">
               <span className="font-mono text-[10px] tracking-widest text-zinc-500 block">COMPLETION</span>
-              <span className="font-display font-black text-3xl sm:text-5xl text-teal-300 drop-shadow-[0_0_12px_rgba(45,212,191,0.4)]">2026</span>
+              <span className="font-display font-black text-3xl sm:text-5xl text-white">2026</span>
               <span className="font-mono text-[11px] text-zinc-400 block">AUGUST 14</span>
             </div>
           </div>

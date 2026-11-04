@@ -66,7 +66,7 @@ export const EducationAchievements: React.FC = () => {
             </div>
             <h2 className="font-display text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
               EDUCATION &amp; <br />
-              <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-300 bg-clip-text text-transparent filter drop-shadow-[0_0_35px_rgba(52,211,153,0.45)]">
+              <span className="text-emerald-400 filter drop-shadow-[0_0_35px_rgba(52,211,153,0.7)]">
                 HONORS.
               </span>
             </h2>

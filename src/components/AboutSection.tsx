@@ -44,10 +44,10 @@ export const AboutSection: React.FC = () => {
           </span>
         </div>
 
-        {/* Giant Editorial Headline with Imperial Emerald & Mint Jade Gradient */}
+        {/* Giant Editorial Headline in Black, White & Green */}
         <h2 className="font-display text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.08] max-w-4xl mb-12">
           THE PERSON <br />
-          <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-300 bg-clip-text text-transparent filter drop-shadow-[0_0_35px_rgba(52,211,153,0.45)]">
+          <span className="text-emerald-400 filter drop-shadow-[0_0_35px_rgba(52,211,153,0.7)]">
             BEHIND THE CODE.
           </span>
         </h2>
@@ -61,13 +61,13 @@ export const AboutSection: React.FC = () => {
               "Quality is never an accident; it is always the result of high intention, sincere effort, intelligent direction, and skillful execution."
             </p>
             <p>
-              I am an <strong className="text-emerald-300 font-semibold">MCA graduate, Test Engineer, and AI-Assisted Developer</strong> based in Dubai with dedicated QA experience. Having served as the Point of Contact for four major features at SIDE, Bangalore, I specialize in bridging the gap between bulletproof quality assurance and forward-looking software development.
+              I am an <strong className="text-white font-semibold">MCA graduate, Test Engineer, and AI-Assisted Developer</strong> based in Dubai with dedicated QA experience. Having served as the Point of Contact for four major features at SIDE, Bangalore, I specialize in bridging the gap between bulletproof quality assurance and forward-looking software development.
             </p>
             <p>
-              My background spans complete testing lifecycles across <span className="text-teal-200 font-medium">Android and iOS mobile applications</span>, executing functional, regression, smoke, sanity, exploratory, and User Acceptance Testing (UAT). Every edge case matters. Every defect documented in JIRA is an opportunity to fortify software stability and elevate end-user satisfaction.
+              My background spans complete testing lifecycles across <span className="text-emerald-400 font-medium">Android and iOS mobile applications</span>, executing functional, regression, smoke, sanity, exploratory, and User Acceptance Testing (UAT). Every edge case matters. Every defect documented in JIRA is an opportunity to fortify software stability and elevate end-user satisfaction.
             </p>
             <p>
-              Beyond traditional testing, I actively engineer <span className="text-emerald-300 font-medium">AI-assisted test agents</span> and full-stack social applications. Utilizing modern LLM orchestration, Playwright browser automation, and Google Antigravity workflows, I design automated solutions that accelerate test coverage without sacrificing empirical precision.
+              Beyond traditional testing, I actively engineer <span className="text-emerald-400 font-medium">AI-assisted test agents</span> and full-stack social applications. Utilizing modern LLM orchestration, Playwright browser automation, and Google Antigravity workflows, I design automated solutions that accelerate test coverage without sacrificing empirical precision.
             </p>
 
             {/* Quick Badges in Black & Grey */}
