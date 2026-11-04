@@ -192,16 +192,16 @@ export const HeroSection: React.FC = () => {
           {/* Micro Trust Metrics in Black, White & Light Green (Crisp & Sharp) */}
           <div className="grid grid-cols-3 gap-4 pt-4 border-t border-white/10 max-w-lg">
             <div>
-              <div className="font-display font-extrabold text-2xl text-[#6ee7b7] drop-shadow-[0_2px_8px_rgba(110,231,183,0.25)]">4+</div>
-              <div className="text-[11px] font-mono text-zinc-400 tracking-wider">PROJECT POCs</div>
+              <div className="font-display font-extrabold text-2xl text-[#6ee7b7] drop-shadow-[0_2px_8px_rgba(110,231,183,0.25)]">POC</div>
+              <div className="text-[11px] font-mono text-zinc-400 tracking-wider">POINT OF CONTACT</div>
             </div>
             <div>
               <div className="font-display font-extrabold text-2xl text-white">100%</div>
               <div className="text-[11px] font-mono text-zinc-400 tracking-wider">DEFECT RESOLUTION</div>
             </div>
             <div>
-              <div className="font-display font-extrabold text-2xl text-[#6ee7b7] drop-shadow-[0_2px_8px_rgba(110,231,183,0.25)]">UAE 1M</div>
-              <div className="text-[11px] font-mono text-zinc-400 tracking-wider">PROMPTERS CERTIFIED</div>
+              <div className="font-display font-extrabold text-lg sm:text-2xl text-[#6ee7b7] drop-shadow-[0_2px_8px_rgba(110,231,183,0.25)] whitespace-nowrap">VIBE CODER</div>
+              <div className="text-[11px] font-mono text-zinc-400 tracking-wider">AI-ASSISTED DEV</div>
             </div>
           </div>
         </div>

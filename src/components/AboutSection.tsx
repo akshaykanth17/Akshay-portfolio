@@ -61,7 +61,7 @@ export const AboutSection: React.FC = () => {
               "Quality is never an accident; it is always the result of high intention, sincere effort, intelligent direction, and skillful execution."
             </p>
             <p>
-              I am an <strong className="text-white font-semibold">MCA graduate, Test Engineer, and AI-Assisted Developer</strong> based in Dubai with dedicated QA experience. Having served as the Point of Contact for four major features at SIDE, Bangalore, I specialize in bridging the gap between bulletproof quality assurance and forward-looking software development.
+              I am an <strong className="text-white font-semibold">MCA graduate, Test Engineer, and AI-Assisted Developer</strong> based in Dubai with dedicated QA experience. Having served as the Point of Contact at SIDE, Bangalore, I specialize in bridging the gap between bulletproof quality assurance and forward-looking software development.
             </p>
             <p>
               My background spans complete testing lifecycles across <span className="text-[#6ee7b7] font-medium">Android and iOS mobile applications</span>, executing functional, regression, smoke, sanity, exploratory, and User Acceptance Testing (UAT). Every edge case matters. Every defect documented in JIRA is an opportunity to fortify software stability and elevate end-user satisfaction.
