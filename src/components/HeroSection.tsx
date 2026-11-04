@@ -12,6 +12,7 @@ const roles = [
 export const HeroSection: React.FC = () => {
   const [roleIndex, setRoleIndex] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isPortraitHovered, setIsPortraitHovered] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
 
   // Cycling roles interval
@@ -196,20 +197,47 @@ export const HeroSection: React.FC = () => {
               transition: 'transform 0.15s ease-out',
             }}
           >
-            {/* The Real Portrait Image */}
-            <div className="relative w-full h-full rounded-2xl overflow-hidden bg-zinc-950">
+            {/* The Portrait Image with Interactive B&W to Color & Glitch Effect */}
+            <div
+              onMouseEnter={() => setIsPortraitHovered(true)}
+              onMouseLeave={() => setIsPortraitHovered(false)}
+              className="portrait-glitch-box group/portrait cursor-crosshair"
+            >
+              {/* Base Image: Black & White by default, transitions to color when mouse goes through */}
               <img
                 src={portraitImg}
                 alt="Akshay Kanth C — Test Engineer and AI-Assisted Developer"
-                className="w-full h-full object-cover object-top filter brightness-[1.02] contrast-[1.04] group-hover:scale-105 transition-transform duration-700 ease-out"
+                className="portrait-img-main"
                 loading="eager"
               />
 
+              {/* Glitch Slice 1: Chromatic Aberration Red/Magenta */}
+              <img
+                src={portraitImg}
+                alt=""
+                aria-hidden="true"
+                className="glitch-layer glitch-layer-red"
+              />
+
+              {/* Glitch Slice 2: Chromatic Aberration Cyan/Ice-Blue */}
+              <img
+                src={portraitImg}
+                alt=""
+                aria-hidden="true"
+                className="glitch-layer glitch-layer-cyan"
+              />
+
+              {/* CRT / Hologram Scanlines Overlay on Hover */}
+              <div className="glitch-scanlines" />
+
+              {/* Sweeping Laser Scanner Beam on Hover */}
+              <div className="glitch-laser" />
+
               {/* Cinematic Vignette & Bottom Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#060709] via-transparent to-transparent opacity-80" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#060709] via-transparent to-transparent opacity-85 pointer-events-none z-10" />
 
               {/* Floating Badge: Ability Card in Black and Grey */}
-              <div className="absolute bottom-5 left-5 right-5 p-3.5 rounded-xl bg-zinc-950/90 backdrop-blur-xl border border-white/15 flex items-center justify-between shadow-2xl">
+              <div className="absolute bottom-5 left-5 right-5 p-3.5 rounded-xl bg-zinc-950/90 backdrop-blur-xl border border-white/15 flex items-center justify-between shadow-2xl z-20 transition-all duration-300">
                 <div>
                   <div className="flex items-center gap-1.5 text-xs font-bold text-white">
                     <ShieldCheck className="w-4 h-4 text-neutral-300" />
@@ -219,8 +247,8 @@ export const HeroSection: React.FC = () => {
                     Test Engineer &bull; AI-Assisted Developer
                   </div>
                 </div>
-                <span className="px-2.5 py-1 rounded-full bg-white/10 border border-white/20 text-[10px] font-mono text-zinc-300">
-                  DUBAI, UAE
+                <span className="px-2.5 py-1 rounded-full bg-white/10 border border-white/20 text-[10px] font-mono text-zinc-300 transition-colors">
+                  {isPortraitHovered ? 'RGB ACTIVE' : 'DUBAI, UAE'}
                 </span>
               </div>
             </div>
