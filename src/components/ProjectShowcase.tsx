@@ -6,7 +6,6 @@ import {
   Cpu, 
   CheckCircle, 
   ChevronRight,
-  Lock,
   X,
   ExternalLink
 } from 'lucide-react';
@@ -28,7 +27,7 @@ interface Project {
     database: string;
     devopsAi: string;
   };
-  mockupType: 'mobile-app' | 'browser-agent';
+  mockupType?: 'browser-agent';
 }
 
 const projects: Project[] = [
@@ -60,7 +59,7 @@ const projects: Project[] = [
     features: [
       'Real-Time Messaging: Instant socket synchronization with typing status and receipt acknowledgment.',
       'Asynchronous Background Queues: BullMQ + Redis pipeline for email dispatch, notifications, and media processing.',
-      'Gesture UI: Fluid Tinder-style card swiping, drag interactions, and spring physics powered by Framer Motion.',
+      'Fluid Gesture Engine: Natural touch and drag interactions, smooth transitions, and spring physics powered by Framer Motion.',
       'Image Optimization: Automated image pipeline using Sharp for EXIF metadata sanitization and responsive webp resizing.',
       'Enterprise Security: Firebase Auth with custom JWT claims, bcrypt, Zod schema validation, and rate limiting.'
     ],
@@ -69,8 +68,7 @@ const projects: Project[] = [
       backend: 'Node.js, Express, Socket.IO, BullMQ, Redis',
       database: 'PostgreSQL with Prisma ORM migrations',
       devopsAi: 'Google Antigravity AI, Docker Compose, Render CI/CD'
-    },
-    mockupType: 'mobile-app'
+    }
   },
   {
     id: 'ai-tester',
@@ -221,67 +219,59 @@ export const ProjectShowcase: React.FC = () => {
               </div>
 
               {/* Device / Interactive Visual Column (5 cols) */}
-              <div className="lg:col-span-5 flex justify-center items-center z-10">
-                {project.mockupType === 'mobile-app' ? (
-                  /* Phone Mockup for HeartSync */
-                  <div className="relative w-full max-w-[280px] sm:max-w-[320px] aspect-[9/19] rounded-[42px] p-3 bg-gradient-to-b from-slate-700 via-slate-900 to-black border-[3px] border-slate-700 shadow-[0_25px_60px_rgba(0,0,0,0.9)] transform-style-3d group-hover:rotate-1 transition-transform duration-500">
-                    {/* Speaker notch */}
-                    <div className="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-4 bg-black rounded-full z-20 flex items-center justify-center">
-                      <div className="w-3 h-3 rounded-full bg-slate-900 border border-slate-800" />
-                    </div>
-
-                    {/* Screen Content */}
-                    <div className="w-full h-full rounded-[32px] overflow-hidden bg-slate-950 flex flex-col justify-between p-4 relative border border-white/5">
-                      {/* App Header */}
-                      <div className="pt-6 pb-2 flex items-center justify-between border-b border-white/10">
-                        <div className="flex items-center gap-2">
-                          <div className="w-6 h-6 rounded-full bg-zinc-700 border border-white/20 flex items-center justify-center text-[10px] font-black text-white">
-                            ♥
-                          </div>
-                          <span className="font-display font-bold text-xs text-white">HeartSync</span>
-                        </div>
-                        <span className="text-[9px] font-mono text-zinc-300 bg-white/10 px-2 py-0.5 rounded-full border border-white/15">
-                          Socket.IO Live
+              <div className="lg:col-span-5 flex justify-center items-center z-10 w-full">
+                {project.id === 'heartsync' ? (
+                  /* Verified Subsystem Architecture Card for HeartSync */
+                  <div className="w-full max-w-[440px] rounded-2xl bg-zinc-950/90 border border-white/15 p-5 sm:p-6 shadow-[0_25px_60px_rgba(0,0,0,0.9)] space-y-4">
+                    <div className="flex items-center justify-between pb-3 border-b border-white/10">
+                      <div className="flex items-center gap-2">
+                        <Layers className="w-4 h-4 text-[#6ee7b7]" />
+                        <span className="font-mono text-xs uppercase tracking-wider text-white font-semibold">
+                          Subsystem Architecture
                         </span>
                       </div>
+                      <span className="text-[10px] font-mono text-[#6ee7b7] bg-[#6ee7b7]/10 px-2.5 py-0.5 rounded-full border border-[#6ee7b7]/20 flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#6ee7b7] animate-pulse inline-block" />
+                        Verified Stack
+                      </span>
+                    </div>
 
-                      {/* Mockup Body: Social Profile Card */}
-                      <div className="my-auto py-2 flex flex-col items-center text-center">
-                        <div className="w-full aspect-[4/5] rounded-2xl bg-gradient-to-br from-zinc-800 via-zinc-900 to-black p-4 border border-white/10 flex flex-col justify-end text-left relative overflow-hidden shadow-inner">
-                          <div className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-md text-[9px] font-mono text-zinc-300">
-                            2.4 km away
-                          </div>
-                          <div className="w-12 h-12 rounded-full bg-zinc-800 border border-zinc-700 mb-2 flex items-center justify-center text-xl">
-                            👋
-                          </div>
-                          <h4 className="font-display font-bold text-sm text-white">Sophia, 24</h4>
-                          <p className="text-[10px] text-zinc-400 line-clamp-2">
-                            Software engineer passionate about AI models &amp; cafe hopping.
-                          </p>
-                          <div className="flex gap-1 mt-2">
-                            <span className="px-1.5 py-0.5 rounded bg-white/10 text-[8px] text-zinc-300">Design</span>
-                            <span className="px-1.5 py-0.5 rounded bg-white/10 text-[8px] text-zinc-300">AI</span>
-                            <span className="px-1.5 py-0.5 rounded bg-white/10 text-[8px] text-zinc-300">Music</span>
-                          </div>
-                        </div>
-
-                        {/* Gesture buttons */}
-                        <div className="flex items-center justify-center gap-4 mt-3">
-                          <div className="w-10 h-10 rounded-full bg-zinc-900 border border-white/10 flex items-center justify-center text-zinc-400 text-xs font-bold shadow-lg">
-                            ✕
-                          </div>
-                          <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-zinc-700 to-zinc-900 border border-white/20 flex items-center justify-center text-white text-base font-bold shadow-lg">
-                            ♥
-                          </div>
-                          <div className="w-10 h-10 rounded-full bg-zinc-900 border border-white/10 flex items-center justify-center text-zinc-300 text-xs font-bold shadow-lg">
-                            ★
-                          </div>
-                        </div>
+                    <div className="grid grid-cols-2 gap-2.5 text-xs font-mono">
+                      <div className="p-3 rounded-xl bg-white/5 border border-white/5">
+                        <span className="text-[10px] text-zinc-400 block mb-1">FRONTEND LAYER</span>
+                        <span className="text-white font-semibold text-xs leading-tight block">React 18 &bull; Vite &bull; Framer</span>
                       </div>
+                      <div className="p-3 rounded-xl bg-white/5 border border-white/5">
+                        <span className="text-[10px] text-zinc-400 block mb-1">BACKEND ENGINE</span>
+                        <span className="text-white font-semibold text-xs leading-tight block">Node.js &bull; Express &bull; Socket.IO</span>
+                      </div>
+                      <div className="p-3 rounded-xl bg-white/5 border border-white/5">
+                        <span className="text-[10px] text-zinc-400 block mb-1">ASYNC QUEUES</span>
+                        <span className="text-white font-semibold text-xs leading-tight block">BullMQ &bull; Redis Pipelines</span>
+                      </div>
+                      <div className="p-3 rounded-xl bg-white/5 border border-white/5">
+                        <span className="text-[10px] text-zinc-400 block mb-1">DATA PERSISTENCE</span>
+                        <span className="text-white font-semibold text-xs leading-tight block">PostgreSQL &bull; Prisma ORM</span>
+                      </div>
+                    </div>
 
-                      {/* App Footer */}
-                      <div className="pt-2 text-center text-[9px] font-mono text-zinc-400 border-t border-white/5">
-                        Interactive Gesture UI &bull; Conceptual Mockup
+                    <div className="pt-2 border-t border-white/10 space-y-2">
+                      <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider">
+                        Production Specifications
+                      </div>
+                      <div className="space-y-1.5">
+                        <div className="flex items-center justify-between p-2 rounded-lg bg-black/50 border border-white/5 text-[11px] font-mono">
+                          <span className="text-zinc-400">Socket Protocol</span>
+                          <span className="text-zinc-200 font-semibold">Low-Latency WSS</span>
+                        </div>
+                        <div className="flex items-center justify-between p-2 rounded-lg bg-black/50 border border-white/5 text-[11px] font-mono">
+                          <span className="text-zinc-400">Security &amp; Auth</span>
+                          <span className="text-zinc-200 font-semibold">Firebase + Custom JWT</span>
+                        </div>
+                        <div className="flex items-center justify-between p-2 rounded-lg bg-black/50 border border-white/5 text-[11px] font-mono">
+                          <span className="text-zinc-400">Media Pipeline</span>
+                          <span className="text-zinc-200 font-semibold">Sharp EXIF Sanitization</span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -296,8 +286,8 @@ export const ProjectShowcase: React.FC = () => {
                         <div className="w-2.5 h-2.5 rounded-full bg-zinc-400" />
                       </div>
                       <div className="px-3 py-1 rounded bg-black/60 text-[10px] font-mono text-zinc-300 border border-white/10 flex items-center gap-1.5">
-                        <Lock className="w-2.5 h-2.5 text-zinc-400" />
-                        <span>localhost:8501/stream-agent</span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#6ee7b7] animate-pulse inline-block" />
+                        <span>AI QA ENGINE ACTIVE</span>
                       </div>
                       <div className="w-4" />
                     </div>
@@ -349,7 +339,7 @@ export const ProjectShowcase: React.FC = () => {
                       </div>
 
                       <div className="text-center text-[9px] text-zinc-400 pt-1">
-                        Playwright &bull; OpenAI &bull; Streamlit Mockup
+                        Playwright &bull; OpenAI &bull; Streamlit Engine
                       </div>
                     </div>
                   </div>
