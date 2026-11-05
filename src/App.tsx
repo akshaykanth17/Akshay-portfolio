@@ -4,7 +4,6 @@ import { CinematicIntro } from './components/CinematicIntro';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { DoorSection } from './components/DoorSection';
-import { AboutSection } from './components/AboutSection';
 import { ExperienceTimeline } from './components/ExperienceTimeline';
 import { ProjectShowcase } from './components/ProjectShowcase';
 import { SkillsConstellation } from './components/SkillsConstellation';
@@ -45,11 +44,8 @@ export const App: React.FC = () => {
       {/* Chapter 02: Immersive Hero */}
       <HeroSection />
 
-      {/* Chapter 03: Signature 3D Door Portal */}
+      {/* Chapter 03 & 04: Signature 3D Door Portal & About Sanctuary */}
       <DoorSection />
-
-      {/* Chapter 04: About The Person Behind The Code */}
-      <AboutSection />
 
       {/* Chapter 05: Scroll-Driven Experience Timeline */}
       <ExperienceTimeline />

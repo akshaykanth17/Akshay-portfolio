@@ -47,9 +47,17 @@ export const Navbar: React.FC = () => {
 
   const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
+    if (href === '#about') {
+      const doorSection = document.querySelector('#doors') || document.querySelector('#about');
+      if (doorSection) {
+        doorSection.scrollIntoView({ behavior: 'smooth' });
+        window.dispatchEvent(new CustomEvent('open-door-sanctuary'));
+      }
+    } else {
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
     }
     setMobileMenuOpen(false);
   };
