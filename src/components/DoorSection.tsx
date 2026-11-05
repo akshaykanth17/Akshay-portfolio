@@ -94,77 +94,80 @@ function createPlaqueTexture(): THREE.CanvasTexture {
 function createFrontStationTexture(): THREE.CanvasTexture {
   const canvas = document.createElement('canvas');
   canvas.width = 1024;
-  canvas.height = 1100;
+  canvas.height = 1120;
   const ctx = canvas.getContext('2d');
   if (ctx) {
     // Glass panel background
-    const bgGrad = ctx.createLinearGradient(0, 0, 1024, 1100);
+    const bgGrad = ctx.createLinearGradient(0, 0, 1024, 1120);
     bgGrad.addColorStop(0, '#0c0e14');
     bgGrad.addColorStop(1, '#07080c');
     ctx.fillStyle = bgGrad;
-    ctx.fillRect(0, 0, 1024, 1100);
+    ctx.fillRect(0, 0, 1024, 1120);
 
-    // Glowing double border (light mint & white)
+    // Outer & inner luminous borders with generous border margins
     ctx.strokeStyle = 'rgba(110, 231, 183, 0.7)';
     ctx.lineWidth = 4;
-    ctx.strokeRect(12, 12, 1000, 1076);
+    ctx.strokeRect(20, 20, 984, 1080);
 
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.14)';
     ctx.lineWidth = 2;
-    ctx.strokeRect(26, 26, 972, 1048);
+    ctx.strokeRect(34, 34, 956, 1052);
+
+    const leftX = 70;
+    const contentW = 884;
 
     // Top Category Pill
     ctx.fillStyle = 'rgba(110, 231, 183, 0.12)';
-    ctx.fillRect(48, 48, 380, 42);
+    ctx.fillRect(leftX, 60, 360, 42);
     ctx.strokeStyle = '#6ee7b7';
     ctx.lineWidth = 1.5;
-    ctx.strokeRect(48, 48, 380, 42);
+    ctx.strokeRect(leftX, 60, 360, 42);
     ctx.fillStyle = '#6ee7b7';
     ctx.font = 'bold 18px "JetBrains Mono", monospace';
     ctx.textAlign = 'left';
-    ctx.fillText('> CHAPTER 04 • PHILOSOPHY', 68, 75);
+    ctx.fillText('> CHAPTER 04 • PHILOSOPHY', leftX + 18, 87);
 
     // Location Chip
     ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
-    ctx.fillRect(800, 48, 170, 42);
+    ctx.fillRect(leftX + contentW - 170, 60, 170, 42);
     ctx.fillStyle = '#e4e4e7';
     ctx.font = 'bold 16px "JetBrains Mono", monospace';
     ctx.textAlign = 'center';
-    ctx.fillText('DUBAI, UAE', 885, 75);
+    ctx.fillText('DUBAI, UAE', leftX + contentW - 85, 87);
 
     // Name Headline
     ctx.textAlign = 'left';
     ctx.fillStyle = '#ffffff';
-    ctx.font = '900 62px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText('AKSHAY KANTH C', 48, 170);
+    ctx.font = '900 56px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('AKSHAY KANTH C', leftX, 170);
 
     // Role Subtitle
     ctx.fillStyle = '#6ee7b7';
-    ctx.font = 'bold 26px "JetBrains Mono", monospace';
-    ctx.fillText('TEST ENGINEER  •  AI-ASSISTED DEVELOPER', 48, 220);
+    ctx.font = 'bold 24px "JetBrains Mono", monospace';
+    ctx.fillText('TEST ENGINEER  •  AI-ASSISTED DEVELOPER', leftX, 216);
 
     // Divider
     ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
     ctx.beginPath();
-    ctx.moveTo(48, 250);
-    ctx.lineTo(976, 250);
+    ctx.moveTo(leftX, 244);
+    ctx.lineTo(leftX + contentW, 244);
     ctx.stroke();
 
     // Philosophy Quote with Red Accent Bar (matching red door)
     ctx.fillStyle = '#ef4444';
-    ctx.fillRect(48, 280, 6, 95);
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.03)';
-    ctx.fillRect(58, 280, 918, 95);
+    ctx.fillRect(leftX, 272, 6, 92);
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.035)';
+    ctx.fillRect(leftX + 10, 272, contentW - 10, 92);
     ctx.fillStyle = '#f4f4f5';
-    ctx.font = 'italic 23px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText('"Quality is never an accident; it is always the result of', 78, 320);
-    ctx.fillText('sincere effort, intelligent direction, and skillful execution."', 78, 355);
+    ctx.font = 'italic 21px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('"Quality is never an accident; it is always the result of', leftX + 30, 310);
+    ctx.fillText('sincere effort, intelligent direction, and skillful execution."', leftX + 30, 345);
 
     // 3 Experience Cards
     const cards = [
       {
         tag: '🎯 FEATURE POINT OF CONTACT (POC)',
-        title: 'SIDE, Bangalore &bull; Feature QA Lead',
+        title: 'SIDE, Bangalore • Feature QA Lead',
         desc: 'Selected as QA Point of Contact for 4 major features, managing defect triage with dev teams.',
       },
       {
@@ -180,34 +183,35 @@ function createFrontStationTexture(): THREE.CanvasTexture {
     ];
 
     cards.forEach((c, idx) => {
-      const y = 410 + idx * 160;
+      const y = 395 + idx * 175;
       ctx.fillStyle = 'rgba(255, 255, 255, 0.04)';
-      ctx.fillRect(48, y, 928, 135);
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
-      ctx.strokeRect(48, y, 928, 135);
+      ctx.fillRect(leftX, y, contentW, 150);
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(leftX, y, contentW, 150);
 
       ctx.fillStyle = '#6ee7b7';
       ctx.font = 'bold 16px "JetBrains Mono", monospace';
-      ctx.fillText(c.tag, 75, y + 36);
+      ctx.fillText(c.tag, leftX + 24, y + 36);
 
       ctx.fillStyle = '#ffffff';
       ctx.font = 'bold 22px "Plus Jakarta Sans", sans-serif';
-      ctx.fillText(c.title.replace('&bull;', '•'), 75, y + 72);
+      ctx.fillText(c.title, leftX + 24, y + 74);
 
       ctx.fillStyle = '#a1a1aa';
-      ctx.font = '400 18px "Plus Jakarta Sans", sans-serif';
-      ctx.fillText(c.desc, 75, y + 106);
+      ctx.font = '400 17px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText(c.desc, leftX + 24, y + 112);
     });
 
     // Bottom Status Strip
     ctx.fillStyle = 'rgba(110, 231, 183, 0.1)';
-    ctx.fillRect(48, 930, 928, 70);
+    ctx.fillRect(leftX, 955, contentW, 64);
     ctx.strokeStyle = 'rgba(110, 231, 183, 0.3)';
-    ctx.strokeRect(48, 930, 928, 70);
+    ctx.strokeRect(leftX, 955, contentW, 64);
 
     ctx.fillStyle = '#6ee7b7';
-    ctx.font = 'bold 20px "JetBrains Mono", monospace';
-    ctx.fillText('• STATION 01 : IDENTITY & QA PHILOSOPHY VERIFIED •', 75, 972);
+    ctx.font = 'bold 18px "JetBrains Mono", monospace';
+    ctx.fillText('• STATION 01 : IDENTITY & QA PHILOSOPHY VERIFIED •', leftX + 24, 995);
   }
   const texture = new THREE.CanvasTexture(canvas);
   texture.minFilter = THREE.LinearFilter;
@@ -222,47 +226,50 @@ function createFrontStationTexture(): THREE.CanvasTexture {
 function createBackStationTexture(): THREE.CanvasTexture {
   const canvas = document.createElement('canvas');
   canvas.width = 1024;
-  canvas.height = 1100;
+  canvas.height = 1120;
   const ctx = canvas.getContext('2d');
   if (ctx) {
-    const bgGrad = ctx.createLinearGradient(0, 0, 1024, 1100);
+    const bgGrad = ctx.createLinearGradient(0, 0, 1024, 1120);
     bgGrad.addColorStop(0, '#0c0e14');
     bgGrad.addColorStop(1, '#07080c');
     ctx.fillStyle = bgGrad;
-    ctx.fillRect(0, 0, 1024, 1100);
+    ctx.fillRect(0, 0, 1024, 1120);
 
     ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
     ctx.lineWidth = 4;
-    ctx.strokeRect(12, 12, 1000, 1076);
+    ctx.strokeRect(20, 20, 984, 1080);
 
     ctx.strokeStyle = 'rgba(110, 231, 183, 0.3)';
     ctx.lineWidth = 2;
-    ctx.strokeRect(26, 26, 972, 1048);
+    ctx.strokeRect(34, 34, 956, 1052);
+
+    const leftX = 70;
+    const contentW = 884;
 
     // Top Category Pill
     ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
-    ctx.fillRect(48, 48, 440, 42);
+    ctx.fillRect(leftX, 60, 420, 42);
     ctx.strokeStyle = '#ffffff';
     ctx.lineWidth = 1.5;
-    ctx.strokeRect(48, 48, 440, 42);
+    ctx.strokeRect(leftX, 60, 420, 42);
     ctx.fillStyle = '#ffffff';
     ctx.font = 'bold 18px "JetBrains Mono", monospace';
     ctx.textAlign = 'left';
-    ctx.fillText('> CHAPTER 04 • CORE CAPABILITIES', 68, 75);
+    ctx.fillText('> CHAPTER 04 • CORE CAPABILITIES', leftX + 18, 87);
 
     // Title Headline
     ctx.fillStyle = '#ffffff';
-    ctx.font = '900 56px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText('QA RIGOR & 4 PILLARS', 48, 160);
+    ctx.font = '900 54px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('QA RIGOR & 4 PILLARS', leftX, 170);
 
     ctx.fillStyle = '#6ee7b7';
     ctx.font = 'bold 24px "JetBrains Mono", monospace';
-    ctx.fillText('SYSTEMATIC VERIFICATION & DEV VELOCITY', 48, 205);
+    ctx.fillText('SYSTEMATIC VERIFICATION & DEV VELOCITY', leftX, 216);
 
     ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
     ctx.beginPath();
-    ctx.moveTo(48, 235);
-    ctx.lineTo(976, 235);
+    ctx.moveTo(leftX, 244);
+    ctx.lineTo(leftX + contentW, 244);
     ctx.stroke();
 
     // 4 Pillars Matrix
@@ -293,19 +300,21 @@ function createBackStationTexture(): THREE.CanvasTexture {
       },
     ];
 
+    const gap = 20;
+    const cardW = (contentW - gap) / 2; // 432px
+    const cardH = 320;
+
     pillars.forEach((p, idx) => {
       const col = idx % 2;
       const row = Math.floor(idx / 2);
-      const x = 48 + col * 474;
-      const y = 265 + row * 315;
-      const w = 454;
-      const h = 285;
+      const x = leftX + col * (cardW + gap);
+      const y = 275 + row * (cardH + 20);
 
       ctx.fillStyle = 'rgba(255, 255, 255, 0.04)';
-      ctx.fillRect(x, y, w, h);
-      ctx.strokeStyle = p.accent === '#6ee7b7' ? 'rgba(110, 231, 183, 0.4)' : 'rgba(255, 255, 255, 0.2)';
+      ctx.fillRect(x, y, cardW, cardH);
+      ctx.strokeStyle = p.accent === '#6ee7b7' ? 'rgba(110, 231, 183, 0.4)' : 'rgba(255, 255, 255, 0.18)';
       ctx.lineWidth = 1.5;
-      ctx.strokeRect(x, y, w, h);
+      ctx.strokeRect(x, y, cardW, cardH);
 
       // Pill Number Badge
       ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
@@ -316,18 +325,18 @@ function createBackStationTexture(): THREE.CanvasTexture {
 
       // Title
       ctx.fillStyle = '#ffffff';
-      ctx.font = 'bold 22px "Plus Jakarta Sans", sans-serif';
+      ctx.font = 'bold 21px "Plus Jakarta Sans", sans-serif';
       ctx.fillText(p.title, x + 20, y + 95);
 
       // Description
       ctx.fillStyle = '#a1a1aa';
-      ctx.font = '400 18px "Plus Jakarta Sans", sans-serif';
+      ctx.font = '400 17px "Plus Jakarta Sans", sans-serif';
       const words = p.desc.split(' ');
       let line = '';
       let lineY = y + 140;
       for (let i = 0; i < words.length; i++) {
         const testLine = line + words[i] + ' ';
-        if (ctx.measureText(testLine).width > w - 40 && i > 0) {
+        if (ctx.measureText(testLine).width > cardW - 38 && i > 0) {
           ctx.fillText(line, x + 20, lineY);
           line = words[i] + ' ';
           lineY += 28;
@@ -340,13 +349,13 @@ function createBackStationTexture(): THREE.CanvasTexture {
 
     // Bottom Verification Strip
     ctx.fillStyle = 'rgba(110, 231, 183, 0.1)';
-    ctx.fillRect(48, 930, 928, 70);
+    ctx.fillRect(leftX, 955, contentW, 64);
     ctx.strokeStyle = 'rgba(110, 231, 183, 0.3)';
-    ctx.strokeRect(48, 930, 928, 70);
+    ctx.strokeRect(leftX, 955, contentW, 64);
 
     ctx.fillStyle = '#6ee7b7';
-    ctx.font = 'bold 20px "JetBrains Mono", monospace';
-    ctx.fillText('• STATION 02 : 100% DEFECT RESOLUTION STANDARDS •', 75, 972);
+    ctx.font = 'bold 18px "JetBrains Mono", monospace';
+    ctx.fillText('• STATION 02 : 100% DEFECT RESOLUTION STANDARDS •', leftX + 24, 995);
   }
   const texture = new THREE.CanvasTexture(canvas);
   texture.minFilter = THREE.LinearFilter;
@@ -428,25 +437,35 @@ export const DoorSection: React.FC = () => {
     particles: THREE.Points;
   } | null>(null);
 
-  // Direct Station Jump Handler
+  // Direct Station Jump Handler (Perfect Framing, No Cutoff)
   const handleGoToStation = (stationNum: 1 | 2) => {
     if (!sceneRef.current) return;
     const { camera } = sceneRef.current;
     if (stationNum === 1) {
       gsap.to(camera.position, {
-        x: 0.25,
-        y: 0.12,
-        z: -2.0,
+        x: 0.0,
+        y: 0.0,
+        z: -1.4,
         duration: 1.2,
         ease: 'power2.out',
       });
+      gsap.to(camera, {
+        fov: 46,
+        duration: 1.2,
+        onUpdate: () => camera.updateProjectionMatrix(),
+      });
     } else {
       gsap.to(camera.position, {
-        x: -0.25,
-        y: 0.12,
-        z: -6.5,
+        x: 0.0,
+        y: 0.0,
+        z: -5.8,
         duration: 1.2,
         ease: 'power2.out',
+      });
+      gsap.to(camera, {
+        fov: 46,
+        duration: 1.2,
+        onUpdate: () => camera.updateProjectionMatrix(),
       });
     }
   };
@@ -491,11 +510,11 @@ export const DoorSection: React.FC = () => {
       gsap.to((lightBeam.material as THREE.MeshBasicMaterial), { opacity: 0.32, duration: 1.2, delay: 0.15 });
       gsap.to((floorSpillMesh.material as THREE.MeshBasicMaterial), { opacity: 0.28, duration: 1.2, delay: 0.15 });
 
-      // Camera steps into corridor and frames Station 1 (Front) first!
+      // Camera steps into corridor and frames Station 1 (Front) perfectly (no cutoff!)
       gsap.to(camera.position, {
-        x: 0.25,
-        y: 0.12,
-        z: -2.0,
+        x: 0.0,
+        y: 0.0,
+        z: -1.4,
         duration: 1.5,
         ease: 'power2.inOut',
         delay: 0.08,
@@ -505,7 +524,7 @@ export const DoorSection: React.FC = () => {
       });
 
       gsap.to(camera, {
-        fov: 47,
+        fov: 46,
         duration: 1.5,
         onUpdate: () => camera.updateProjectionMatrix(),
       });
@@ -955,15 +974,15 @@ export const DoorSection: React.FC = () => {
     // 3D ABOUT STATIONS: ONE ON THE FRONT (LEFT), ONE ON THE BACK (RIGHT)
     // ===============================================================
 
-    // 1. FRONT 3D STATION: IDENTITY & PHILOSOPHY (z = -3.2)
+    // 1. FRONT 3D STATION: IDENTITY & PHILOSOPHY (z = -3.8)
     const frontStationGroup = new THREE.Group();
-    frontStationGroup.position.set(-1.40, 0.15, -3.2);
+    frontStationGroup.position.set(-0.88, -0.06, -3.8);
     frontStationGroup.rotation.y = 0.22; // Angled inward to corridor aisle
     scene.add(frontStationGroup);
 
     const frontTex = createFrontStationTexture();
     const frontStationBacking = new THREE.Mesh(
-      new THREE.BoxGeometry(2.36, 2.52, 0.04),
+      new THREE.BoxGeometry(1.39, 1.50, 0.03),
       new THREE.MeshStandardMaterial({
         color: 0x10121a,
         roughness: 0.25,
@@ -973,7 +992,7 @@ export const DoorSection: React.FC = () => {
     frontStationGroup.add(frontStationBacking);
 
     const frontStationPlane = new THREE.Mesh(
-      new THREE.PlaneGeometry(2.3, 2.46),
+      new THREE.PlaneGeometry(1.35, 1.46),
       new THREE.MeshBasicMaterial({
         map: frontTex,
         transparent: true,
@@ -981,18 +1000,18 @@ export const DoorSection: React.FC = () => {
         depthWrite: true,
       })
     );
-    frontStationPlane.position.set(0, 0, 0.025);
+    frontStationPlane.position.set(0, 0, 0.02);
     frontStationGroup.add(frontStationPlane);
 
-    // 2. BACK 3D STATION: CORE CAPABILITIES & 4 PILLARS (z = -8.0)
+    // 2. BACK 3D STATION: CORE CAPABILITIES & 4 PILLARS (z = -8.2)
     const backStationGroup = new THREE.Group();
-    backStationGroup.position.set(1.40, 0.15, -8.0);
+    backStationGroup.position.set(0.88, -0.06, -8.2);
     backStationGroup.rotation.y = -0.22; // Angled inward to corridor aisle
     scene.add(backStationGroup);
 
     const backTex = createBackStationTexture();
     const backStationBacking = new THREE.Mesh(
-      new THREE.BoxGeometry(2.36, 2.52, 0.04),
+      new THREE.BoxGeometry(1.39, 1.50, 0.03),
       new THREE.MeshStandardMaterial({
         color: 0x10121a,
         roughness: 0.25,
@@ -1002,7 +1021,7 @@ export const DoorSection: React.FC = () => {
     backStationGroup.add(backStationBacking);
 
     const backStationPlane = new THREE.Mesh(
-      new THREE.PlaneGeometry(2.3, 2.46),
+      new THREE.PlaneGeometry(1.35, 1.46),
       new THREE.MeshBasicMaterial({
         map: backTex,
         transparent: true,
@@ -1010,7 +1029,7 @@ export const DoorSection: React.FC = () => {
         depthWrite: true,
       })
     );
-    backStationPlane.position.set(0, 0, 0.025);
+    backStationPlane.position.set(0, 0, 0.02);
     backStationGroup.add(backStationPlane);
 
     // Volumetric Light Beam
@@ -1092,10 +1111,10 @@ export const DoorSection: React.FC = () => {
         portalCore.rotation.y = elapsed * 0.6;
       }
       if (frontStationGroup) {
-        frontStationGroup.position.y = 0.15 + Math.sin(elapsed * 1.4) * 0.03;
+        frontStationGroup.position.y = -0.06 + Math.sin(elapsed * 1.4) * 0.015;
       }
       if (backStationGroup) {
-        backStationGroup.position.y = 0.15 + Math.cos(elapsed * 1.4) * 0.03;
+        backStationGroup.position.y = -0.06 + Math.cos(elapsed * 1.4) * 0.015;
       }
       if (particles) {
         particles.rotation.y = elapsed * 0.02;
@@ -1109,8 +1128,8 @@ export const DoorSection: React.FC = () => {
         setIsInsideSanctuary(isActuallyInside);
       }
 
-      // Track active station based on camera Z depth
-      const currentStation = camera.position.z > -4.5 ? 1 : 2;
+      // Track active station based on camera Z depth (midpoint at z = -3.8)
+      const currentStation = camera.position.z > -3.8 ? 1 : 2;
       setActiveStation((prev) => (prev !== currentStation ? currentStation : prev));
 
       renderer.render(scene, camera);
@@ -1193,15 +1212,15 @@ export const DoorSection: React.FC = () => {
 
       // Stage 4: Camera dollies across threshold to Station 1 (Front) (2.50 -> 4.80)
       tl.to(camera.position, {
-        x: 0.25,
-        y: 0.12,
-        z: -2.0,
+        x: 0.0,
+        y: 0.0,
+        z: -1.4,
         ease: 'power1.inOut',
         duration: 2.3,
       }, 2.5);
 
       tl.to(camera, {
-        fov: 47,
+        fov: 46,
         onUpdate: () => camera.updateProjectionMatrix(),
         duration: 2.3,
       }, 2.5);
@@ -1209,24 +1228,24 @@ export const DoorSection: React.FC = () => {
       // Stage 5: Slow reading plateau for Station 1 (Front) (4.80 -> 6.20)
       // Generous scroll room for the user to comfortably read Station 1
       tl.to(camera.position, {
-        x: 0.18,
-        y: 0.12,
-        z: -2.7,
+        x: 0.0,
+        y: 0.0,
+        z: -2.2,
         ease: 'linear',
         duration: 1.4,
       }, 4.8);
 
       // Stage 6: Camera glides down corridor from Station 1 to Station 2 (Back) (6.20 -> 8.50)
       tl.to(camera.position, {
-        x: -0.25,
-        y: 0.12,
-        z: -6.5,
+        x: 0.0,
+        y: 0.0,
+        z: -5.8,
         ease: 'power1.inOut',
         duration: 2.3,
       }, 6.2);
 
       tl.to(camera, {
-        fov: 48,
+        fov: 46,
         onUpdate: () => camera.updateProjectionMatrix(),
         duration: 2.3,
       }, 6.2);
@@ -1234,17 +1253,17 @@ export const DoorSection: React.FC = () => {
       // Stage 7: Slow reading plateau for Station 2 (Back) (8.50 -> 9.60)
       // Generous scroll room for the user to comfortably read Station 2
       tl.to(camera.position, {
-        x: -0.15,
-        y: 0.12,
-        z: -7.0,
+        x: 0.0,
+        y: 0.0,
+        z: -6.6,
         ease: 'linear',
         duration: 1.1,
       }, 8.5);
 
       // Stage 8: Settle with final vista of portal crystal & corridor (9.60 -> 10.00)
       tl.to(camera.position, {
-        x: 0,
-        y: 0.10,
+        x: 0.0,
+        y: 0.0,
         z: -7.2,
         ease: 'power1.out',
         duration: 0.4,
@@ -1289,9 +1308,8 @@ export const DoorSection: React.FC = () => {
       {/* Exterior Cinematic Header (Fades out dynamically when red door begins opening) */}
       <div
         ref={headerRef}
-        className={`relative z-10 w-full max-w-7xl mx-auto px-6 pt-16 flex flex-col items-center text-center pointer-events-none transition-all duration-300 ease-out ${
-          isHeaderHidden ? 'opacity-0 pointer-events-none -translate-y-8' : 'opacity-100'
-        }`}
+        className={`relative z-10 w-full max-w-7xl mx-auto px-6 pt-16 flex flex-col items-center text-center pointer-events-none transition-all duration-300 ease-out ${isHeaderHidden ? 'opacity-0 pointer-events-none -translate-y-8' : 'opacity-100'
+          }`}
       >
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-red-500/30 backdrop-blur-md mb-4 shadow-lg shadow-red-950/20">
           <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
@@ -1334,11 +1352,10 @@ export const DoorSection: React.FC = () => {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => handleGoToStation(1)}
-                  className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-mono transition-all backdrop-blur-xl border ${
-                    activeStation === 1
+                  className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-mono transition-all backdrop-blur-xl border ${activeStation === 1
                       ? 'bg-[#6ee7b7]/20 border-[#6ee7b7] text-[#6ee7b7] shadow-[0_0_14px_rgba(110,231,183,0.35)]'
                       : 'bg-black/60 border-white/10 text-zinc-400 hover:text-white hover:border-white/30'
-                  }`}
+                    }`}
                   title="Jump to Station 01 (Front)"
                 >
                   <span className={`w-2 h-2 rounded-full ${activeStation === 1 ? 'bg-[#6ee7b7] animate-pulse' : 'bg-zinc-500'}`} />
@@ -1347,11 +1364,10 @@ export const DoorSection: React.FC = () => {
 
                 <button
                   onClick={() => handleGoToStation(2)}
-                  className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-mono transition-all backdrop-blur-xl border ${
-                    activeStation === 2
+                  className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-mono transition-all backdrop-blur-xl border ${activeStation === 2
                       ? 'bg-[#6ee7b7]/20 border-[#6ee7b7] text-[#6ee7b7] shadow-[0_0_14px_rgba(110,231,183,0.35)]'
                       : 'bg-black/60 border-white/10 text-zinc-400 hover:text-white hover:border-white/30'
-                  }`}
+                    }`}
                   title="Jump to Station 02 (Back)"
                 >
                   <span className={`w-2 h-2 rounded-full ${activeStation === 2 ? 'bg-[#6ee7b7] animate-pulse' : 'bg-zinc-500'}`} />
@@ -1403,7 +1419,7 @@ export const DoorSection: React.FC = () => {
       {/* Exterior Controls & Status HUD (Visible ONLY when red door is closed and NOT inside) */}
       {!isInsideSanctuary && !isOpeningSequence && doorProgress < 0.25 && (
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pb-12 flex flex-col sm:flex-row items-center justify-between gap-4 pointer-events-auto">
-          
+
           {/* Left Side: Door State Indicator */}
           <div className="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-zinc-950/90 border border-white/10 backdrop-blur-md shadow-xl text-xs font-mono text-zinc-300">
             <div className="w-2.5 h-2.5 rounded-full bg-red-500 shadow-[0_0_8px_#ef4444]" />
