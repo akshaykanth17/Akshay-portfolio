@@ -235,7 +235,11 @@ export const HeroSection: React.FC = () => {
               <img
                 src={portraitImg}
                 alt="Akshay Kanth C — Test Engineer and AI-Assisted Developer"
-                className="w-full h-full object-cover object-center filter grayscale contrast-[1.12] brightness-[0.98] transition-transform duration-700 ease-out scale-[1.5] -translate-y-[11%] pointer-events-none"
+                className="w-full h-full object-cover filter grayscale contrast-[1.12] brightness-[0.98] transition-transform duration-700 ease-out pointer-events-none"
+                style={{
+                  transform: 'scale(1.42) translateY(-7%)',
+                  transformOrigin: '50% 25%',
+                }}
                 loading="eager"
               />
 
@@ -252,7 +256,11 @@ export const HeroSection: React.FC = () => {
                   src={portraitImg}
                   alt=""
                   aria-hidden="true"
-                  className="w-full h-full object-cover object-center filter contrast-[1.05] brightness-[1.02] scale-[1.5] -translate-y-[11%]"
+                  className="w-full h-full object-cover filter contrast-[1.05] brightness-[1.02]"
+                  style={{
+                    transform: 'scale(1.42) translateY(-7%)',
+                    transformOrigin: '50% 25%',
+                  }}
                 />
               </div>
 
