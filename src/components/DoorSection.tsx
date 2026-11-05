@@ -417,6 +417,7 @@ export const DoorSection: React.FC = () => {
   const isOpenManuallyRef = useRef(false);
   const [isOpeningSequence, setIsOpeningSequence] = useState(false);
   const [isInsideSanctuary, setIsInsideSanctuary] = useState(false);
+  const isInsideSanctuaryRef = useRef(false);
   const [activeStation, setActiveStation] = useState<1 | 2>(1);
 
   // References for Three.js animation controls
@@ -530,8 +531,15 @@ export const DoorSection: React.FC = () => {
           setIsOpeningSequence(false);
           if (targetState) {
             setIsInsideSanctuary(true);
+            isInsideSanctuaryRef.current = true;
           } else {
             setIsInsideSanctuary(false);
+            isInsideSanctuaryRef.current = false;
+            if (headerRef.current) {
+              headerRef.current.style.display = '';
+              headerRef.current.style.opacity = '1';
+              headerRef.current.style.transform = 'translateY(0px)';
+            }
           }
         },
       });
@@ -1201,6 +1209,7 @@ export const DoorSection: React.FC = () => {
       if (isActuallyInside !== wasInside) {
         wasInside = isActuallyInside;
         setIsInsideSanctuary(isActuallyInside);
+        isInsideSanctuaryRef.current = isActuallyInside;
       }
 
       // Task 1: Complete elimination of pale white shade/glare once inside the room (z <= 0.2)
@@ -1258,21 +1267,37 @@ export const DoorSection: React.FC = () => {
             const p = self.progress;
             setDoorProgress(p);
 
+            // If scrolled back outside the door to the entrance, reset manual open flag
+            if (p < 0.12) {
+              if (isOpenManuallyRef.current) {
+                isOpenManuallyRef.current = false;
+                setIsOpenManually(false);
+              }
+              if (isInsideSanctuaryRef.current) {
+                isInsideSanctuaryRef.current = false;
+                setIsInsideSanctuary(false);
+              }
+            }
+
             if (headerRef.current) {
-              if (p <= 0.02 && !isOpenManuallyRef.current) {
+              if (p <= 0.10) {
+                // Outside closed red door: fully visible
                 headerRef.current.style.display = '';
                 headerRef.current.style.opacity = '1';
                 headerRef.current.style.transform = 'translateY(0px)';
+              } else if (p >= 0.22) {
+                // Inside corridor: fully hidden
+                headerRef.current.style.opacity = '0';
+                headerRef.current.style.display = 'none';
+                headerRef.current.style.transform = 'translateY(-40px)';
               } else {
-                const headerOpacity = Math.max(0, 1 - (p - 0.02) * 15);
-                const headerY = -(p * 50);
+                // Smooth fade between p = 0.10 and p = 0.22 as red door opens
+                const factor = (p - 0.10) / 0.12;
+                const headerOpacity = Math.max(0, Math.min(1, 1 - factor));
+                const headerY = -(factor * 35);
+                headerRef.current.style.display = '';
                 headerRef.current.style.opacity = headerOpacity.toString();
                 headerRef.current.style.transform = `translateY(${headerY}px)`;
-                if (headerOpacity <= 0) {
-                  headerRef.current.style.display = 'none';
-                } else {
-                  headerRef.current.style.display = '';
-                }
               }
             }
           },
@@ -1421,9 +1446,8 @@ export const DoorSection: React.FC = () => {
     };
   }, []);
 
-  // Both header and exterior controls fully disappear as soon as door starts opening or scroll starts
-  const isHeaderHidden = isInsideSanctuary || isOpeningSequence || isOpenManually || doorProgress > 0.03;
-  const isExteriorControlsHidden = isInsideSanctuary || isOpeningSequence || isOpenManually || doorProgress > 0.03;
+  // Exterior bottom controls are hidden once inside the sanctuary or past the doorway threshold
+  const isExteriorControlsHidden = isInsideSanctuary || (doorProgress >= 0.18 && !isOpeningSequence);
 
   return (
     <section
@@ -1439,37 +1463,31 @@ export const DoorSection: React.FC = () => {
         className="absolute inset-0 w-full h-full block z-0"
       />
 
-      {/* Exterior Cinematic Header (Fades out dynamically when red door begins opening) */}
-      <AnimatePresence>
-        {!isHeaderHidden && (
-          <motion.div
-            key="exterior-header"
-            ref={headerRef}
-            initial={{ opacity: 1, y: 0 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -30 }}
-            transition={{ duration: 0.25 }}
-            className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-16 flex flex-col items-center text-center pointer-events-none select-none"
-          >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-red-500/30 backdrop-blur-md mb-4 shadow-lg shadow-red-950/20">
-              <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-              <span className="font-mono text-xs tracking-widest uppercase text-red-200">
-                CHAPTER 03 &bull; THE RED PORTAL
-              </span>
-            </div>
+      {/* Exterior Cinematic Header */}
+      <div
+        ref={headerRef}
+        className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-16 flex flex-col items-center text-center pointer-events-none select-none transition-transform duration-200 ease-out"
+        style={{
+          display: isInsideSanctuary ? 'none' : '',
+        }}
+      >
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-red-500/30 backdrop-blur-md mb-4 shadow-lg shadow-red-950/20">
+          <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+          <span className="font-mono text-xs tracking-widest uppercase text-red-200">
+            CHAPTER 03 &bull; THE RED PORTAL
+          </span>
+        </div>
 
-            <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight max-w-2xl drop-shadow-2xl">
-              Magic happens <br className="hidden sm:inline" />
-              <span className="text-red-500 drop-shadow-[0_2px_14px_rgba(239,68,68,0.4)]">
-                behind the red door.
-              </span>
-            </h2>
-            <p className="font-sans text-xs sm:text-sm text-zinc-400 mt-3 max-w-md">
-              Step into Akshay's sanctuary: Test Engineer rigor, AI-assisted development, and verified architectures.
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight max-w-2xl drop-shadow-2xl">
+          Magic happens <br className="hidden sm:inline" />
+          <span className="text-red-500 drop-shadow-[0_2px_14px_rgba(239,68,68,0.4)]">
+            behind the red door.
+          </span>
+        </h2>
+        <p className="font-sans text-xs sm:text-sm text-zinc-400 mt-3 max-w-md">
+          Step into Akshay's sanctuary: Test Engineer rigor, AI-assisted development, and verified architectures.
+        </p>
+      </div>
 
       {/* ========================================================= */}
       {/* MINIMAL INTERIOR HUD CONTROLS (Active only inside corridor) */}
@@ -1551,11 +1569,13 @@ export const DoorSection: React.FC = () => {
         )}
       </AnimatePresence>
 
-      {/* Exterior Controls (Fades out completely as soon as red door starts moving or scroll begins) */}
+      {/* Exterior Controls (Fades out smoothly between p = 0.10 and 0.18 as red door opens) */}
       {!isExteriorControlsHidden && (
         <div
           className="relative z-10 w-full max-w-7xl mx-auto px-6 pb-12 flex flex-col sm:flex-row items-center justify-between gap-4 pointer-events-auto transition-all duration-300 ease-out"
-          style={{ opacity: Math.max(0, 1 - doorProgress * 15) }}
+          style={{
+            opacity: doorProgress <= 0.10 ? 1 : Math.max(0, 1 - (doorProgress - 0.10) / 0.08),
+          }}
         >
           {/* Left Side: Door State Indicator */}
           <div className="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-zinc-950/90 border border-white/10 backdrop-blur-md shadow-xl text-xs font-mono text-zinc-300">
