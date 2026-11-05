@@ -150,7 +150,7 @@ export const DoorSection: React.FC = () => {
   const [doorProgress, setDoorProgress] = useState(0);
   const [isOpenManually, setIsOpenManually] = useState(false);
   const [isOpeningSequence, setIsOpeningSequence] = useState(false);
-  const [isDoorFullyOpen, setIsDoorFullyOpen] = useState(false);
+  const [isInsideSanctuary, setIsInsideSanctuary] = useState(false);
   const [activeTab, setActiveTab] = useState<'all' | 'qa' | 'ai'>('all');
 
   // References for Three.js animation controls
@@ -242,7 +242,6 @@ export const DoorSection: React.FC = () => {
     if (targetState) {
       // 1. Mark sequence starting: header fades immediately, but About is NOT shown yet
       setIsOpeningSequence(true);
-      setIsDoorFullyOpen(false);
 
       // Unlatch handle
       gsap.to(doorHandle.rotation, {
@@ -274,8 +273,7 @@ export const DoorSection: React.FC = () => {
         ease: 'power2.inOut',
         delay: 0.08,
         onComplete: () => {
-          // ONLY AFTER door is fully open and camera has stepped inside:
-          setIsDoorFullyOpen(true);
+          setIsOpeningSequence(false);
         },
       });
 
@@ -286,7 +284,6 @@ export const DoorSection: React.FC = () => {
       });
     } else {
       // Closing sequence
-      setIsDoorFullyOpen(false);
       setIsOpeningSequence(false);
 
       // Return camera outside
@@ -528,25 +525,40 @@ export const DoorSection: React.FC = () => {
       doorGroup.add(insetPanel);
     }
 
-    // Nameplate Plaque (Polished Titanium & Crisp White Text on Red Door)
+    // Nameplate Plaque (Polished Titanium & Crisp White Text on Red Door - ZERO Z-FIGHTING)
     const plaqueTexture = createPlaqueTexture();
-    const plaqueMesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(0.78, 0.32),
-      new THREE.MeshBasicMaterial({ map: plaqueTexture })
-    );
-    plaqueMesh.position.set(0, 0.72, doorDepth / 2 + 0.022);
-    doorGroup.add(plaqueMesh);
+    plaqueTexture.minFilter = THREE.LinearFilter;
+    plaqueTexture.magFilter = THREE.LinearFilter;
+    plaqueTexture.generateMipmaps = false;
 
+    // Plaque Backing Box
     const plaqueBack = new THREE.Mesh(
-      new THREE.BoxGeometry(0.82, 0.36, 0.02),
+      new THREE.BoxGeometry(0.84, 0.38, 0.02),
       new THREE.MeshStandardMaterial({
         color: 0x181920,
         roughness: 0.2,
         metalness: 0.85,
       })
     );
-    plaqueBack.position.set(0, 0.72, doorDepth / 2 + 0.012);
+    plaqueBack.position.set(0, 0.72, doorDepth / 2 + 0.015);
     doorGroup.add(plaqueBack);
+
+    // Plaque Face Mesh with clean front Z offset + polygonOffset to eliminate any flickering
+    const plaqueMaterial = new THREE.MeshBasicMaterial({
+      map: plaqueTexture,
+      transparent: false,
+      depthTest: true,
+      depthWrite: true,
+      polygonOffset: true,
+      polygonOffsetFactor: -2,
+      polygonOffsetUnits: -4,
+    });
+    const plaqueMesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(0.80, 0.34),
+      plaqueMaterial
+    );
+    plaqueMesh.position.set(0, 0.72, doorDepth / 2 + 0.030);
+    doorGroup.add(plaqueMesh);
 
     // Polished Silver Lever Handle
     const handleMaterial = new THREE.MeshStandardMaterial({
@@ -789,6 +801,7 @@ export const DoorSection: React.FC = () => {
     // Render loop
     let reqId: number;
     const clock = new THREE.Clock();
+    let wasInside = false;
 
     const render = () => {
       const elapsed = clock.getElapsedTime();
@@ -799,6 +812,16 @@ export const DoorSection: React.FC = () => {
       if (particles) {
         particles.rotation.y = elapsed * 0.02;
       }
+
+      // STRICT 3D POSITION CHECK:
+      // The About spatial consoles ONLY appear when the camera has physically
+      // crossed the doorway threshold and arrived deep inside the sanctuary (z <= -1.6)!
+      const isActuallyInside = camera.position.z <= -1.6;
+      if (isActuallyInside !== wasInside) {
+        wasInside = isActuallyInside;
+        setIsInsideSanctuary(isActuallyInside);
+      }
+
       renderer.render(scene, camera);
       reqId = requestAnimationFrame(render);
     };
@@ -934,8 +957,8 @@ export const DoorSection: React.FC = () => {
     };
   }, []);
 
-  // ONLY show inside spatial About consoles AFTER the door is fully open and camera has pushed through!
-  const isInsideDoor = doorProgress >= 0.72 || isDoorFullyOpen;
+  // The About spatial consoles ONLY appear when the camera is physically inside the sanctuary!
+  const isInsideDoor = isInsideSanctuary;
   const isHeaderHidden = isInsideDoor || isOpeningSequence || doorProgress > 0.12;
 
   return (
