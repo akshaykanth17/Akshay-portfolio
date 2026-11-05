@@ -440,8 +440,11 @@ export const DoorSection: React.FC = () => {
   // Direct Station Jump Handler (Perfect Framing, No Cutoff)
   const handleGoToStation = (stationNum: 1 | 2) => {
     if (!sceneRef.current) return;
-    const { camera } = sceneRef.current;
+    const { camera, frontStationGroup, backStationGroup } = sceneRef.current;
     if (stationNum === 1) {
+      if (frontStationGroup) {
+        gsap.to(frontStationGroup.position, { x: -0.78, duration: 0.6 });
+      }
       gsap.to(camera.position, {
         x: 0.0,
         y: 0.0,
@@ -455,6 +458,9 @@ export const DoorSection: React.FC = () => {
         onUpdate: () => camera.updateProjectionMatrix(),
       });
     } else {
+      if (backStationGroup) {
+        gsap.to(backStationGroup.position, { x: 0.78, duration: 0.6 });
+      }
       gsap.to(camera.position, {
         x: 0.0,
         y: 0.0,
@@ -980,18 +986,21 @@ export const DoorSection: React.FC = () => {
 
     // 1. FRONT 3D STATION: IDENTITY & PHILOSOPHY (z = -3.8)
     const frontStationGroup = new THREE.Group();
-    frontStationGroup.position.set(-0.78, -0.10, -3.8);
+    frontStationGroup.position.set(-0.78, -0.14, -3.8);
     frontStationGroup.rotation.y = 0.20; // Angled inward to corridor aisle
     scene.add(frontStationGroup);
 
     const frontTex = createFrontStationTexture();
+    const frontBackingMat = new THREE.MeshStandardMaterial({
+      color: 0x10121a,
+      roughness: 0.25,
+      metalness: 0.85,
+      transparent: true,
+      opacity: 1,
+    });
     const frontStationBacking = new THREE.Mesh(
       new THREE.BoxGeometry(1.34, 1.46, 0.03),
-      new THREE.MeshStandardMaterial({
-        color: 0x10121a,
-        roughness: 0.25,
-        metalness: 0.85,
-      })
+      frontBackingMat
     );
     frontStationGroup.add(frontStationBacking);
 
@@ -1009,18 +1018,21 @@ export const DoorSection: React.FC = () => {
 
     // 2. BACK 3D STATION: CORE CAPABILITIES & 4 PILLARS (z = -7.5)
     const backStationGroup = new THREE.Group();
-    backStationGroup.position.set(0.78, -0.10, -7.5);
+    backStationGroup.position.set(0.78, -0.14, -7.5);
     backStationGroup.rotation.y = -0.20; // Angled inward to corridor aisle
     scene.add(backStationGroup);
 
     const backTex = createBackStationTexture();
+    const backBackingMat = new THREE.MeshStandardMaterial({
+      color: 0x10121a,
+      roughness: 0.25,
+      metalness: 0.85,
+      transparent: true,
+      opacity: 1,
+    });
     const backStationBacking = new THREE.Mesh(
       new THREE.BoxGeometry(1.34, 1.46, 0.03),
-      new THREE.MeshStandardMaterial({
-        color: 0x10121a,
-        roughness: 0.25,
-        metalness: 0.85,
-      })
+      backBackingMat
     );
     backStationGroup.add(backStationBacking);
 
@@ -1115,10 +1127,10 @@ export const DoorSection: React.FC = () => {
         portalCore.rotation.y = elapsed * 0.6;
       }
       if (frontStationGroup) {
-        frontStationGroup.position.y = -0.10 + Math.sin(elapsed * 1.4) * 0.015;
+        frontStationGroup.position.y = -0.14 + Math.sin(elapsed * 1.4) * 0.015;
       }
       if (backStationGroup) {
-        backStationGroup.position.y = -0.10 + Math.cos(elapsed * 1.4) * 0.015;
+        backStationGroup.position.y = -0.14 + Math.cos(elapsed * 1.4) * 0.015;
       }
       if (particles) {
         particles.rotation.y = elapsed * 0.02;
@@ -1187,7 +1199,7 @@ export const DoorSection: React.FC = () => {
             setDoorProgress(p);
 
             if (headerRef.current) {
-              const headerOpacity = p < 0.10 ? 1 : Math.max(0, 1 - (p - 0.10) * 8);
+              const headerOpacity = p < 0.05 ? 1 : Math.max(0, 1 - (p - 0.05) * 12);
               const headerY = -(p * 50);
               headerRef.current.style.opacity = headerOpacity.toString();
               headerRef.current.style.transform = `translateY(${headerY}px)`;
@@ -1197,99 +1209,126 @@ export const DoorSection: React.FC = () => {
       });
 
       // Total timeline normalized duration: 10.0 seconds
-      // Stage 1: Camera approaches closed red door (0.00 -> 1.50)
+      // Stage 1: Camera approaches closed red door (0.00 -> 1.30)
       tl.to(camera.position, {
         x: 0,
-        y: 0.04,
+        y: 0.0,
         z: 3.6,
         ease: 'power1.inOut',
-        duration: 1.5,
+        duration: 1.3,
       }, 0);
 
-      // Stage 2: Door handle unlatches (1.20 -> 1.60)
+      // Stage 2: Door handle unlatches & red door opens (1.20 -> 2.20)
       tl.to(doorHandle.rotation, {
         z: -0.38,
         ease: 'power1.out',
-        duration: 0.4,
+        duration: 0.35,
       }, 1.2);
 
-      // Stage 3: Red door swings wide open to -115 degrees (1.40 -> 2.60)
       tl.to(doorPivot.rotation, {
         y: -Math.PI * 0.64,
         ease: 'power2.inOut',
-        duration: 1.2,
+        duration: 1.0,
       }, 1.4);
 
-      // Lights ignite with brilliant illumination (1.40 -> 2.60)
-      tl.to(corridorSpot, { intensity: 14, ease: 'power2.in', duration: 1.2 }, 1.4);
-      tl.to(interiorPointFront, { intensity: 7, ease: 'power2.in', duration: 1.2 }, 1.4);
-      tl.to(interiorPointMid, { intensity: 8, ease: 'power2.in', duration: 1.2 }, 1.4);
-      tl.to(portalCoreLight, { intensity: 12, ease: 'power2.in', duration: 1.2 }, 1.4);
-      tl.to(beamMaterial, { opacity: 0.32, ease: 'power2.in', duration: 1.2 }, 1.4);
-      tl.to(floorSpillMat, { opacity: 0.28, ease: 'power2.in', duration: 1.2 }, 1.4);
+      // Interior lights ignite (1.40 -> 2.20)
+      tl.to(corridorSpot, { intensity: 10, ease: 'power2.in', duration: 0.8 }, 1.4);
+      tl.to(interiorPointFront, { intensity: 5, ease: 'power2.in', duration: 0.8 }, 1.4);
+      tl.to(interiorPointMid, { intensity: 6, ease: 'power2.in', duration: 0.8 }, 1.4);
+      tl.to(portalCoreLight, { intensity: 10, ease: 'power2.in', duration: 0.8 }, 1.4);
+      tl.to(beamMaterial, { opacity: 0.25, ease: 'power2.in', duration: 0.6 }, 1.4);
+      tl.to(floorSpillMat, { opacity: 0.22, ease: 'power2.in', duration: 0.6 }, 1.4);
 
-      // Stage 4: Camera dollies across threshold to Station 1 (Front) (2.50 -> 4.80)
+      // Stage 3: Camera crosses threshold into corridor to Station 1 (2.20 -> 4.20)
       tl.to(camera.position, {
         x: 0.0,
         y: 0.0,
         z: -1.3,
         ease: 'power1.inOut',
-        duration: 2.3,
-      }, 2.5);
+        duration: 2.0,
+      }, 2.2);
 
-      // Pale white light beam and floor spill fade to 0 as camera crosses threshold
-      tl.to(beamMaterial, { opacity: 0, duration: 0.5 }, 2.5);
-      tl.to(floorSpillMat, { opacity: 0, duration: 0.5 }, 2.5);
+      // Pale white light beam and floor spill fade to 0 as camera enters room
+      tl.to(beamMaterial, { opacity: 0, duration: 0.4 }, 2.3);
+      tl.to(floorSpillMat, { opacity: 0, duration: 0.4 }, 2.3);
 
       tl.to(camera, {
         fov: 46,
         onUpdate: () => camera.updateProjectionMatrix(),
-        duration: 2.3,
-      }, 2.5);
+        duration: 2.0,
+      }, 2.2);
 
-      // Stage 5: Slow reading plateau for Station 1 (Front) (4.80 -> 6.20)
-      // Generous scroll room for the user to comfortably read Station 1
+      // Stage 4: Station 1 Reading Plateau (4.20 -> 5.60)
       tl.to(camera.position, {
         x: 0.0,
         y: 0.0,
-        z: -1.8,
+        z: -2.0,
         ease: 'linear',
         duration: 1.4,
-      }, 4.8);
+      }, 4.2);
 
-      // Stage 6: Camera glides down corridor from Station 1 to Station 2 (Back) (6.20 -> 8.50)
+      // Stage 5: Camera glides to Station 2 & Station 1 exits LEFT (5.60 -> 7.60)
+      // Station 1 glides off to the left side and disappears
+      tl.to(frontStationGroup.position, {
+        x: -3.8,
+        ease: 'power2.in',
+        duration: 1.8,
+      }, 5.6);
+      tl.to(frontStationPlane.material, {
+        opacity: 0,
+        ease: 'power1.in',
+        duration: 1.4,
+      }, 5.8);
+      tl.to(frontBackingMat, {
+        opacity: 0,
+        ease: 'power1.in',
+        duration: 1.4,
+      }, 5.8);
+
+      // Camera arrives at Station 2 (distance = 2.5m, zero cutoff!)
       tl.to(camera.position, {
         x: 0.0,
         y: 0.0,
         z: -5.0,
         ease: 'power1.inOut',
-        duration: 2.3,
-      }, 6.2);
+        duration: 2.0,
+      }, 5.6);
 
-      tl.to(camera, {
-        fov: 46,
-        onUpdate: () => camera.updateProjectionMatrix(),
-        duration: 2.3,
-      }, 6.2);
-
-      // Stage 7: Slow reading plateau for Station 2 (Back) (8.50 -> 9.60)
-      // Generous scroll room for the user to comfortably read Station 2 (zero cutoff!)
+      // Stage 6: Station 2 Reading Plateau (7.60 -> 8.80)
+      // Generous reading room with zero cutoff
       tl.to(camera.position, {
         x: 0.0,
         y: 0.0,
         z: -5.4,
         ease: 'linear',
-        duration: 1.1,
-      }, 8.5);
+        duration: 1.2,
+      }, 7.6);
 
-      // Stage 8: Settle with final vista of portal crystal & corridor (9.60 -> 10.00)
+      // Stage 7: Scrolling through to the end -> Station 2 DISAPPEARS TOWARD THE RIGHT SIDE! (8.80 -> 10.00)
+      tl.to(backStationGroup.position, {
+        x: 3.8, // Glides off to the right side
+        ease: 'power2.inOut',
+        duration: 1.2,
+      }, 8.8);
+      tl.to(backStationPlane.material, {
+        opacity: 0,
+        ease: 'power1.in',
+        duration: 1.0,
+      }, 8.9);
+      tl.to(backBackingMat, {
+        opacity: 0,
+        ease: 'power1.in',
+        duration: 1.0,
+      }, 8.9);
+
+      // Camera dollies to open corridor vista
       tl.to(camera.position, {
         x: 0.0,
         y: 0.0,
-        z: -6.8,
+        z: -7.8,
         ease: 'power1.out',
-        duration: 0.4,
-      }, 9.6);
+        duration: 1.2,
+      }, 8.8);
     }, container);
 
     return () => {
