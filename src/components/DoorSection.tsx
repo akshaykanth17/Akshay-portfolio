@@ -10,27 +10,20 @@ import {
   Shield,
   Zap,
   RotateCcw,
-  Terminal,
-  Smartphone,
-  Bug,
-  BrainCircuit,
-  Layers,
-  ChevronDown,
-  CheckCircle2,
-  MapPin,
-  Award
+  ChevronDown
 } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Helper: High-DPI Plaque Texture for Door Face (Polished Titanium on Red Door)
+// ==========================================
+// TEXTURE GENERATOR: PLAQUE ON RED DOOR
+// ==========================================
 function createPlaqueTexture(): THREE.CanvasTexture {
   const canvas = document.createElement('canvas');
   canvas.width = 1024;
   canvas.height = 420;
   const ctx = canvas.getContext('2d');
   if (ctx) {
-    // Dark brushed obsidian-titanium plate
     const grad = ctx.createLinearGradient(0, 0, 1024, 420);
     grad.addColorStop(0, '#101116');
     grad.addColorStop(0.5, '#181920');
@@ -38,16 +31,14 @@ function createPlaqueTexture(): THREE.CanvasTexture {
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, 1024, 420);
 
-    // Double Borders
     ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
     ctx.lineWidth = 4;
     ctx.strokeRect(12, 12, 1000, 396);
 
-    ctx.strokeStyle = 'rgba(204, 26, 43, 0.55)'; // Subtle red inner frame
+    ctx.strokeStyle = 'rgba(204, 26, 43, 0.6)';
     ctx.lineWidth = 2.5;
     ctx.strokeRect(24, 24, 976, 372);
 
-    // Corner rivets
     const rivets = [
       [36, 36], [988, 36], [36, 384], [988, 384]
     ];
@@ -58,8 +49,7 @@ function createPlaqueTexture(): THREE.CanvasTexture {
       ctx.fill();
     });
 
-    // Top Micro Badge
-    ctx.fillStyle = 'rgba(204, 26, 43, 0.2)';
+    ctx.fillStyle = 'rgba(204, 26, 43, 0.25)';
     ctx.fillRect(362, 45, 300, 36);
     ctx.strokeStyle = '#ef4444';
     ctx.lineWidth = 1.5;
@@ -69,39 +59,305 @@ function createPlaqueTexture(): THREE.CanvasTexture {
     ctx.textAlign = 'center';
     ctx.fillText('• SANCTUARY PORTAL •', 512, 69);
 
-    // Name Headline
     ctx.fillStyle = '#ffffff';
-    ctx.font = '900 62px "Plus Jakarta Sans", sans-serif';
+    ctx.font = '900 60px "Plus Jakarta Sans", sans-serif';
     ctx.fillText('AKSHAY KANTH C', 512, 160);
 
-    // Role Subtitle
     ctx.fillStyle = '#6ee7b7';
     ctx.font = 'bold 28px "JetBrains Mono", monospace';
     ctx.fillText('TEST ENGINEER  •  AI-ASSISTED DEVELOPER', 512, 225);
 
-    // Divider line
     ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
     ctx.beginPath();
     ctx.moveTo(120, 265);
     ctx.lineTo(904, 265);
     ctx.stroke();
 
-    // Bottom Specs
     ctx.fillStyle = '#e4e4e7';
     ctx.font = '500 22px "Plus Jakarta Sans", sans-serif';
     ctx.fillText('DUBAI, UAE  |  100% QUALITY RIGOR  |  STEP INSIDE', 512, 320);
 
-    // Small prompt
     ctx.fillStyle = '#a1a1aa';
     ctx.font = '600 18px "JetBrains Mono", monospace';
     ctx.fillText('SCROLL OR TAP TO OPEN RED SANCTUARY DOOR', 512, 368);
   }
   const texture = new THREE.CanvasTexture(canvas);
-  texture.anisotropy = 8;
+  texture.minFilter = THREE.LinearFilter;
+  texture.magFilter = THREE.LinearFilter;
+  texture.generateMipmaps = false;
   return texture;
 }
 
-// Helper: Floor Perspective Grid Texture
+// ==========================================
+// 3D STATION 1 (FRONT): IDENTITY & PHILOSOPHY
+// ==========================================
+function createFrontStationTexture(): THREE.CanvasTexture {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1024;
+  canvas.height = 1100;
+  const ctx = canvas.getContext('2d');
+  if (ctx) {
+    // Glass panel background
+    const bgGrad = ctx.createLinearGradient(0, 0, 1024, 1100);
+    bgGrad.addColorStop(0, '#0c0e14');
+    bgGrad.addColorStop(1, '#07080c');
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, 1024, 1100);
+
+    // Glowing double border (light mint & white)
+    ctx.strokeStyle = 'rgba(110, 231, 183, 0.7)';
+    ctx.lineWidth = 4;
+    ctx.strokeRect(12, 12, 1000, 1076);
+
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(26, 26, 972, 1048);
+
+    // Top Category Pill
+    ctx.fillStyle = 'rgba(110, 231, 183, 0.12)';
+    ctx.fillRect(48, 48, 380, 42);
+    ctx.strokeStyle = '#6ee7b7';
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(48, 48, 380, 42);
+    ctx.fillStyle = '#6ee7b7';
+    ctx.font = 'bold 18px "JetBrains Mono", monospace';
+    ctx.textAlign = 'left';
+    ctx.fillText('> CHAPTER 04 • PHILOSOPHY', 68, 75);
+
+    // Location Chip
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+    ctx.fillRect(800, 48, 170, 42);
+    ctx.fillStyle = '#e4e4e7';
+    ctx.font = 'bold 16px "JetBrains Mono", monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText('DUBAI, UAE', 885, 75);
+
+    // Name Headline
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '900 62px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('AKSHAY KANTH C', 48, 170);
+
+    // Role Subtitle
+    ctx.fillStyle = '#6ee7b7';
+    ctx.font = 'bold 26px "JetBrains Mono", monospace';
+    ctx.fillText('TEST ENGINEER  •  AI-ASSISTED DEVELOPER', 48, 220);
+
+    // Divider
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+    ctx.beginPath();
+    ctx.moveTo(48, 250);
+    ctx.lineTo(976, 250);
+    ctx.stroke();
+
+    // Philosophy Quote with Red Accent Bar (matching red door)
+    ctx.fillStyle = '#ef4444';
+    ctx.fillRect(48, 280, 6, 95);
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.03)';
+    ctx.fillRect(58, 280, 918, 95);
+    ctx.fillStyle = '#f4f4f5';
+    ctx.font = 'italic 23px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('"Quality is never an accident; it is always the result of', 78, 320);
+    ctx.fillText('sincere effort, intelligent direction, and skillful execution."', 78, 355);
+
+    // 3 Experience Cards
+    const cards = [
+      {
+        tag: '🎯 FEATURE POINT OF CONTACT (POC)',
+        title: 'SIDE, Bangalore &bull; Feature QA Lead',
+        desc: 'Selected as QA Point of Contact for 4 major features, managing defect triage with dev teams.',
+      },
+      {
+        tag: '📱 MOBILE ECOSYSTEM QA',
+        title: 'Android & iOS Device Lifecycle',
+        desc: 'Extensive multi-device validation: touch gestures, push notifications, functional, sanity & UAT.',
+      },
+      {
+        tag: '🎓 POST-GRADUATE & AI BUILDER',
+        title: 'Master of Computer Applications (MCA)',
+        desc: 'Deep software engineering foundation with modern AI-assisted test acceleration workflows.',
+      },
+    ];
+
+    cards.forEach((c, idx) => {
+      const y = 410 + idx * 160;
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.04)';
+      ctx.fillRect(48, y, 928, 135);
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+      ctx.strokeRect(48, y, 928, 135);
+
+      ctx.fillStyle = '#6ee7b7';
+      ctx.font = 'bold 16px "JetBrains Mono", monospace';
+      ctx.fillText(c.tag, 75, y + 36);
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 22px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText(c.title.replace('&bull;', '•'), 75, y + 72);
+
+      ctx.fillStyle = '#a1a1aa';
+      ctx.font = '400 18px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText(c.desc, 75, y + 106);
+    });
+
+    // Bottom Status Strip
+    ctx.fillStyle = 'rgba(110, 231, 183, 0.1)';
+    ctx.fillRect(48, 930, 928, 70);
+    ctx.strokeStyle = 'rgba(110, 231, 183, 0.3)';
+    ctx.strokeRect(48, 930, 928, 70);
+
+    ctx.fillStyle = '#6ee7b7';
+    ctx.font = 'bold 20px "JetBrains Mono", monospace';
+    ctx.fillText('• STATION 01 : IDENTITY & QA PHILOSOPHY VERIFIED •', 75, 972);
+  }
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.minFilter = THREE.LinearFilter;
+  texture.magFilter = THREE.LinearFilter;
+  texture.generateMipmaps = false;
+  return texture;
+}
+
+// ==========================================
+// 3D STATION 2 (BACK): 4 CORE PILLARS
+// ==========================================
+function createBackStationTexture(): THREE.CanvasTexture {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1024;
+  canvas.height = 1100;
+  const ctx = canvas.getContext('2d');
+  if (ctx) {
+    const bgGrad = ctx.createLinearGradient(0, 0, 1024, 1100);
+    bgGrad.addColorStop(0, '#0c0e14');
+    bgGrad.addColorStop(1, '#07080c');
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, 1024, 1100);
+
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
+    ctx.lineWidth = 4;
+    ctx.strokeRect(12, 12, 1000, 1076);
+
+    ctx.strokeStyle = 'rgba(110, 231, 183, 0.3)';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(26, 26, 972, 1048);
+
+    // Top Category Pill
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+    ctx.fillRect(48, 48, 440, 42);
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(48, 48, 440, 42);
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 18px "JetBrains Mono", monospace';
+    ctx.textAlign = 'left';
+    ctx.fillText('> CHAPTER 04 • CORE CAPABILITIES', 68, 75);
+
+    // Title Headline
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '900 56px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('QA RIGOR & 4 PILLARS', 48, 160);
+
+    ctx.fillStyle = '#6ee7b7';
+    ctx.font = 'bold 24px "JetBrains Mono", monospace';
+    ctx.fillText('SYSTEMATIC VERIFICATION & DEV VELOCITY', 48, 205);
+
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+    ctx.beginPath();
+    ctx.moveTo(48, 235);
+    ctx.lineTo(976, 235);
+    ctx.stroke();
+
+    // 4 Pillars Matrix
+    const pillars = [
+      {
+        num: '01',
+        title: 'MOBILE ECOSYSTEM QA',
+        accent: '#6ee7b7',
+        desc: 'Validation on real Android & iOS hardware. Gesture, touch, lifecycle, push notifications & responsive edge-cases.',
+      },
+      {
+        num: '02',
+        title: 'DEFECT LIFECYCLE & JIRA',
+        accent: '#ffffff',
+        desc: 'Precision logging, root-cause diagnostics, regression suites & tight collaboration with engineering teams.',
+      },
+      {
+        num: '03',
+        title: 'AI-ASSISTED ENGINEERING',
+        accent: '#6ee7b7',
+        desc: 'Harnessing generative AI & Google Antigravity to accelerate test synthesis and prototype apps with high velocity.',
+      },
+      {
+        num: '04',
+        title: 'FULL-STACK ARCHITECTURE',
+        accent: '#ffffff',
+        desc: 'Modern web applications built with React 18, TypeScript, Node.js, and cloud patterns, combining QA rigor with code.',
+      },
+    ];
+
+    pillars.forEach((p, idx) => {
+      const col = idx % 2;
+      const row = Math.floor(idx / 2);
+      const x = 48 + col * 474;
+      const y = 265 + row * 315;
+      const w = 454;
+      const h = 285;
+
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.04)';
+      ctx.fillRect(x, y, w, h);
+      ctx.strokeStyle = p.accent === '#6ee7b7' ? 'rgba(110, 231, 183, 0.4)' : 'rgba(255, 255, 255, 0.2)';
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(x, y, w, h);
+
+      // Pill Number Badge
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+      ctx.fillRect(x + 20, y + 20, 60, 32);
+      ctx.fillStyle = p.accent;
+      ctx.font = 'bold 16px "JetBrains Mono", monospace';
+      ctx.fillText(p.num, x + 38, y + 42);
+
+      // Title
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 22px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText(p.title, x + 20, y + 95);
+
+      // Description
+      ctx.fillStyle = '#a1a1aa';
+      ctx.font = '400 18px "Plus Jakarta Sans", sans-serif';
+      const words = p.desc.split(' ');
+      let line = '';
+      let lineY = y + 140;
+      for (let i = 0; i < words.length; i++) {
+        const testLine = line + words[i] + ' ';
+        if (ctx.measureText(testLine).width > w - 40 && i > 0) {
+          ctx.fillText(line, x + 20, lineY);
+          line = words[i] + ' ';
+          lineY += 28;
+        } else {
+          line = testLine;
+        }
+      }
+      ctx.fillText(line, x + 20, lineY);
+    });
+
+    // Bottom Verification Strip
+    ctx.fillStyle = 'rgba(110, 231, 183, 0.1)';
+    ctx.fillRect(48, 930, 928, 70);
+    ctx.strokeStyle = 'rgba(110, 231, 183, 0.3)';
+    ctx.strokeRect(48, 930, 928, 70);
+
+    ctx.fillStyle = '#6ee7b7';
+    ctx.font = 'bold 20px "JetBrains Mono", monospace';
+    ctx.fillText('• STATION 02 : 100% DEFECT RESOLUTION STANDARDS •', 75, 972);
+  }
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.minFilter = THREE.LinearFilter;
+  texture.magFilter = THREE.LinearFilter;
+  texture.generateMipmaps = false;
+  return texture;
+}
+
+// ==========================================
+// FLOOR GRID TEXTURE
+// ==========================================
 function createFloorGridTexture(): THREE.CanvasTexture {
   const canvas = document.createElement('canvas');
   canvas.width = 512;
@@ -151,7 +407,6 @@ export const DoorSection: React.FC = () => {
   const [isOpenManually, setIsOpenManually] = useState(false);
   const [isOpeningSequence, setIsOpeningSequence] = useState(false);
   const [isInsideSanctuary, setIsInsideSanctuary] = useState(false);
-  const [activeTab, setActiveTab] = useState<'all' | 'qa' | 'ai'>('all');
 
   // References for Three.js animation controls
   const sceneRef = useRef<{
@@ -167,59 +422,10 @@ export const DoorSection: React.FC = () => {
     interiorPointMid: THREE.PointLight;
     portalCoreLight: THREE.PointLight;
     portalCore: THREE.Group;
+    frontStationGroup: THREE.Group;
+    backStationGroup: THREE.Group;
     particles: THREE.Points;
   } | null>(null);
-
-  // 4 Core Capability Pillars
-  const pillars = [
-    {
-      id: 'mobile-qa',
-      icon: Smartphone,
-      category: 'TESTING RIGOR',
-      title: 'Mobile Ecosystem QA',
-      metric: '100% MANUAL & DEVICE COVERAGE',
-      desc: 'Extensive validation on native Android & iOS smartphones. Deep testing of touch interactions, push notifications, and hardware constraints.',
-      accent: '#6ee7b7',
-    },
-    {
-      id: 'defect-lifecycle',
-      icon: Bug,
-      category: 'QUALITY PROCESS',
-      title: 'Defect Lifecycle & JIRA',
-      metric: 'POINT OF CONTACT EXCELLENCE',
-      desc: 'End-to-end defect tracking, regression suites, severity triage, and continuous alignment with developers until complete verified resolution.',
-      accent: '#ffffff',
-    },
-    {
-      id: 'ai-engineering',
-      icon: BrainCircuit,
-      category: 'INTELLIGENT WORKFLOWS',
-      title: 'AI-Assisted Engineering',
-      metric: 'VIBE CODING & AGENTIC TECH',
-      desc: 'Harnessing generative AI models & agentic frameworks to accelerate test synthesis, optimize coverage, and prototype at high velocity.',
-      accent: '#6ee7b7',
-    },
-    {
-      id: 'fullstack-arch',
-      icon: Layers,
-      category: 'DEVELOPMENT FOUNDATION',
-      title: 'Full-Stack Architecture',
-      metric: 'MCA POST-GRADUATE RIGOR',
-      desc: 'Modern web engineering with React 18, TypeScript, Node.js, and scalable cloud patterns, bridging test discipline with development velocity.',
-      accent: '#ffffff',
-    },
-  ];
-
-  const quickBadges = [
-    'Dubai, UAE',
-    'Test Engineer',
-    'AI-Assisted Developer',
-    'MCA Graduate',
-    'Point of Contact (POC)',
-    'Mobile QA (Android/iOS)',
-    'JIRA & Agile Scrum',
-    'Open to Relocation',
-  ];
 
   // Manual Trigger: Step inside or return to entrance
   const handleToggleDoor = (forceOpen?: boolean) => {
@@ -240,24 +446,20 @@ export const DoorSection: React.FC = () => {
     setIsOpenManually(targetState);
 
     if (targetState) {
-      // 1. Mark sequence starting: header fades immediately, but About is NOT shown yet
       setIsOpeningSequence(true);
 
-      // Unlatch handle
       gsap.to(doorHandle.rotation, {
         z: -0.38,
         duration: 0.25,
       });
 
-      // Swing red door wide open
       gsap.to(doorPivot.rotation, {
         y: -Math.PI * 0.64,
-        duration: 1.25,
+        duration: 1.3,
         ease: 'power3.inOut',
         delay: 0.12,
       });
 
-      // Lights ignite
       gsap.to(corridorSpot, { intensity: 14, duration: 1.2, delay: 0.15 });
       gsap.to(interiorPointFront, { intensity: 7, duration: 1.2, delay: 0.15 });
       gsap.to(interiorPointMid, { intensity: 8, duration: 1.2, delay: 0.15 });
@@ -265,11 +467,11 @@ export const DoorSection: React.FC = () => {
       gsap.to((lightBeam.material as THREE.MeshBasicMaterial), { opacity: 0.32, duration: 1.2, delay: 0.15 });
       gsap.to((floorSpillMesh.material as THREE.MeshBasicMaterial), { opacity: 0.28, duration: 1.2, delay: 0.15 });
 
-      // Camera flies through doorway into room
+      // Camera pushes deep into the corridor between the front and back stations
       gsap.to(camera.position, {
-        z: -3.4,
+        z: -5.5,
         y: 0.1,
-        duration: 1.45,
+        duration: 1.6,
         ease: 'power2.inOut',
         delay: 0.08,
         onComplete: () => {
@@ -278,15 +480,13 @@ export const DoorSection: React.FC = () => {
       });
 
       gsap.to(camera, {
-        fov: 46,
-        duration: 1.45,
+        fov: 48,
+        duration: 1.6,
         onUpdate: () => camera.updateProjectionMatrix(),
       });
     } else {
-      // Closing sequence
       setIsOpeningSequence(false);
 
-      // Return camera outside
       gsap.to(camera.position, {
         z: 5.5,
         y: 0,
@@ -300,7 +500,6 @@ export const DoorSection: React.FC = () => {
         onUpdate: () => camera.updateProjectionMatrix(),
       });
 
-      // Close red door
       gsap.to(doorPivot.rotation, {
         y: 0,
         duration: 1.15,
@@ -314,7 +513,6 @@ export const DoorSection: React.FC = () => {
         delay: 1.1,
       });
 
-      // Dim lights
       gsap.to(corridorSpot, { intensity: 0, duration: 0.9 });
       gsap.to(interiorPointFront, { intensity: 0, duration: 0.9 });
       gsap.to(interiorPointMid, { intensity: 0, duration: 0.9 });
@@ -332,7 +530,7 @@ export const DoorSection: React.FC = () => {
     // Three.js Scene Setup
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x060709);
-    scene.fog = new THREE.Fog(0x060709, 6, 26);
+    scene.fog = new THREE.Fog(0x060709, 8, 28);
 
     const width = container.clientWidth;
     const height = container.clientHeight;
@@ -469,7 +667,7 @@ export const DoorSection: React.FC = () => {
     frameTop.position.set(0, doorHeight / 2 + frameThickness / 2, 0.05);
     scene.add(frameTop);
 
-    // Neon Rim Trim framing the doorway
+    // Neon Rim Trim
     const rimLeft = new THREE.Mesh(new THREE.BoxGeometry(0.015, doorHeight, 0.015), mintTrimMaterial);
     rimLeft.position.set(-doorWidth / 2, 0, 0.12);
     scene.add(rimLeft);
@@ -495,7 +693,7 @@ export const DoorSection: React.FC = () => {
 
     // Striking Luxury Crimson Red Door Panel
     const doorMaterial = new THREE.MeshStandardMaterial({
-      color: 0xcc1a2b, // Luxury crimson red lacquer
+      color: 0xcc1a2b,
       roughness: 0.32,
       metalness: 0.25,
     });
@@ -508,9 +706,9 @@ export const DoorSection: React.FC = () => {
     doorMesh.receiveShadow = true;
     doorGroup.add(doorMesh);
 
-    // Deep Velvet Crimson Inset Panels
+    // Inset Decorative Door Panels
     const insetMaterial = new THREE.MeshStandardMaterial({
-      color: 0x8a101c, // Deep rich scarlet / burgundy inset
+      color: 0x8a101c,
       roughness: 0.42,
       metalness: 0.2,
     });
@@ -518,20 +716,15 @@ export const DoorSection: React.FC = () => {
     for (let i = 0; i < 2; i++) {
       const panelY = i === 0 ? 0.72 : -0.72;
       const insetPanel = new THREE.Mesh(
-        new THREE.BoxGeometry(doorWidth * 0.76, doorHeight * 0.4, 0.02),
+        new THREE.BoxGeometry(doorWidth * 0.76, doorHeight * 0.4, 0.018),
         insetMaterial
       );
-      insetPanel.position.set(0, panelY, doorDepth / 2 + 0.01);
+      insetPanel.position.set(0, panelY, doorDepth / 2 + 0.009);
       doorGroup.add(insetPanel);
     }
 
-    // Nameplate Plaque (Polished Titanium & Crisp White Text on Red Door - ZERO Z-FIGHTING)
+    // Nameplate Plaque (ZERO Z-FIGHTING FLICKERING)
     const plaqueTexture = createPlaqueTexture();
-    plaqueTexture.minFilter = THREE.LinearFilter;
-    plaqueTexture.magFilter = THREE.LinearFilter;
-    plaqueTexture.generateMipmaps = false;
-
-    // Plaque Backing Box
     const plaqueBack = new THREE.Mesh(
       new THREE.BoxGeometry(0.84, 0.38, 0.02),
       new THREE.MeshStandardMaterial({
@@ -543,7 +736,6 @@ export const DoorSection: React.FC = () => {
     plaqueBack.position.set(0, 0.72, doorDepth / 2 + 0.015);
     doorGroup.add(plaqueBack);
 
-    // Plaque Face Mesh with clean front Z offset + polygonOffset to eliminate any flickering
     const plaqueMaterial = new THREE.MeshBasicMaterial({
       map: plaqueTexture,
       transparent: false,
@@ -593,7 +785,7 @@ export const DoorSection: React.FC = () => {
     doorHandle.add(handleLever);
 
     // ==========================================
-    // 3D SANCTUARY INTERIOR (BEHIND THE RED DOOR)
+    // 3D SANCTUARY CORRIDOR (BEHIND THE RED DOOR)
     // ==========================================
     const corridorW = 4.6;
     const corridorH = 4.2;
@@ -733,6 +925,68 @@ export const DoorSection: React.FC = () => {
     );
     portalCore.add(crystalWire);
 
+    // ===============================================================
+    // 3D ABOUT STATIONS: ONE ON THE FRONT (LEFT), ONE ON THE BACK (RIGHT)
+    // ===============================================================
+
+    // 1. FRONT 3D STATION: IDENTITY & PHILOSOPHY (z = -3.8)
+    const frontStationGroup = new THREE.Group();
+    frontStationGroup.position.set(-1.25, 0.15, -3.8);
+    frontStationGroup.rotation.y = 0.28; // Angled inward to corridor aisle
+    scene.add(frontStationGroup);
+
+    const frontTex = createFrontStationTexture();
+    const frontStationBacking = new THREE.Mesh(
+      new THREE.BoxGeometry(2.36, 2.52, 0.04),
+      new THREE.MeshStandardMaterial({
+        color: 0x10121a,
+        roughness: 0.25,
+        metalness: 0.85,
+      })
+    );
+    frontStationGroup.add(frontStationBacking);
+
+    const frontStationPlane = new THREE.Mesh(
+      new THREE.PlaneGeometry(2.3, 2.46),
+      new THREE.MeshBasicMaterial({
+        map: frontTex,
+        transparent: true,
+        opacity: 0.98,
+        depthWrite: true,
+      })
+    );
+    frontStationPlane.position.set(0, 0, 0.025);
+    frontStationGroup.add(frontStationPlane);
+
+    // 2. BACK 3D STATION: CORE CAPABILITIES & 4 PILLARS (z = -8.6)
+    const backStationGroup = new THREE.Group();
+    backStationGroup.position.set(1.25, 0.15, -8.6);
+    backStationGroup.rotation.y = -0.28; // Angled inward to corridor aisle
+    scene.add(backStationGroup);
+
+    const backTex = createBackStationTexture();
+    const backStationBacking = new THREE.Mesh(
+      new THREE.BoxGeometry(2.36, 2.52, 0.04),
+      new THREE.MeshStandardMaterial({
+        color: 0x10121a,
+        roughness: 0.25,
+        metalness: 0.85,
+      })
+    );
+    backStationGroup.add(backStationBacking);
+
+    const backStationPlane = new THREE.Mesh(
+      new THREE.PlaneGeometry(2.3, 2.46),
+      new THREE.MeshBasicMaterial({
+        map: backTex,
+        transparent: true,
+        opacity: 0.98,
+        depthWrite: true,
+      })
+    );
+    backStationPlane.position.set(0, 0, 0.025);
+    backStationGroup.add(backStationPlane);
+
     // Volumetric Light Beam
     const beamGeometry = new THREE.ConeGeometry(3.2, 7.0, 32, 1, true);
     const beamMaterial = new THREE.MeshBasicMaterial({
@@ -795,6 +1049,8 @@ export const DoorSection: React.FC = () => {
       interiorPointMid,
       portalCoreLight,
       portalCore,
+      frontStationGroup,
+      backStationGroup,
       particles,
     };
 
@@ -809,14 +1065,19 @@ export const DoorSection: React.FC = () => {
         portalCore.rotation.x = elapsed * 0.4;
         portalCore.rotation.y = elapsed * 0.6;
       }
+      if (frontStationGroup) {
+        frontStationGroup.position.y = 0.15 + Math.sin(elapsed * 1.4) * 0.03;
+      }
+      if (backStationGroup) {
+        backStationGroup.position.y = 0.15 + Math.cos(elapsed * 1.4) * 0.03;
+      }
       if (particles) {
         particles.rotation.y = elapsed * 0.02;
       }
 
-      // STRICT 3D POSITION CHECK:
-      // The About spatial consoles ONLY appear when the camera has physically
-      // crossed the doorway threshold and arrived deep inside the sanctuary (z <= -1.6)!
-      const isActuallyInside = camera.position.z <= -1.6;
+      // Check real-time physical camera position in 3D WebGL space:
+      // The interior controls only appear when camera has physically passed threshold (z <= -1.2)!
+      const isActuallyInside = camera.position.z <= -1.2;
       if (isActuallyInside !== wasInside) {
         wasInside = isActuallyInside;
         setIsInsideSanctuary(isActuallyInside);
@@ -849,7 +1110,7 @@ export const DoorSection: React.FC = () => {
         scrollTrigger: {
           trigger: container,
           start: 'top top',
-          end: '+=220%',
+          end: '+=250%',
           pin: true,
           scrub: 1.2,
           onUpdate: (self) => {
@@ -925,19 +1186,19 @@ export const DoorSection: React.FC = () => {
         duration: 0.37,
       }, 0.35);
 
-      // 5. Camera dollies deep into the corridor
+      // 5. Camera dollies deep into the corridor between Front and Back Stations!
       tl.to(camera.position, {
-        z: -3.4,
+        z: -5.5,
         y: 0.1,
         ease: 'power1.inOut',
-        duration: 0.3,
-      }, 0.7);
+        duration: 0.35,
+      }, 0.65);
 
       tl.to(camera, {
-        fov: 46,
+        fov: 48,
         onUpdate: () => camera.updateProjectionMatrix(),
-        duration: 0.3,
-      }, 0.7);
+        duration: 0.35,
+      }, 0.65);
     }, container);
 
     return () => {
@@ -953,13 +1214,13 @@ export const DoorSection: React.FC = () => {
       insetMaterial.dispose();
       handleMaterial.dispose();
       plaqueTexture.dispose();
+      frontTex.dispose();
+      backTex.dispose();
       floorTexture.dispose();
     };
   }, []);
 
-  // The About spatial consoles ONLY appear when the camera is physically inside the sanctuary!
-  const isInsideDoor = isInsideSanctuary;
-  const isHeaderHidden = isInsideDoor || isOpeningSequence || doorProgress > 0.12;
+  const isHeaderHidden = isInsideSanctuary || isOpeningSequence || doorProgress > 0.12;
 
   return (
     <section
@@ -969,7 +1230,7 @@ export const DoorSection: React.FC = () => {
     >
       <div id="about" className="absolute top-0 pointer-events-none" />
 
-      {/* 3D WebGL Canvas Layer */}
+      {/* 3D WebGL Canvas Layer (Holds Red Door + Front 3D Station + Back 3D Station + Corridor!) */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full block z-0"
@@ -1001,29 +1262,29 @@ export const DoorSection: React.FC = () => {
       </div>
 
       {/* ========================================================= */}
-      {/* SPATIAL HOLOGRAPHIC SANCTUARY INSIDE THE DOOR (NEW DESIGN) */}
+      {/* MINIMAL INTERIOR HUD CONTROLS (Active only inside corridor) */}
       {/* ========================================================= */}
       <AnimatePresence>
-        {isInsideDoor && (
+        {isInsideSanctuary && (
           <motion.div
-            key="spatial-sanctuary-hud"
+            key="interior-hud"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5 }}
             className="absolute inset-0 z-20 flex flex-col justify-between p-4 sm:p-6 lg:p-8 pointer-events-none"
           >
             {/* Top Minimal HUD Bar */}
             <motion.div
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.15, duration: 0.5 }}
+              transition={{ delay: 0.1, duration: 0.4 }}
               className="w-full max-w-7xl mx-auto flex items-center justify-between gap-4 pointer-events-auto"
             >
               <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-black/60 border border-white/10 backdrop-blur-xl shadow-xl">
                 <span className="w-2 h-2 rounded-full bg-[#6ee7b7] animate-ping" />
                 <span className="font-mono text-[11px] sm:text-xs tracking-wider uppercase text-zinc-200 font-medium">
-                  SANCTUARY CHAMBER &bull; CHAPTER 04: PHILOSOPHY &amp; CAPABILITIES
+                  SANCTUARY CHAMBER &bull; STATION 01 (FRONT) &bull; STATION 02 (BACK)
                 </span>
               </div>
 
@@ -1036,153 +1297,11 @@ export const DoorSection: React.FC = () => {
               </button>
             </motion.div>
 
-            {/* Spatial Split Flanking Consoles (Leaves Center Corridor Clear & Visible!) */}
-            <div className="w-full max-w-7xl mx-auto flex-1 flex flex-col lg:flex-row items-center justify-between gap-6 my-auto py-2 pointer-events-none overflow-y-auto custom-scrollbar">
-              
-              {/* LEFT SPATIAL POD: Identity & Philosophical Rigor */}
-              <motion.div
-                initial={{ x: -40, opacity: 0, scale: 0.96 }}
-                animate={{ x: 0, opacity: 1, scale: 1 }}
-                exit={{ x: -40, opacity: 0, scale: 0.96 }}
-                transition={{ duration: 0.55, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                className="w-full lg:w-[460px] p-6 sm:p-7 rounded-3xl bg-black/55 border border-white/15 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] pointer-events-auto flex flex-col justify-between"
-              >
-                <div>
-                  {/* Identity Header */}
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="font-mono text-[11px] tracking-widest uppercase text-[#6ee7b7] flex items-center gap-1.5">
-                      <Terminal className="w-3 h-3 text-[#6ee7b7]" />
-                      THE PERSON BEHIND THE CODE
-                    </span>
-                    <span className="px-2 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-500/30 text-[10px] font-mono text-emerald-300">
-                      DUBAI, UAE
-                    </span>
-                  </div>
-
-                  <h3 className="font-display text-2xl sm:text-3xl font-black text-white tracking-tight leading-tight mb-1">
-                    AKSHAY KANTH C
-                  </h3>
-                  <div className="font-mono text-xs text-[#6ee7b7] font-semibold tracking-wider mb-4">
-                    TEST ENGINEER &bull; AI-ASSISTED DEVELOPER
-                  </div>
-
-                  {/* Philosophy Quote */}
-                  <blockquote className="border-l-2 border-red-500/80 pl-3.5 py-1 text-zinc-300 font-light text-xs sm:text-sm italic mb-4 leading-relaxed bg-white/[0.02] rounded-r-lg">
-                    "Quality is never an accident; it is always the result of sincere effort, intelligent direction, and skillful execution."
-                  </blockquote>
-
-                  {/* 3 Scannable Experience Metrics */}
-                  <div className="space-y-2 mb-4">
-                    <div className="p-2.5 rounded-xl bg-white/[0.04] border border-white/5 flex items-start gap-2.5">
-                      <Award className="w-4 h-4 text-[#6ee7b7] shrink-0 mt-0.5" />
-                      <div>
-                        <div className="text-xs font-semibold text-white">Feature Point of Contact (POC)</div>
-                        <div className="text-[11px] text-zinc-400 font-light">SIDE, Bangalore &bull; Coordinated defect resolution with dev teams</div>
-                      </div>
-                    </div>
-
-                    <div className="p-2.5 rounded-xl bg-white/[0.04] border border-white/5 flex items-start gap-2.5">
-                      <Smartphone className="w-4 h-4 text-[#6ee7b7] shrink-0 mt-0.5" />
-                      <div>
-                        <div className="text-xs font-semibold text-white">Mobile QA &amp; Defect Lifecycle</div>
-                        <div className="text-[11px] text-zinc-400 font-light">Android &amp; iOS hardware &bull; Functional, regression, sanity &amp; UAT</div>
-                      </div>
-                    </div>
-
-                    <div className="p-2.5 rounded-xl bg-white/[0.04] border border-white/5 flex items-start gap-2.5">
-                      <Layers className="w-4 h-4 text-[#6ee7b7] shrink-0 mt-0.5" />
-                      <div>
-                        <div className="text-xs font-semibold text-white">MCA Graduate &amp; AI Builder</div>
-                        <div className="text-[11px] text-zinc-400 font-light">Master of Computer Applications &bull; Accelerated AI test workflows</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Badges */}
-                <div className="flex flex-wrap gap-1.5 pt-2 border-t border-white/10">
-                  {quickBadges.slice(0, 6).map((b) => (
-                    <span
-                      key={b}
-                      className="px-2 py-0.5 rounded-full bg-zinc-900/90 border border-white/10 text-[10px] font-mono text-zinc-300"
-                    >
-                      {b}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-
-              {/* RIGHT SPATIAL POD: Interactive 4 Capabilities Deck */}
-              <motion.div
-                initial={{ x: 40, opacity: 0, scale: 0.96 }}
-                animate={{ x: 0, opacity: 1, scale: 1 }}
-                exit={{ x: 40, opacity: 0, scale: 0.96 }}
-                transition={{ duration: 0.55, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                className="w-full lg:w-[490px] p-6 sm:p-7 rounded-3xl bg-black/55 border border-white/15 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.8)] pointer-events-auto flex flex-col justify-between"
-              >
-                <div>
-                  {/* Category Header */}
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="font-mono text-[11px] tracking-widest uppercase text-zinc-300 flex items-center gap-1.5">
-                      <Shield className="w-3.5 h-3.5 text-[#6ee7b7]" />
-                      CORE CAPABILITIES &bull; 4 PILLARS
-                    </span>
-                    <span className="text-[10px] font-mono text-zinc-500">
-                      INTERACTIVE TILES
-                    </span>
-                  </div>
-
-                  {/* 2x2 Grid of High-Impact Compact Capability Tiles */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
-                    {pillars.map((item, idx) => {
-                      const Icon = item.icon;
-                      return (
-                        <motion.div
-                          key={item.id}
-                          initial={{ opacity: 0, y: 15 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.3 + idx * 0.08, duration: 0.4 }}
-                          whileHover={{ y: -3, scale: 1.02 }}
-                          className="p-3.5 rounded-2xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-[#6ee7b7]/40 transition-all duration-300 group shadow-md cursor-default"
-                        >
-                          <div className="flex items-center justify-between mb-2">
-                            <div className="w-7 h-7 rounded-lg bg-black/40 border border-white/10 flex items-center justify-center text-[#6ee7b7] group-hover:bg-[#6ee7b7] group-hover:text-black transition-colors">
-                              <Icon className="w-3.5 h-3.5" />
-                            </div>
-                            <span className="text-[9px] font-mono text-zinc-400 group-hover:text-zinc-200 uppercase tracking-wider">
-                              0{idx + 1}
-                            </span>
-                          </div>
-
-                          <h4 className="font-display font-bold text-xs sm:text-sm text-white mb-1 group-hover:text-[#6ee7b7] transition-colors">
-                            {item.title}
-                          </h4>
-                          <p className="text-[11px] text-zinc-400 font-light leading-relaxed">
-                            {item.desc}
-                          </p>
-                        </motion.div>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* Bottom Verification Banner */}
-                <div className="p-3 rounded-xl bg-emerald-950/40 border border-emerald-500/20 flex items-center justify-between text-xs font-mono">
-                  <div className="flex items-center gap-2 text-emerald-300">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                    <span className="text-[11px]">100% DEFECT LIFECYCLE PRECISION</span>
-                  </div>
-                  <span className="text-[10px] text-zinc-400">READY TO DEPLOY</span>
-                </div>
-              </motion.div>
-
-            </div>
-
             {/* Bottom Minimal Navigation Guidance */}
             <motion.div
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.35, duration: 0.5 }}
+              transition={{ delay: 0.2, duration: 0.4 }}
               className="w-full max-w-7xl mx-auto flex items-center justify-center pointer-events-auto pt-2"
             >
               <a
@@ -1202,7 +1321,7 @@ export const DoorSection: React.FC = () => {
       </AnimatePresence>
 
       {/* Exterior Controls & Status HUD (Visible ONLY when red door is closed and NOT inside) */}
-      {!isInsideDoor && !isOpeningSequence && doorProgress < 0.35 && (
+      {!isInsideSanctuary && !isOpeningSequence && doorProgress < 0.25 && (
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pb-12 flex flex-col sm:flex-row items-center justify-between gap-4 pointer-events-auto">
           
           {/* Left Side: Door State Indicator */}
