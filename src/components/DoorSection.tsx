@@ -414,6 +414,7 @@ export const DoorSection: React.FC = () => {
   const headerRef = useRef<HTMLDivElement>(null);
   const [doorProgress, setDoorProgress] = useState(0);
   const [isOpenManually, setIsOpenManually] = useState(false);
+  const isOpenManuallyRef = useRef(false);
   const [isOpeningSequence, setIsOpeningSequence] = useState(false);
   const [isInsideSanctuary, setIsInsideSanctuary] = useState(false);
   const [activeStation, setActiveStation] = useState<1 | 2>(1);
@@ -439,6 +440,20 @@ export const DoorSection: React.FC = () => {
 
   // Direct Station Jump Handler (Perfect Framing, No Cutoff)
   const handleGoToStation = (stationNum: 1 | 2) => {
+    const st = ScrollTrigger.getById('doors-pin-trigger');
+    if (st) {
+      const targetProgress = stationNum === 1 ? 0.42 : 0.78;
+      const targetScroll = st.start + targetProgress * (st.end - st.start);
+      const scrollObj = { y: window.scrollY };
+      gsap.to(scrollObj, {
+        y: targetScroll,
+        duration: 1.2,
+        ease: 'power2.out',
+        onUpdate: () => window.scrollTo(0, scrollObj.y),
+      });
+      return;
+    }
+
     if (!sceneRef.current) return;
     const { camera, frontStationGroup, backStationGroup } = sceneRef.current;
     if (stationNum === 1) {
@@ -478,6 +493,51 @@ export const DoorSection: React.FC = () => {
 
   // Manual Trigger: Step inside or return to entrance
   const handleToggleDoor = (forceOpen?: boolean) => {
+    const targetState = typeof forceOpen === 'boolean' ? forceOpen : !isOpenManually;
+    setIsOpenManually(targetState);
+    isOpenManuallyRef.current = targetState;
+
+    // Immediately hide/show exterior header directly on DOM to prevent any latency
+    if (headerRef.current) {
+      if (targetState) {
+        headerRef.current.style.opacity = '0';
+        headerRef.current.style.display = 'none';
+      } else {
+        headerRef.current.style.display = '';
+        headerRef.current.style.opacity = '1';
+      }
+    }
+
+    if (targetState) {
+      setIsInsideSanctuary(true);
+      setIsOpeningSequence(true);
+    } else {
+      setIsInsideSanctuary(false);
+      setIsOpeningSequence(false);
+    }
+
+    const st = ScrollTrigger.getById('doors-pin-trigger');
+    if (st) {
+      const targetProgress = targetState ? 0.42 : 0.0;
+      const targetScroll = st.start + targetProgress * (st.end - st.start);
+      const scrollObj = { y: window.scrollY };
+      gsap.to(scrollObj, {
+        y: targetScroll,
+        duration: 1.5,
+        ease: 'power2.inOut',
+        onUpdate: () => window.scrollTo(0, scrollObj.y),
+        onComplete: () => {
+          setIsOpeningSequence(false);
+          if (targetState) {
+            setIsInsideSanctuary(true);
+          } else {
+            setIsInsideSanctuary(false);
+          }
+        },
+      });
+      return;
+    }
+
     if (!sceneRef.current) return;
     const {
       doorPivot,
@@ -490,9 +550,6 @@ export const DoorSection: React.FC = () => {
       portalCoreLight,
       camera,
     } = sceneRef.current;
-
-    const targetState = typeof forceOpen === 'boolean' ? forceOpen : !isOpenManually;
-    setIsOpenManually(targetState);
 
     if (targetState) {
       setIsOpeningSequence(true);
@@ -530,6 +587,7 @@ export const DoorSection: React.FC = () => {
         delay: 0.08,
         onComplete: () => {
           setIsOpeningSequence(false);
+          setIsInsideSanctuary(true);
         },
       });
 
@@ -540,6 +598,7 @@ export const DoorSection: React.FC = () => {
       });
     } else {
       setIsOpeningSequence(false);
+      setIsInsideSanctuary(false);
 
       gsap.to(camera.position, {
         x: 0,
@@ -1189,6 +1248,7 @@ export const DoorSection: React.FC = () => {
     const ctxTimeline = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
+          id: 'doors-pin-trigger',
           trigger: container,
           start: 'top top',
           end: '+=500%', // Generous 500% scroll distance to slow down the journey
@@ -1199,10 +1259,21 @@ export const DoorSection: React.FC = () => {
             setDoorProgress(p);
 
             if (headerRef.current) {
-              const headerOpacity = p < 0.05 ? 1 : Math.max(0, 1 - (p - 0.05) * 12);
-              const headerY = -(p * 50);
-              headerRef.current.style.opacity = headerOpacity.toString();
-              headerRef.current.style.transform = `translateY(${headerY}px)`;
+              if (p <= 0.02 && !isOpenManuallyRef.current) {
+                headerRef.current.style.display = '';
+                headerRef.current.style.opacity = '1';
+                headerRef.current.style.transform = 'translateY(0px)';
+              } else {
+                const headerOpacity = Math.max(0, 1 - (p - 0.02) * 15);
+                const headerY = -(p * 50);
+                headerRef.current.style.opacity = headerOpacity.toString();
+                headerRef.current.style.transform = `translateY(${headerY}px)`;
+                if (headerOpacity <= 0) {
+                  headerRef.current.style.display = 'none';
+                } else {
+                  headerRef.current.style.display = '';
+                }
+              }
             }
           },
         },
@@ -1351,8 +1422,8 @@ export const DoorSection: React.FC = () => {
   }, []);
 
   // Both header and exterior controls fully disappear as soon as door starts opening or scroll starts
-  const isHeaderHidden = isInsideSanctuary || isOpeningSequence || doorProgress > 0.05;
-  const isExteriorControlsHidden = isInsideSanctuary || isOpeningSequence || doorProgress > 0.05;
+  const isHeaderHidden = isInsideSanctuary || isOpeningSequence || isOpenManually || doorProgress > 0.03;
+  const isExteriorControlsHidden = isInsideSanctuary || isOpeningSequence || isOpenManually || doorProgress > 0.03;
 
   return (
     <section
@@ -1369,29 +1440,36 @@ export const DoorSection: React.FC = () => {
       />
 
       {/* Exterior Cinematic Header (Fades out dynamically when red door begins opening) */}
-      <div
-        ref={headerRef}
-        className={`relative z-10 w-full max-w-7xl mx-auto px-6 pt-16 flex flex-col items-center text-center pointer-events-none transition-all duration-300 ease-out ${
-          isHeaderHidden ? 'opacity-0 pointer-events-none -translate-y-8' : 'opacity-100'
-        }`}
-      >
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-red-500/30 backdrop-blur-md mb-4 shadow-lg shadow-red-950/20">
-          <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-          <span className="font-mono text-xs tracking-widest uppercase text-red-200">
-            CHAPTER 03 &bull; THE RED PORTAL
-          </span>
-        </div>
+      <AnimatePresence>
+        {!isHeaderHidden && (
+          <motion.div
+            key="exterior-header"
+            ref={headerRef}
+            initial={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -30 }}
+            transition={{ duration: 0.25 }}
+            className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-16 flex flex-col items-center text-center pointer-events-none select-none"
+          >
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-red-500/30 backdrop-blur-md mb-4 shadow-lg shadow-red-950/20">
+              <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+              <span className="font-mono text-xs tracking-widest uppercase text-red-200">
+                CHAPTER 03 &bull; THE RED PORTAL
+              </span>
+            </div>
 
-        <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight max-w-2xl drop-shadow-2xl">
-          Magic happens <br className="hidden sm:inline" />
-          <span className="text-red-500 drop-shadow-[0_2px_14px_rgba(239,68,68,0.4)]">
-            behind the red door.
-          </span>
-        </h2>
-        <p className="font-sans text-xs sm:text-sm text-zinc-400 mt-3 max-w-md">
-          Step into Akshay's sanctuary: Test Engineer rigor, AI-assisted development, and verified architectures.
-        </p>
-      </div>
+            <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight max-w-2xl drop-shadow-2xl">
+              Magic happens <br className="hidden sm:inline" />
+              <span className="text-red-500 drop-shadow-[0_2px_14px_rgba(239,68,68,0.4)]">
+                behind the red door.
+              </span>
+            </h2>
+            <p className="font-sans text-xs sm:text-sm text-zinc-400 mt-3 max-w-md">
+              Step into Akshay's sanctuary: Test Engineer rigor, AI-assisted development, and verified architectures.
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* ========================================================= */}
       {/* MINIMAL INTERIOR HUD CONTROLS (Active only inside corridor) */}
