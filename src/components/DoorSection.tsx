@@ -149,6 +149,8 @@ export const DoorSection: React.FC = () => {
   const headerRef = useRef<HTMLDivElement>(null);
   const [doorProgress, setDoorProgress] = useState(0);
   const [isOpenManually, setIsOpenManually] = useState(false);
+  const [isOpeningSequence, setIsOpeningSequence] = useState(false);
+  const [isDoorFullyOpen, setIsDoorFullyOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'all' | 'qa' | 'ai'>('all');
 
   // References for Three.js animation controls
@@ -237,61 +239,91 @@ export const DoorSection: React.FC = () => {
     const targetState = typeof forceOpen === 'boolean' ? forceOpen : !isOpenManually;
     setIsOpenManually(targetState);
 
-    gsap.to(doorHandle.rotation, {
-      z: targetState ? -0.38 : 0,
-      duration: 0.3,
-    });
+    if (targetState) {
+      // 1. Mark sequence starting: header fades immediately, but About is NOT shown yet
+      setIsOpeningSequence(true);
+      setIsDoorFullyOpen(false);
 
-    gsap.to(doorPivot.rotation, {
-      y: targetState ? -Math.PI * 0.64 : 0,
-      duration: 1.2,
-      ease: 'power3.inOut',
-    });
-
-    gsap.to(corridorSpot, {
-      intensity: targetState ? 14 : 0,
-      duration: 1.2,
-    });
-
-    gsap.to(interiorPointFront, {
-      intensity: targetState ? 7 : 0,
-      duration: 1.2,
-    });
-
-    gsap.to(interiorPointMid, {
-      intensity: targetState ? 8 : 0,
-      duration: 1.2,
-    });
-
-    gsap.to(portalCoreLight, {
-      intensity: targetState ? 12 : 0,
-      duration: 1.2,
-    });
-
-    gsap.to((lightBeam.material as THREE.MeshBasicMaterial), {
-      opacity: targetState ? 0.32 : 0,
-      duration: 1.2,
-    });
-
-    gsap.to((floorSpillMesh.material as THREE.MeshBasicMaterial), {
-      opacity: targetState ? 0.28 : 0,
-      duration: 1.2,
-    });
-
-    // Camera deep zoom into corridor
-    gsap.to(camera.position, {
-      z: targetState ? -3.4 : 5.5,
-      y: targetState ? 0.1 : 0,
-      duration: 1.6,
-      ease: 'power2.inOut',
-    });
-
-    if (headerRef.current) {
-      gsap.to(headerRef.current, {
-        opacity: targetState ? 0 : 1,
-        y: targetState ? -30 : 0,
-        duration: 0.8,
+      // Unlatch handle
+      gsap.to(doorHandle.rotation, {
+        z: -0.38,
+        duration: 0.25,
       });
+
+      // Swing red door wide open
+      gsap.to(doorPivot.rotation, {
+        y: -Math.PI * 0.64,
+        duration: 1.25,
+        ease: 'power3.inOut',
+        delay: 0.12,
+      });
+
+      // Lights ignite
+      gsap.to(corridorSpot, { intensity: 14, duration: 1.2, delay: 0.15 });
+      gsap.to(interiorPointFront, { intensity: 7, duration: 1.2, delay: 0.15 });
+      gsap.to(interiorPointMid, { intensity: 8, duration: 1.2, delay: 0.15 });
+      gsap.to(portalCoreLight, { intensity: 12, duration: 1.2, delay: 0.15 });
+      gsap.to((lightBeam.material as THREE.MeshBasicMaterial), { opacity: 0.32, duration: 1.2, delay: 0.15 });
+      gsap.to((floorSpillMesh.material as THREE.MeshBasicMaterial), { opacity: 0.28, duration: 1.2, delay: 0.15 });
+
+      // Camera flies through doorway into room
+      gsap.to(camera.position, {
+        z: -3.4,
+        y: 0.1,
+        duration: 1.45,
+        ease: 'power2.inOut',
+        delay: 0.08,
+        onComplete: () => {
+          // ONLY AFTER door is fully open and camera has stepped inside:
+          setIsDoorFullyOpen(true);
+        },
+      });
+
+      gsap.to(camera, {
+        fov: 46,
+        duration: 1.45,
+        onUpdate: () => camera.updateProjectionMatrix(),
+      });
+    } else {
+      // Closing sequence
+      setIsDoorFullyOpen(false);
+      setIsOpeningSequence(false);
+
+      // Return camera outside
+      gsap.to(camera.position, {
+        z: 5.5,
+        y: 0,
+        duration: 1.3,
+        ease: 'power2.inOut',
+      });
+
+      gsap.to(camera, {
+        fov: 45,
+        duration: 1.3,
+        onUpdate: () => camera.updateProjectionMatrix(),
+      });
+
+      // Close red door
+      gsap.to(doorPivot.rotation, {
+        y: 0,
+        duration: 1.15,
+        delay: 0.15,
+        ease: 'power3.inOut',
+      });
+
+      gsap.to(doorHandle.rotation, {
+        z: 0,
+        duration: 0.25,
+        delay: 1.1,
+      });
+
+      // Dim lights
+      gsap.to(corridorSpot, { intensity: 0, duration: 0.9 });
+      gsap.to(interiorPointFront, { intensity: 0, duration: 0.9 });
+      gsap.to(interiorPointMid, { intensity: 0, duration: 0.9 });
+      gsap.to(portalCoreLight, { intensity: 0, duration: 0.9 });
+      gsap.to((lightBeam.material as THREE.MeshBasicMaterial), { opacity: 0, duration: 0.9 });
+      gsap.to((floorSpillMesh.material as THREE.MeshBasicMaterial), { opacity: 0, duration: 0.9 });
     }
   };
 
@@ -802,7 +834,7 @@ export const DoorSection: React.FC = () => {
             setDoorProgress(p);
 
             if (headerRef.current) {
-              const headerOpacity = p < 0.2 ? 1 : Math.max(0, 1 - (p - 0.2) * 2.8);
+              const headerOpacity = p < 0.12 ? 1 : Math.max(0, 1 - (p - 0.12) * 5);
               const headerY = -(p * 40);
               headerRef.current.style.opacity = headerOpacity.toString();
               headerRef.current.style.transform = `translateY(${headerY}px)`;
@@ -902,7 +934,9 @@ export const DoorSection: React.FC = () => {
     };
   }, []);
 
-  const isInsideDoor = doorProgress > 0.42 || isOpenManually;
+  // ONLY show inside spatial About consoles AFTER the door is fully open and camera has pushed through!
+  const isInsideDoor = doorProgress >= 0.72 || isDoorFullyOpen;
+  const isHeaderHidden = isInsideDoor || isOpeningSequence || doorProgress > 0.12;
 
   return (
     <section
@@ -918,11 +952,11 @@ export const DoorSection: React.FC = () => {
         className="absolute inset-0 w-full h-full block z-0"
       />
 
-      {/* Exterior Cinematic Header (Fades out dynamically when red door opens) */}
+      {/* Exterior Cinematic Header (Fades out dynamically when red door begins opening) */}
       <div
         ref={headerRef}
         className={`relative z-10 w-full max-w-7xl mx-auto px-6 pt-16 flex flex-col items-center text-center pointer-events-none transition-all duration-300 ease-out ${
-          isInsideDoor ? 'opacity-0 pointer-events-none -translate-y-8' : 'opacity-100'
+          isHeaderHidden ? 'opacity-0 pointer-events-none -translate-y-8' : 'opacity-100'
         }`}
       >
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-red-500/30 backdrop-blur-md mb-4 shadow-lg shadow-red-950/20">
@@ -1144,8 +1178,8 @@ export const DoorSection: React.FC = () => {
         )}
       </AnimatePresence>
 
-      {/* Exterior Controls & Status HUD (Visible when red door is closed) */}
-      {!isInsideDoor && (
+      {/* Exterior Controls & Status HUD (Visible ONLY when red door is closed and NOT inside) */}
+      {!isInsideDoor && !isOpeningSequence && doorProgress < 0.35 && (
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pb-12 flex flex-col sm:flex-row items-center justify-between gap-4 pointer-events-auto">
           
           {/* Left Side: Door State Indicator */}
