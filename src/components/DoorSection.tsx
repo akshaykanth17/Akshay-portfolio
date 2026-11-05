@@ -407,6 +407,7 @@ export const DoorSection: React.FC = () => {
   const [isOpenManually, setIsOpenManually] = useState(false);
   const [isOpeningSequence, setIsOpeningSequence] = useState(false);
   const [isInsideSanctuary, setIsInsideSanctuary] = useState(false);
+  const [activeStation, setActiveStation] = useState<1 | 2>(1);
 
   // References for Three.js animation controls
   const sceneRef = useRef<{
@@ -426,6 +427,29 @@ export const DoorSection: React.FC = () => {
     backStationGroup: THREE.Group;
     particles: THREE.Points;
   } | null>(null);
+
+  // Direct Station Jump Handler
+  const handleGoToStation = (stationNum: 1 | 2) => {
+    if (!sceneRef.current) return;
+    const { camera } = sceneRef.current;
+    if (stationNum === 1) {
+      gsap.to(camera.position, {
+        x: 0.25,
+        y: 0.12,
+        z: -2.0,
+        duration: 1.2,
+        ease: 'power2.out',
+      });
+    } else {
+      gsap.to(camera.position, {
+        x: -0.25,
+        y: 0.12,
+        z: -6.5,
+        duration: 1.2,
+        ease: 'power2.out',
+      });
+    }
+  };
 
   // Manual Trigger: Step inside or return to entrance
   const handleToggleDoor = (forceOpen?: boolean) => {
@@ -467,11 +491,12 @@ export const DoorSection: React.FC = () => {
       gsap.to((lightBeam.material as THREE.MeshBasicMaterial), { opacity: 0.32, duration: 1.2, delay: 0.15 });
       gsap.to((floorSpillMesh.material as THREE.MeshBasicMaterial), { opacity: 0.28, duration: 1.2, delay: 0.15 });
 
-      // Camera pushes deep into the corridor between the front and back stations
+      // Camera steps into corridor and frames Station 1 (Front) first!
       gsap.to(camera.position, {
-        z: -5.5,
-        y: 0.1,
-        duration: 1.6,
+        x: 0.25,
+        y: 0.12,
+        z: -2.0,
+        duration: 1.5,
         ease: 'power2.inOut',
         delay: 0.08,
         onComplete: () => {
@@ -480,16 +505,17 @@ export const DoorSection: React.FC = () => {
       });
 
       gsap.to(camera, {
-        fov: 48,
-        duration: 1.6,
+        fov: 47,
+        duration: 1.5,
         onUpdate: () => camera.updateProjectionMatrix(),
       });
     } else {
       setIsOpeningSequence(false);
 
       gsap.to(camera.position, {
-        z: 5.5,
+        x: 0,
         y: 0,
+        z: 5.5,
         duration: 1.3,
         ease: 'power2.inOut',
       });
@@ -929,10 +955,10 @@ export const DoorSection: React.FC = () => {
     // 3D ABOUT STATIONS: ONE ON THE FRONT (LEFT), ONE ON THE BACK (RIGHT)
     // ===============================================================
 
-    // 1. FRONT 3D STATION: IDENTITY & PHILOSOPHY (z = -3.8)
+    // 1. FRONT 3D STATION: IDENTITY & PHILOSOPHY (z = -3.2)
     const frontStationGroup = new THREE.Group();
-    frontStationGroup.position.set(-1.25, 0.15, -3.8);
-    frontStationGroup.rotation.y = 0.28; // Angled inward to corridor aisle
+    frontStationGroup.position.set(-1.40, 0.15, -3.2);
+    frontStationGroup.rotation.y = 0.22; // Angled inward to corridor aisle
     scene.add(frontStationGroup);
 
     const frontTex = createFrontStationTexture();
@@ -958,10 +984,10 @@ export const DoorSection: React.FC = () => {
     frontStationPlane.position.set(0, 0, 0.025);
     frontStationGroup.add(frontStationPlane);
 
-    // 2. BACK 3D STATION: CORE CAPABILITIES & 4 PILLARS (z = -8.6)
+    // 2. BACK 3D STATION: CORE CAPABILITIES & 4 PILLARS (z = -8.0)
     const backStationGroup = new THREE.Group();
-    backStationGroup.position.set(1.25, 0.15, -8.6);
-    backStationGroup.rotation.y = -0.28; // Angled inward to corridor aisle
+    backStationGroup.position.set(1.40, 0.15, -8.0);
+    backStationGroup.rotation.y = -0.22; // Angled inward to corridor aisle
     scene.add(backStationGroup);
 
     const backTex = createBackStationTexture();
@@ -1076,12 +1102,16 @@ export const DoorSection: React.FC = () => {
       }
 
       // Check real-time physical camera position in 3D WebGL space:
-      // The interior controls only appear when camera has physically passed threshold (z <= -1.2)!
-      const isActuallyInside = camera.position.z <= -1.2;
+      // Interior controls appear once threshold is crossed
+      const isActuallyInside = camera.position.z <= -0.5;
       if (isActuallyInside !== wasInside) {
         wasInside = isActuallyInside;
         setIsInsideSanctuary(isActuallyInside);
       }
+
+      // Track active station based on camera Z depth
+      const currentStation = camera.position.z > -4.5 ? 1 : 2;
+      setActiveStation((prev) => (prev !== currentStation ? currentStation : prev));
 
       renderer.render(scene, camera);
       reqId = requestAnimationFrame(render);
@@ -1104,22 +1134,24 @@ export const DoorSection: React.FC = () => {
     };
     window.addEventListener('open-door-sanctuary', handleOpenFromNav);
 
-    // GSAP ScrollTrigger Choreography
+    // ==============================================================
+    // GSAP ScrollTrigger Choreography: Slow, Smooth & Staged Reading
+    // ==============================================================
     const ctxTimeline = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: container,
           start: 'top top',
-          end: '+=250%',
+          end: '+=500%', // Generous 500% scroll distance to slow down the journey
           pin: true,
-          scrub: 1.2,
+          scrub: 0.8, // Snappy yet smooth tracking without overshoot
           onUpdate: (self) => {
             const p = self.progress;
             setDoorProgress(p);
 
             if (headerRef.current) {
-              const headerOpacity = p < 0.12 ? 1 : Math.max(0, 1 - (p - 0.12) * 5);
-              const headerY = -(p * 40);
+              const headerOpacity = p < 0.10 ? 1 : Math.max(0, 1 - (p - 0.10) * 8);
+              const headerY = -(p * 50);
               headerRef.current.style.opacity = headerOpacity.toString();
               headerRef.current.style.transform = `translateY(${headerY}px)`;
             }
@@ -1127,78 +1159,96 @@ export const DoorSection: React.FC = () => {
         },
       });
 
-      // 1. Camera approaches closed red door
+      // Total timeline normalized duration: 10.0 seconds
+      // Stage 1: Camera approaches closed red door (0.00 -> 1.50)
       tl.to(camera.position, {
-        z: 3.4,
-        y: 0.05,
-        ease: 'power2.inOut',
-        duration: 0.3,
+        x: 0,
+        y: 0.04,
+        z: 3.6,
+        ease: 'power1.inOut',
+        duration: 1.5,
       }, 0);
 
-      // 2. Door handle unlatches
+      // Stage 2: Door handle unlatches (1.20 -> 1.60)
       tl.to(doorHandle.rotation, {
         z: -0.38,
         ease: 'power1.out',
-        duration: 0.15,
-      }, 0.2);
+        duration: 0.4,
+      }, 1.2);
 
-      // 3. Red door swings wide open to -115 degrees
+      // Stage 3: Red door swings wide open to -115 degrees (1.40 -> 2.60)
       tl.to(doorPivot.rotation, {
         y: -Math.PI * 0.64,
         ease: 'power2.inOut',
-        duration: 0.37,
-      }, 0.35);
+        duration: 1.2,
+      }, 1.4);
 
-      // 4. Lights ignite with brilliant illumination
-      tl.to(corridorSpot, {
-        intensity: 14,
-        ease: 'power2.in',
-        duration: 0.37,
-      }, 0.35);
+      // Lights ignite with brilliant illumination (1.40 -> 2.60)
+      tl.to(corridorSpot, { intensity: 14, ease: 'power2.in', duration: 1.2 }, 1.4);
+      tl.to(interiorPointFront, { intensity: 7, ease: 'power2.in', duration: 1.2 }, 1.4);
+      tl.to(interiorPointMid, { intensity: 8, ease: 'power2.in', duration: 1.2 }, 1.4);
+      tl.to(portalCoreLight, { intensity: 12, ease: 'power2.in', duration: 1.2 }, 1.4);
+      tl.to(beamMaterial, { opacity: 0.32, ease: 'power2.in', duration: 1.2 }, 1.4);
+      tl.to(floorSpillMat, { opacity: 0.28, ease: 'power2.in', duration: 1.2 }, 1.4);
 
-      tl.to(interiorPointFront, {
-        intensity: 7,
-        ease: 'power2.in',
-        duration: 0.37,
-      }, 0.35);
-
-      tl.to(interiorPointMid, {
-        intensity: 8,
-        ease: 'power2.in',
-        duration: 0.37,
-      }, 0.35);
-
-      tl.to(portalCoreLight, {
-        intensity: 12,
-        ease: 'power2.in',
-        duration: 0.37,
-      }, 0.35);
-
-      tl.to(beamMaterial, {
-        opacity: 0.32,
-        ease: 'power2.in',
-        duration: 0.37,
-      }, 0.35);
-
-      tl.to(floorSpillMat, {
-        opacity: 0.28,
-        ease: 'power2.in',
-        duration: 0.37,
-      }, 0.35);
-
-      // 5. Camera dollies deep into the corridor between Front and Back Stations!
+      // Stage 4: Camera dollies across threshold to Station 1 (Front) (2.50 -> 4.80)
       tl.to(camera.position, {
-        z: -5.5,
-        y: 0.1,
+        x: 0.25,
+        y: 0.12,
+        z: -2.0,
         ease: 'power1.inOut',
-        duration: 0.35,
-      }, 0.65);
+        duration: 2.3,
+      }, 2.5);
+
+      tl.to(camera, {
+        fov: 47,
+        onUpdate: () => camera.updateProjectionMatrix(),
+        duration: 2.3,
+      }, 2.5);
+
+      // Stage 5: Slow reading plateau for Station 1 (Front) (4.80 -> 6.20)
+      // Generous scroll room for the user to comfortably read Station 1
+      tl.to(camera.position, {
+        x: 0.18,
+        y: 0.12,
+        z: -2.7,
+        ease: 'linear',
+        duration: 1.4,
+      }, 4.8);
+
+      // Stage 6: Camera glides down corridor from Station 1 to Station 2 (Back) (6.20 -> 8.50)
+      tl.to(camera.position, {
+        x: -0.25,
+        y: 0.12,
+        z: -6.5,
+        ease: 'power1.inOut',
+        duration: 2.3,
+      }, 6.2);
 
       tl.to(camera, {
         fov: 48,
         onUpdate: () => camera.updateProjectionMatrix(),
-        duration: 0.35,
-      }, 0.65);
+        duration: 2.3,
+      }, 6.2);
+
+      // Stage 7: Slow reading plateau for Station 2 (Back) (8.50 -> 9.60)
+      // Generous scroll room for the user to comfortably read Station 2
+      tl.to(camera.position, {
+        x: -0.15,
+        y: 0.12,
+        z: -7.0,
+        ease: 'linear',
+        duration: 1.1,
+      }, 8.5);
+
+      // Stage 8: Settle with final vista of portal crystal & corridor (9.60 -> 10.00)
+      tl.to(camera.position, {
+        x: 0,
+        y: 0.10,
+        z: -7.2,
+        ease: 'power1.out',
+        duration: 0.4,
+      }, 9.6);
     }, container);
 
     return () => {
@@ -1274,23 +1324,44 @@ export const DoorSection: React.FC = () => {
             transition={{ duration: 0.5 }}
             className="absolute inset-0 z-20 flex flex-col justify-between p-4 sm:p-6 lg:p-8 pointer-events-none"
           >
-            {/* Top Minimal HUD Bar */}
+            {/* Top Minimal HUD Bar with Interactive Station Jumper */}
             <motion.div
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.1, duration: 0.4 }}
-              className="w-full max-w-7xl mx-auto flex items-center justify-between gap-4 pointer-events-auto"
+              className="w-full max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 pointer-events-auto"
             >
-              <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-black/60 border border-white/10 backdrop-blur-xl shadow-xl">
-                <span className="w-2 h-2 rounded-full bg-[#6ee7b7] animate-ping" />
-                <span className="font-mono text-[11px] sm:text-xs tracking-wider uppercase text-zinc-200 font-medium">
-                  SANCTUARY CHAMBER &bull; STATION 01 (FRONT) &bull; STATION 02 (BACK)
-                </span>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => handleGoToStation(1)}
+                  className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-mono transition-all backdrop-blur-xl border ${
+                    activeStation === 1
+                      ? 'bg-[#6ee7b7]/20 border-[#6ee7b7] text-[#6ee7b7] shadow-[0_0_14px_rgba(110,231,183,0.35)]'
+                      : 'bg-black/60 border-white/10 text-zinc-400 hover:text-white hover:border-white/30'
+                  }`}
+                  title="Jump to Station 01 (Front)"
+                >
+                  <span className={`w-2 h-2 rounded-full ${activeStation === 1 ? 'bg-[#6ee7b7] animate-pulse' : 'bg-zinc-500'}`} />
+                  <span>01 FRONT &bull; IDENTITY</span>
+                </button>
+
+                <button
+                  onClick={() => handleGoToStation(2)}
+                  className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-mono transition-all backdrop-blur-xl border ${
+                    activeStation === 2
+                      ? 'bg-[#6ee7b7]/20 border-[#6ee7b7] text-[#6ee7b7] shadow-[0_0_14px_rgba(110,231,183,0.35)]'
+                      : 'bg-black/60 border-white/10 text-zinc-400 hover:text-white hover:border-white/30'
+                  }`}
+                  title="Jump to Station 02 (Back)"
+                >
+                  <span className={`w-2 h-2 rounded-full ${activeStation === 2 ? 'bg-[#6ee7b7] animate-pulse' : 'bg-zinc-500'}`} />
+                  <span>02 BACK &bull; CAPABILITIES</span>
+                </button>
               </div>
 
               <button
                 onClick={() => handleToggleDoor(false)}
-                className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/80 hover:bg-zinc-800 border border-red-500/30 hover:border-red-500/60 text-xs font-mono text-zinc-200 hover:text-white transition-all shadow-lg group"
+                className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/80 hover:bg-zinc-800 border border-red-500/30 hover:border-red-500/60 text-xs font-mono text-zinc-200 hover:text-white transition-all shadow-lg group backdrop-blur-xl"
               >
                 <RotateCcw className="w-3.5 h-3.5 text-red-400 group-hover:-rotate-90 transition-transform" />
                 <span className="hidden sm:inline">RETURN TO RED DOOR</span>
@@ -1302,8 +1373,17 @@ export const DoorSection: React.FC = () => {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.4 }}
-              className="w-full max-w-7xl mx-auto flex items-center justify-center pointer-events-auto pt-2"
+              className="w-full max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4 pointer-events-auto pt-2"
             >
+              <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 border border-white/10 text-[11px] font-mono text-zinc-300 backdrop-blur-md">
+                <span className="text-[#6ee7b7] font-semibold">SCROLL TO GLIDE:</span>
+                <span>
+                  {activeStation === 1
+                    ? 'Station 01 (Front) • Keep scrolling for Station 02'
+                    : 'Station 02 (Back) • Keep scrolling for Career Timeline'}
+                </span>
+              </div>
+
               <a
                 href="#timeline"
                 onClick={(e) => {
