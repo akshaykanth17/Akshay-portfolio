@@ -445,7 +445,7 @@ export const DoorSection: React.FC = () => {
       gsap.to(camera.position, {
         x: 0.0,
         y: 0.0,
-        z: -1.4,
+        z: -1.3,
         duration: 1.2,
         ease: 'power2.out',
       });
@@ -458,7 +458,7 @@ export const DoorSection: React.FC = () => {
       gsap.to(camera.position, {
         x: 0.0,
         y: 0.0,
-        z: -5.8,
+        z: -5.0,
         duration: 1.2,
         ease: 'power2.out',
       });
@@ -503,18 +503,22 @@ export const DoorSection: React.FC = () => {
         delay: 0.12,
       });
 
-      gsap.to(corridorSpot, { intensity: 14, duration: 1.2, delay: 0.15 });
-      gsap.to(interiorPointFront, { intensity: 7, duration: 1.2, delay: 0.15 });
-      gsap.to(interiorPointMid, { intensity: 8, duration: 1.2, delay: 0.15 });
-      gsap.to(portalCoreLight, { intensity: 12, duration: 1.2, delay: 0.15 });
-      gsap.to((lightBeam.material as THREE.MeshBasicMaterial), { opacity: 0.32, duration: 1.2, delay: 0.15 });
-      gsap.to((floorSpillMesh.material as THREE.MeshBasicMaterial), { opacity: 0.28, duration: 1.2, delay: 0.15 });
+      gsap.to(corridorSpot, { intensity: 10, duration: 1.0, delay: 0.15 });
+      gsap.to(interiorPointFront, { intensity: 5, duration: 1.0, delay: 0.15 });
+      gsap.to(interiorPointMid, { intensity: 6, duration: 1.0, delay: 0.15 });
+      gsap.to(portalCoreLight, { intensity: 10, duration: 1.0, delay: 0.15 });
+
+      // Light beam flares briefly when cracking open then disappears completely inside
+      gsap.to((lightBeam.material as THREE.MeshBasicMaterial), { opacity: 0.22, duration: 0.5, delay: 0.15 });
+      gsap.to((lightBeam.material as THREE.MeshBasicMaterial), { opacity: 0, duration: 0.4, delay: 0.8 });
+      gsap.to((floorSpillMesh.material as THREE.MeshBasicMaterial), { opacity: 0.22, duration: 0.5, delay: 0.15 });
+      gsap.to((floorSpillMesh.material as THREE.MeshBasicMaterial), { opacity: 0, duration: 0.4, delay: 0.8 });
 
       // Camera steps into corridor and frames Station 1 (Front) perfectly (no cutoff!)
       gsap.to(camera.position, {
         x: 0.0,
         y: 0.0,
-        z: -1.4,
+        z: -1.3,
         duration: 1.5,
         ease: 'power2.inOut',
         delay: 0.08,
@@ -976,13 +980,13 @@ export const DoorSection: React.FC = () => {
 
     // 1. FRONT 3D STATION: IDENTITY & PHILOSOPHY (z = -3.8)
     const frontStationGroup = new THREE.Group();
-    frontStationGroup.position.set(-0.88, -0.06, -3.8);
-    frontStationGroup.rotation.y = 0.22; // Angled inward to corridor aisle
+    frontStationGroup.position.set(-0.78, -0.10, -3.8);
+    frontStationGroup.rotation.y = 0.20; // Angled inward to corridor aisle
     scene.add(frontStationGroup);
 
     const frontTex = createFrontStationTexture();
     const frontStationBacking = new THREE.Mesh(
-      new THREE.BoxGeometry(1.39, 1.50, 0.03),
+      new THREE.BoxGeometry(1.34, 1.46, 0.03),
       new THREE.MeshStandardMaterial({
         color: 0x10121a,
         roughness: 0.25,
@@ -992,7 +996,7 @@ export const DoorSection: React.FC = () => {
     frontStationGroup.add(frontStationBacking);
 
     const frontStationPlane = new THREE.Mesh(
-      new THREE.PlaneGeometry(1.35, 1.46),
+      new THREE.PlaneGeometry(1.30, 1.42),
       new THREE.MeshBasicMaterial({
         map: frontTex,
         transparent: true,
@@ -1003,15 +1007,15 @@ export const DoorSection: React.FC = () => {
     frontStationPlane.position.set(0, 0, 0.02);
     frontStationGroup.add(frontStationPlane);
 
-    // 2. BACK 3D STATION: CORE CAPABILITIES & 4 PILLARS (z = -8.2)
+    // 2. BACK 3D STATION: CORE CAPABILITIES & 4 PILLARS (z = -7.5)
     const backStationGroup = new THREE.Group();
-    backStationGroup.position.set(0.88, -0.06, -8.2);
-    backStationGroup.rotation.y = -0.22; // Angled inward to corridor aisle
+    backStationGroup.position.set(0.78, -0.10, -7.5);
+    backStationGroup.rotation.y = -0.20; // Angled inward to corridor aisle
     scene.add(backStationGroup);
 
     const backTex = createBackStationTexture();
     const backStationBacking = new THREE.Mesh(
-      new THREE.BoxGeometry(1.39, 1.50, 0.03),
+      new THREE.BoxGeometry(1.34, 1.46, 0.03),
       new THREE.MeshStandardMaterial({
         color: 0x10121a,
         roughness: 0.25,
@@ -1021,7 +1025,7 @@ export const DoorSection: React.FC = () => {
     backStationGroup.add(backStationBacking);
 
     const backStationPlane = new THREE.Mesh(
-      new THREE.PlaneGeometry(1.35, 1.46),
+      new THREE.PlaneGeometry(1.30, 1.42),
       new THREE.MeshBasicMaterial({
         map: backTex,
         transparent: true,
@@ -1111,10 +1115,10 @@ export const DoorSection: React.FC = () => {
         portalCore.rotation.y = elapsed * 0.6;
       }
       if (frontStationGroup) {
-        frontStationGroup.position.y = -0.06 + Math.sin(elapsed * 1.4) * 0.015;
+        frontStationGroup.position.y = -0.10 + Math.sin(elapsed * 1.4) * 0.015;
       }
       if (backStationGroup) {
-        backStationGroup.position.y = -0.06 + Math.cos(elapsed * 1.4) * 0.015;
+        backStationGroup.position.y = -0.10 + Math.cos(elapsed * 1.4) * 0.015;
       }
       if (particles) {
         particles.rotation.y = elapsed * 0.02;
@@ -1128,8 +1132,22 @@ export const DoorSection: React.FC = () => {
         setIsInsideSanctuary(isActuallyInside);
       }
 
-      // Track active station based on camera Z depth (midpoint at z = -3.8)
-      const currentStation = camera.position.z > -3.8 ? 1 : 2;
+      // Task 1: Complete elimination of pale white shade/glare once inside the room (z <= 0.2)
+      const isEnteredRoom = camera.position.z <= 0.2;
+      if (isEnteredRoom) {
+        if (lightBeam.visible) lightBeam.visible = false;
+        (lightBeam.material as THREE.MeshBasicMaterial).opacity = 0;
+        if (floorSpillMesh.visible) floorSpillMesh.visible = false;
+        (floorSpillMesh.material as THREE.MeshBasicMaterial).opacity = 0;
+        corridorSpot.target.position.set(0, 0, -16.0);
+      } else {
+        if (!lightBeam.visible) lightBeam.visible = true;
+        if (!floorSpillMesh.visible) floorSpillMesh.visible = true;
+        corridorSpot.target.position.set(0, 0, 2.0);
+      }
+
+      // Track active station based on camera Z depth (midpoint at z = -3.5)
+      const currentStation = camera.position.z > -3.5 ? 1 : 2;
       setActiveStation((prev) => (prev !== currentStation ? currentStation : prev));
 
       renderer.render(scene, camera);
@@ -1214,10 +1232,14 @@ export const DoorSection: React.FC = () => {
       tl.to(camera.position, {
         x: 0.0,
         y: 0.0,
-        z: -1.4,
+        z: -1.3,
         ease: 'power1.inOut',
         duration: 2.3,
       }, 2.5);
+
+      // Pale white light beam and floor spill fade to 0 as camera crosses threshold
+      tl.to(beamMaterial, { opacity: 0, duration: 0.5 }, 2.5);
+      tl.to(floorSpillMat, { opacity: 0, duration: 0.5 }, 2.5);
 
       tl.to(camera, {
         fov: 46,
@@ -1230,7 +1252,7 @@ export const DoorSection: React.FC = () => {
       tl.to(camera.position, {
         x: 0.0,
         y: 0.0,
-        z: -2.2,
+        z: -1.8,
         ease: 'linear',
         duration: 1.4,
       }, 4.8);
@@ -1239,7 +1261,7 @@ export const DoorSection: React.FC = () => {
       tl.to(camera.position, {
         x: 0.0,
         y: 0.0,
-        z: -5.8,
+        z: -5.0,
         ease: 'power1.inOut',
         duration: 2.3,
       }, 6.2);
@@ -1251,11 +1273,11 @@ export const DoorSection: React.FC = () => {
       }, 6.2);
 
       // Stage 7: Slow reading plateau for Station 2 (Back) (8.50 -> 9.60)
-      // Generous scroll room for the user to comfortably read Station 2
+      // Generous scroll room for the user to comfortably read Station 2 (zero cutoff!)
       tl.to(camera.position, {
         x: 0.0,
         y: 0.0,
-        z: -6.6,
+        z: -5.4,
         ease: 'linear',
         duration: 1.1,
       }, 8.5);
@@ -1264,7 +1286,7 @@ export const DoorSection: React.FC = () => {
       tl.to(camera.position, {
         x: 0.0,
         y: 0.0,
-        z: -7.2,
+        z: -6.8,
         ease: 'power1.out',
         duration: 0.4,
       }, 9.6);
@@ -1289,7 +1311,9 @@ export const DoorSection: React.FC = () => {
     };
   }, []);
 
-  const isHeaderHidden = isInsideSanctuary || isOpeningSequence || doorProgress > 0.12;
+  // Both header and exterior controls fully disappear as soon as door starts opening or scroll starts
+  const isHeaderHidden = isInsideSanctuary || isOpeningSequence || doorProgress > 0.05;
+  const isExteriorControlsHidden = isInsideSanctuary || isOpeningSequence || doorProgress > 0.05;
 
   return (
     <section
@@ -1308,8 +1332,9 @@ export const DoorSection: React.FC = () => {
       {/* Exterior Cinematic Header (Fades out dynamically when red door begins opening) */}
       <div
         ref={headerRef}
-        className={`relative z-10 w-full max-w-7xl mx-auto px-6 pt-16 flex flex-col items-center text-center pointer-events-none transition-all duration-300 ease-out ${isHeaderHidden ? 'opacity-0 pointer-events-none -translate-y-8' : 'opacity-100'
-          }`}
+        className={`relative z-10 w-full max-w-7xl mx-auto px-6 pt-16 flex flex-col items-center text-center pointer-events-none transition-all duration-300 ease-out ${
+          isHeaderHidden ? 'opacity-0 pointer-events-none -translate-y-8' : 'opacity-100'
+        }`}
       >
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900/90 border border-red-500/30 backdrop-blur-md mb-4 shadow-lg shadow-red-950/20">
           <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
@@ -1352,10 +1377,11 @@ export const DoorSection: React.FC = () => {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => handleGoToStation(1)}
-                  className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-mono transition-all backdrop-blur-xl border ${activeStation === 1
+                  className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-mono transition-all backdrop-blur-xl border ${
+                    activeStation === 1
                       ? 'bg-[#6ee7b7]/20 border-[#6ee7b7] text-[#6ee7b7] shadow-[0_0_14px_rgba(110,231,183,0.35)]'
                       : 'bg-black/60 border-white/10 text-zinc-400 hover:text-white hover:border-white/30'
-                    }`}
+                  }`}
                   title="Jump to Station 01 (Front)"
                 >
                   <span className={`w-2 h-2 rounded-full ${activeStation === 1 ? 'bg-[#6ee7b7] animate-pulse' : 'bg-zinc-500'}`} />
@@ -1364,10 +1390,11 @@ export const DoorSection: React.FC = () => {
 
                 <button
                   onClick={() => handleGoToStation(2)}
-                  className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-mono transition-all backdrop-blur-xl border ${activeStation === 2
+                  className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] sm:text-xs font-mono transition-all backdrop-blur-xl border ${
+                    activeStation === 2
                       ? 'bg-[#6ee7b7]/20 border-[#6ee7b7] text-[#6ee7b7] shadow-[0_0_14px_rgba(110,231,183,0.35)]'
                       : 'bg-black/60 border-white/10 text-zinc-400 hover:text-white hover:border-white/30'
-                    }`}
+                  }`}
                   title="Jump to Station 02 (Back)"
                 >
                   <span className={`w-2 h-2 rounded-full ${activeStation === 2 ? 'bg-[#6ee7b7] animate-pulse' : 'bg-zinc-500'}`} />
@@ -1389,17 +1416,8 @@ export const DoorSection: React.FC = () => {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.4 }}
-              className="w-full max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4 pointer-events-auto pt-2"
+              className="w-full max-w-7xl mx-auto flex items-center justify-center pointer-events-auto pt-2"
             >
-              <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 border border-white/10 text-[11px] font-mono text-zinc-300 backdrop-blur-md">
-                <span className="text-[#6ee7b7] font-semibold">SCROLL TO GLIDE:</span>
-                <span>
-                  {activeStation === 1
-                    ? 'Station 01 (Front) • Keep scrolling for Station 02'
-                    : 'Station 02 (Back) • Keep scrolling for Career Timeline'}
-                </span>
-              </div>
-
               <a
                 href="#timeline"
                 onClick={(e) => {
@@ -1416,10 +1434,12 @@ export const DoorSection: React.FC = () => {
         )}
       </AnimatePresence>
 
-      {/* Exterior Controls & Status HUD (Visible ONLY when red door is closed and NOT inside) */}
-      {!isInsideSanctuary && !isOpeningSequence && doorProgress < 0.25 && (
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pb-12 flex flex-col sm:flex-row items-center justify-between gap-4 pointer-events-auto">
-
+      {/* Exterior Controls (Fades out completely as soon as red door starts moving or scroll begins) */}
+      {!isExteriorControlsHidden && (
+        <div
+          className="relative z-10 w-full max-w-7xl mx-auto px-6 pb-12 flex flex-col sm:flex-row items-center justify-between gap-4 pointer-events-auto transition-all duration-300 ease-out"
+          style={{ opacity: Math.max(0, 1 - doorProgress * 15) }}
+        >
           {/* Left Side: Door State Indicator */}
           <div className="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-zinc-950/90 border border-white/10 backdrop-blur-md shadow-xl text-xs font-mono text-zinc-300">
             <div className="w-2.5 h-2.5 rounded-full bg-red-500 shadow-[0_0_8px_#ef4444]" />
@@ -1437,19 +1457,6 @@ export const DoorSection: React.FC = () => {
             <span>STEP THROUGH RED DOOR</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </button>
-
-          {/* Right Side: Quick Features Behind Door */}
-          <div className="hidden lg:flex items-center gap-3 text-xs font-mono text-zinc-400">
-            <span className="flex items-center gap-1.5 text-zinc-300">
-              <Shield className="w-3.5 h-3.5 text-red-400" />
-              Test Engineering Rigor
-            </span>
-            <span className="text-zinc-600">&bull;</span>
-            <span className="flex items-center gap-1.5 text-zinc-300">
-              <Zap className="w-3.5 h-3.5 text-[#6ee7b7]" />
-              AI-Assisted Architecture
-            </span>
-          </div>
         </div>
       )}
     </section>
